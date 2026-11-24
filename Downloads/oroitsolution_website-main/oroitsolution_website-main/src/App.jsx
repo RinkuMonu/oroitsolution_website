@@ -7,6 +7,10 @@ import Product from './components/Product';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AuthModals from './components/AuthModals';
+import OurStory from './components/OurStory';
+import Blog from './components/Blog';
+import Empowering from './components/Empowering';
+ 
 
 export default function App() {
   const [modalState, setModalState] = useState({
@@ -60,16 +64,19 @@ export default function App() {
         <Hero 
           onGetStarted={() => handleGetStarted('Smart SaaS Solutions')}
         />
-
+        <OurStory/>
         {/* Services Section */}
         <Services 
           onSelectService={(service) => handleGetStarted(service)}
         />
+        <Empowering/>
 
         {/* Software Section */}
         <Software 
           onExplore={(software) => handleGetStarted(software)}
         />
+        
+        <Blog/>
 
         {/* Product Section */}
         <Product 
