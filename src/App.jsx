@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import OurStory from './components/OurStory';
 import Services from './components/Services';
+import Empowering from './components/Empowering';
 import Software from './components/Software';
+import Blog from './components/Blog';
 import Product from './components/Product';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
@@ -79,15 +82,24 @@ export default function App() {
           onGetStarted={() => handleGetStarted('Smart SaaS Solutions')}
         />
 
+        {/* Our Story Section */}
+        <OurStory />
+
         {/* Services Section */}
         <Services 
           onSelectService={(service) => handleGetStarted(service)}
         />
 
+        {/* Empowering Banner Section */}
+        <Empowering />
+
         {/* Software Section */}
         <Software 
           onExplore={(software) => handleGetStarted(software)}
         />
+
+        {/* Blog Insights Section */}
+        <Blog />
 
         {/* Product Section */}
         <Product 
