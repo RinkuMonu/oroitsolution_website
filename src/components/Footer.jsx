@@ -1,103 +1,174 @@
-import React from 'react';
-import { ArrowUp, Heart, Shield, Mail, Globe } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, ChevronUp } from 'lucide-react';
 
 export default function Footer() {
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setSubscribed(true);
+    setEmail('');
+    setTimeout(() => {
+      setSubscribed(false);
+    }, 4000);
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="bg-[#061d4e] text-white pt-16 pb-12 border-t border-blue-400/20">
+    <footer className="bg-white text-gray-800 pt-16 pb-14 border-t border-gray-100 relative selection:bg-blue-100 selection:text-blue-900">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-blue-400/20">
-          
-          {/* Brand info */}
-          <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-2">
-              <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="40" stroke="#FF7A00" strokeWidth="8" strokeDasharray="180 70" strokeLinecap="round" transform="rotate(-30 50 50)" />
-                <circle cx="50" cy="50" r="28" stroke="#FFA726" strokeWidth="6" strokeDasharray="120 50" strokeLinecap="round" transform="rotate(75 50 50)" />
-                <circle cx="50" cy="50" r="12" fill="#FFB703" />
-              </svg>
-              <div className="ml-1 flex flex-col justify-center">
-                <div className="flex items-baseline leading-none">
-                  <span className="text-[#FF7A00] font-black text-2xl tracking-tighter">Oro</span>
-                  <span className="text-[#FF9E00] font-black text-2xl tracking-tight ml-0.5">IT</span>
-                </div>
-                <span className="text-[7.5px] font-bold text-white/85 tracking-widest uppercase mt-0.5">
-                  SOLUTION PVT. LTD.
-                </span>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pb-4">
+
+          {/* Column 1: Brand Info & Copyright */}
+          <div className="lg:col-span-4 flex flex-col justify-between space-y-8 lg:space-y-0">
+            <div>
+              {/* Logo matching exact design */}
+              <a href="#home" className="inline-block group">
+                <img
+                  src="/footer-logo.png"
+                  alt="ORO IT SOLUTION PVT. LTD."
+                  className="h-16 sm:h-18 w-auto object-contain group-hover:opacity-95 transition-opacity"
+                />
+              </a>
+
+              {/* Tagline */}
+              <p className="mt-5 text-[15px] text-gray-500 leading-relaxed max-w-sm">
+                Making the world a better place through constructing elegant hierarchies.
+              </p>
             </div>
 
-            <p className="text-sm text-blue-200/80 max-w-sm leading-relaxed">
-              Empowering modern enterprises with secure, intelligent, and scalable technology platforms. Simplifying complexity to drive sustainable digital transformation.
+            {/* Copyright */}
+            <div className="text-[14px] text-gray-500 leading-relaxed pt-4">
+              <p>© 2026 ORO IT.</p>
+              <p className="mt-0.5">Designed and Developed by</p>
+              <a
+                href="#home"
+                className="text-[#155cd5] font-semibold hover:underline inline-block mt-0.5"
+              >
+                ORO IT SOLUTION PVT. LTD.
+              </a>
+            </div>
+          </div>
+
+          {/* Column 2: Solutions */}
+          <div className="lg:col-span-2">
+            <h3 className="text-base font-bold text-gray-900 mb-6">
+              Solutions
+            </h3>
+            <ul className="space-y-4 text-[15px] text-gray-500">
+              <li>
+                <a href="#services" className="hover:text-[#155cd5] transition-colors">
+                  Mobile APP
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-[#155cd5] transition-colors">
+                  Web Application
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-[#155cd5] transition-colors">
+                  AI/ML
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="hover:text-[#155cd5] transition-colors">
+                  CRM / HRM
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3: Support */}
+          <div className="lg:col-span-3">
+            <h3 className="text-base font-bold text-gray-900 mb-6">
+              Support
+            </h3>
+            <ul className="space-y-4 text-[15px] text-gray-500">
+              <li>
+                <a href="#contact" className="hover:text-[#155cd5] transition-colors">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-[#155cd5] transition-colors">
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-[#155cd5] transition-colors">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-[#155cd5] transition-colors">
+                  Documentation
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-[#155cd5] transition-colors">
+                  Terms Condition
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className="hover:text-[#155cd5] transition-colors">
+                  Cancellation & Refund Policy
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4: Subscribe */}
+          <div className="lg:col-span-3">
+            <h3 className="text-base font-bold text-gray-900 mb-6">
+              Subscribe
+            </h3>
+            <p className="text-[15px] text-gray-500 mb-6 leading-relaxed">
+              Subscribe to our newsletter for the latest updates
             </p>
 
-            <div className="flex items-center space-x-3 pt-2">
-              <a href="#contact" className="w-9 h-9 rounded-lg bg-blue-900/60 hover:bg-blue-600 flex items-center justify-center text-blue-200 hover:text-white transition">
-                <Globe className="w-4 h-4" />
-              </a>
-              <a href="#contact" className="w-9 h-9 rounded-lg bg-blue-900/60 hover:bg-blue-600 flex items-center justify-center text-blue-200 hover:text-white transition">
-                <Mail className="w-4 h-4" />
-              </a>
-              <a href="#contact" className="w-9 h-9 rounded-lg bg-blue-900/60 hover:bg-blue-600 flex items-center justify-center text-blue-200 hover:text-white transition">
-                <Shield className="w-4 h-4" />
-              </a>
-            </div>
+            <form onSubmit={handleSubscribe} className="relative">
+              <div className="flex items-center w-full rounded-xl border border-gray-200 bg-white p-1 focus-within:border-[#155cd5] focus-within:ring-2 focus-within:ring-blue-100 transition shadow-sm">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email address"
+                  required
+                  className="w-full bg-transparent px-3 py-2 text-sm text-gray-800 placeholder-gray-400 focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  className="bg-[#155cd5] hover:bg-blue-700 text-white p-2.5 rounded-lg flex items-center justify-center shrink-0 transition-colors cursor-pointer"
+                  aria-label="Subscribe"
+                >
+                  <Mail className="w-4 h-4" />
+                </button>
+              </div>
+              {subscribed && (
+                <p className="mt-2 text-xs text-green-600 font-medium animate-fade-in">
+                  Thank you for subscribing!
+                </p>
+              )}
+            </form>
           </div>
 
-          {/* Navigation Links */}
-          <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-4">Solutions</h4>
-            <ul className="space-y-2.5 text-sm text-blue-200/80">
-              <li><a href="#services" className="hover:text-white transition">Cloud Architecture</a></li>
-              <li><a href="#services" className="hover:text-white transition">Custom SaaS Apps</a></li>
-              <li><a href="#services" className="hover:text-white transition">AI & Workflows</a></li>
-              <li><a href="#services" className="hover:text-white transition">Cybersecurity</a></li>
-              <li><a href="#services" className="hover:text-white transition">DevOps & CI/CD</a></li>
-            </ul>
-          </div>
-
-          {/* Software & Products */}
-          <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-4">Products</h4>
-            <ul className="space-y-2.5 text-sm text-blue-200/80">
-              <li><a href="#software" className="hover:text-white transition">Oro CRM Pro</a></li>
-              <li><a href="#software" className="hover:text-white transition">Oro CloudFlow</a></li>
-              <li><a href="#software" className="hover:text-white transition">Oro InsightBI</a></li>
-              <li><a href="#product" className="hover:text-white transition">Enterprise Cloud OS</a></li>
-              <li><a href="#product" className="hover:text-white transition">Security Shield</a></li>
-            </ul>
-          </div>
-
-          {/* Quick links & Contact */}
-          <div>
-            <h4 className="text-sm font-bold uppercase tracking-wider text-white mb-4">Company</h4>
-            <ul className="space-y-2.5 text-sm text-blue-200/80">
-              <li><a href="#home" className="hover:text-white transition">Home</a></li>
-              <li><a href="#contact" className="hover:text-white transition">Contact Us</a></li>
-              <li><a href="#contact" className="hover:text-white transition">Careers</a></li>
-              <li><a href="#contact" className="hover:text-white transition">Privacy Policy</a></li>
-              <li><a href="#contact" className="hover:text-white transition">Terms of Service</a></li>
-            </ul>
-          </div>
-
-        </div>
-
-        {/* Bottom copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-blue-300/70">
-          <p>© {new Date().getFullYear()} Oro IT Solution Pvt. Ltd. All rights reserved.</p>
-          
-          <button
-            onClick={scrollToTop}
-            className="mt-4 sm:mt-0 flex items-center text-blue-200 hover:text-white bg-blue-900/40 hover:bg-blue-800/60 px-3 py-1.5 rounded-lg border border-blue-400/20 transition cursor-pointer"
-          >
-            Back to Top
-            <ArrowUp className="w-3.5 h-3.5 ml-1.5" />
-          </button>
         </div>
       </div>
+
+      {/* Floating Scroll to Top button matching bottom right in screenshot */}
+      <button
+        onClick={scrollToTop}
+        className="fixed bottom-6 right-6 z-50 w-11 h-11 bg-[#155cd5] hover:bg-blue-700 text-white rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer"
+        aria-label="Scroll to top"
+      >
+        <ChevronUp className="w-6 h-6 stroke-[2.5]" />
+      </button>
     </footer>
   );
 }

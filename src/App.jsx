@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Services from './components/Services';
 import Software from './components/Software';
 import Product from './components/Product';
+import Partners from './components/Partners';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AuthModals from './components/AuthModals';
@@ -41,7 +42,24 @@ export default function App() {
 
   const handleCloseModal = () => {
     setModalState((prev) => ({ ...prev, isOpen: false }));
+    if (window.location.hash === '#register' || window.location.hash === '#login') {
+      history.pushState(null, '', window.location.pathname + window.location.search);
+    }
   };
+
+  // Support direct URL hash navigation like #register or #login
+  useEffect(() => {
+    const checkHash = () => {
+      if (window.location.hash === '#register') {
+        setModalState({ isOpen: true, mode: 'register', defaultService: '' });
+      } else if (window.location.hash === '#login') {
+        setModalState({ isOpen: true, mode: 'login', defaultService: '' });
+      }
+    };
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  }, []);
 
   const handleSwitchMode = (newMode) => {
     setModalState((prev) => ({ ...prev, mode: newMode }));
@@ -75,6 +93,9 @@ export default function App() {
         <Product 
           onGetStarted={() => handleGetStarted('Enterprise Cloud OS')}
         />
+
+        {/* Trusted Partners Section */}
+        <Partners />
 
         {/* Contact Section */}
         <Contact />

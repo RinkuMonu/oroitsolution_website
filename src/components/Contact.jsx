@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, CheckCircle2, MessageSquare } from 'lucide-react';
+import { Phone, MapPin, Clock, CheckCircle2 } from 'lucide-react';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -7,178 +7,184 @@ export default function Contact() {
     name: '',
     email: '',
     phone: '',
-    service: 'SaaS Development',
+    subject: '',
     message: ''
   });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
     setTimeout(() => {
-      // Keep state or reset after notification
+      // Allow user to send another or auto-reset after delay
     }, 4000);
   };
 
   return (
-    <section id="contact" className="py-24 bg-[#0a358c] text-white relative border-t border-blue-400/20">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-          
-          {/* Left Column: Contact Details */}
-          <div className="lg:col-span-5">
-            <span className="text-xs uppercase font-bold tracking-widest text-blue-200 bg-blue-500/30 px-3.5 py-1.5 rounded-full border border-blue-300/30">
-              Get In Touch
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 tracking-tight leading-tight">
-              Let's Build Something Powerful Together
-            </h2>
-            <p className="mt-4 text-base text-blue-100/90 leading-relaxed">
-              Have a question about our services, software products, or need a custom enterprise solution? Our engineering experts are ready to assist you.
-            </p>
+    <section id="contact" className="relative bg-white pt-10 sm:pt-14 pb-0 overflow-hidden text-gray-800">
 
-            <div className="mt-10 space-y-6">
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-600/40 border border-blue-400/30 flex items-center justify-center shrink-0">
-                  <Mail className="w-5 h-5 text-blue-200" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-blue-200">Email Us</h4>
-                  <p className="text-base text-white font-medium">contact@oroitsolution.com</p>
-                  <p className="text-xs text-blue-300">support@oroitsolution.com</p>
-                </div>
+      {/* Cards container overlapping the map */}
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-[-100px] sm:mb-[-140px] lg:mb-[-170px]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start justify-center">
+
+          {/* Left Column: 3 Contact Info Cards */}
+          <div className="lg:col-span-5 space-y-4">
+
+            {/* Card 1: Contact */}
+            <div className="bg-white rounded-xl p-5 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100 flex items-start space-x-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5">
+              <div className="w-12 h-12 rounded-full bg-[#155cd5] text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+                <Phone className="w-5 h-5 stroke-[2.2]" />
               </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-600/40 border border-blue-400/30 flex items-center justify-center shrink-0">
-                  <Phone className="w-5 h-5 text-blue-200" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-blue-200">Call Us Directly</h4>
-                  <p className="text-base text-white font-medium">+91 98765 43210</p>
-                  <p className="text-xs text-blue-300">Mon - Sat, 9:00 AM - 7:00 PM IST</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4">
-                <div className="w-12 h-12 rounded-xl bg-blue-600/40 border border-blue-400/30 flex items-center justify-center shrink-0">
-                  <MapPin className="w-5 h-5 text-blue-200" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-blue-200">Headquarters</h4>
-                  <p className="text-base text-white font-medium">Oro IT Solution Pvt. Ltd.</p>
-                  <p className="text-xs text-blue-300">Tech Hub Towers, Cyber City, India</p>
-                </div>
+              <div className="min-w-0">
+                <h4 className="text-[#155cd5] font-bold text-base mb-1.5">Contact</h4>
+                <p className="text-sm text-gray-600 font-medium">087418 86688</p>
+                <p className="text-sm text-gray-600 font-medium truncate">oroitsolution@gmail.com</p>
               </div>
             </div>
+
+            {/* Card 2: Address */}
+            <div className="bg-white rounded-xl p-5 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100 flex items-start space-x-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5">
+              <div className="w-12 h-12 rounded-full bg-[#155cd5] text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+                <MapPin className="w-5 h-5 stroke-[2.2]" />
+              </div>
+              <div className="min-w-0">
+                <h4 className="text-[#155cd5] font-bold text-base mb-1.5">Address</h4>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">Plot No 97, Dakshinpuri - I Shrikishan,</p>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">Sanganer, Jagatpura, Jaipur,</p>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed"> Shri Kishanpura, Rajasthan 302017</p>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">India</p>
+              </div>
+            </div>
+
+            {/* Card 3: Schedule */}
+            <div className="bg-white rounded-xl p-5 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-gray-100 flex items-start space-x-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5">
+              <div className="w-12 h-12 rounded-full bg-[#155cd5] text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+                <Clock className="w-5 h-5 stroke-[2.2]" />
+              </div>
+              <div className="min-w-0">
+                <h4 className="text-[#155cd5] font-bold text-base mb-1.5">Schedule</h4>
+                <p className="text-sm text-gray-600 font-medium">24 Hours / 7 Days Open</p>
+                <p className="text-sm text-gray-600 font-medium">Office time: 10 AM - 6:00 PM</p>
+              </div>
+            </div>
+
           </div>
 
-          {/* Right Column: Contact Form */}
+          {/* Right Column: Ready to Get Started Form Card */}
           <div className="lg:col-span-7">
-            <div className="bg-[#0e44ab]/80 border border-blue-400/30 rounded-2xl p-8 sm:p-10 shadow-2xl relative">
-              
+            <div className="bg-white rounded-2xl p-6 sm:p-10 shadow-[0_15px_35px_rgba(0,0,0,0.1)] border border-gray-100 transition-all">
+
+              <div className="text-center mb-6">
+                <span className="text-xs sm:text-[13px] font-bold text-[#155cd5] uppercase tracking-wider block mb-1">
+                  Get in Touch
+                </span>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+                  Ready to Get Started
+                </h3>
+                <p className="text-xs sm:text-[13px] text-gray-500 mt-2 max-w-lg mx-auto leading-relaxed">
+                  At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
+                </p>
+              </div>
+
               {submitted ? (
-                <div className="text-center py-12 space-y-4">
-                  <div className="w-16 h-16 bg-emerald-500/20 text-emerald-300 rounded-full flex items-center justify-center mx-auto border border-emerald-400/40">
-                    <CheckCircle2 className="w-10 h-10" />
+                <div className="text-center py-10 space-y-3">
+                  <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto border border-emerald-200">
+                    <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Thank You!</h3>
-                  <p className="text-blue-100 max-w-md mx-auto text-sm">
-                    Your inquiry has been received successfully. One of our solution architects will contact you within 24 hours.
+                  <h4 className="text-xl font-bold text-gray-900">Message Sent Successfully!</h4>
+                  <p className="text-xs sm:text-sm text-gray-500 max-w-md mx-auto">
+                    Thank you for reaching out. Our team will get back to you shortly.
                   </p>
                   <button
-                    onClick={() => setSubmitted(false)}
-                    className="mt-4 px-6 py-2.5 bg-white text-blue-900 rounded-lg font-semibold text-sm hover:bg-blue-50 transition"
+                    onClick={() => {
+                      setSubmitted(false);
+                      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+                    }}
+                    className="mt-3 px-6 py-2 bg-[#155cd5] text-white rounded-full text-xs font-semibold hover:bg-blue-700 transition"
                   >
                     Send Another Message
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <h3 className="text-2xl font-bold text-white mb-2">Send Us a Message</h3>
-                  
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  {/* Row 1: Name & Email */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-blue-200 mb-2">
-                        Your Full Name *
-                      </label>
                       <input
                         type="text"
-                        required
+                        name="name"
                         value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="John Doe"
-                        className="w-full bg-[#0a358c] border border-blue-400/30 rounded-lg px-4 py-3 text-white placeholder-blue-300/50 text-sm focus:outline-none focus:border-white transition"
+                        onChange={handleChange}
+                        placeholder="Name"
+                        required
+                        className="w-full rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#155cd5] focus:ring-1 focus:ring-[#155cd5] transition shadow-sm"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-blue-200 mb-2">
-                        Work Email Address *
-                      </label>
                       <input
                         type="email"
-                        required
+                        name="email"
                         value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="john@company.com"
-                        className="w-full bg-[#0a358c] border border-blue-400/30 rounded-lg px-4 py-3 text-white placeholder-blue-300/50 text-sm focus:outline-none focus:border-white transition"
+                        onChange={handleChange}
+                        placeholder="Email"
+                        required
+                        className="w-full rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#155cd5] focus:ring-1 focus:ring-[#155cd5] transition shadow-sm"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  {/* Row 2: Phone & Subject */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-blue-200 mb-2">
-                        Phone Number
-                      </label>
                       <input
                         type="tel"
+                        name="phone"
                         value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        placeholder="+91 98765 00000"
-                        className="w-full bg-[#0a358c] border border-blue-400/30 rounded-lg px-4 py-3 text-white placeholder-blue-300/50 text-sm focus:outline-none focus:border-white transition"
+                        onChange={handleChange}
+                        placeholder="Phone"
+                        className="w-full rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#155cd5] focus:ring-1 focus:ring-[#155cd5] transition shadow-sm"
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold uppercase tracking-wider text-blue-200 mb-2">
-                        Service of Interest
-                      </label>
-                      <select
-                        value={formData.service}
-                        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                        className="w-full bg-[#0a358c] border border-blue-400/30 rounded-lg px-4 py-3 text-white text-sm focus:outline-none focus:border-white transition"
-                      >
-                        <option value="SaaS Development">Smart SaaS Solutions</option>
-                        <option value="Cloud Architecture">Cloud & DevOps Architecture</option>
-                        <option value="Enterprise Software">Custom Software Engineering</option>
-                        <option value="AI Automation">AI & Workflow Automation</option>
-                        <option value="Cybersecurity">Enterprise Cybersecurity</option>
-                        <option value="Managed IT">24/7 Managed IT Support</option>
-                      </select>
+                      <input
+                        type="text"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        placeholder="Subject"
+                        className="w-full rounded-full border border-gray-200 bg-white px-5 py-2.5 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#155cd5] focus:ring-1 focus:ring-[#155cd5] transition shadow-sm"
+                      />
                     </div>
                   </div>
 
+                  {/* Row 3: Type Message */}
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-blue-200 mb-2">
-                      Project Details / Requirements *
-                    </label>
                     <textarea
-                      rows="4"
-                      required
+                      name="message"
+                      rows={4}
                       value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Briefly describe what your business needs..."
-                      className="w-full bg-[#0a358c] border border-blue-400/30 rounded-lg px-4 py-3 text-white placeholder-blue-300/50 text-sm focus:outline-none focus:border-white transition resize-none"
+                      onChange={handleChange}
+                      placeholder="Type Message"
+                      required
+                      className="w-full rounded-2xl border border-gray-200 bg-white p-4 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#155cd5] focus:ring-1 focus:ring-[#155cd5] transition shadow-sm resize-none"
                     />
                   </div>
 
-                  <button
-                    type="submit"
-                    className="w-full bg-white text-[#0a358c] hover:bg-blue-50 font-bold py-3.5 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center text-sm uppercase tracking-wider cursor-pointer"
-                  >
-                    <Send className="w-4 h-4 mr-2" />
-                    Submit Inquiry
-                  </button>
+                  {/* Centered Submit Button */}
+                  <div className="text-center pt-2">
+                    <button
+                      type="submit"
+                      className="inline-flex items-center justify-center px-10 py-3 rounded-full bg-[#155cd5] hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                    >
+                      SEND MESSAGE
+                    </button>
+                  </div>
                 </form>
               )}
 
@@ -186,8 +192,21 @@ export default function Contact() {
           </div>
 
         </div>
-
       </div>
+
+      {/* Full-width Map in the background */}
+      <div className="w-full h-[460px] sm:h-[500px] relative z-0 mt-0">
+        <iframe
+          src="https://maps.google.com/maps?q=Kota,%20Rajasthan,%20India&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          className="w-full h-full border-0 grayscale-[15%] contrast-[105%]"
+          loading="lazy"
+          allowFullScreen
+          title="Office Location Map"
+        />
+        {/* Soft gradient edge at the top for seamless blending with cards */}
+        <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/60 to-transparent pointer-events-none" />
+      </div>
+
     </section>
   );
 }
