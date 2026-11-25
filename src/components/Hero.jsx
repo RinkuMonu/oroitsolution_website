@@ -44,65 +44,65 @@ export default function Hero({ onGetStarted }) {
   };
 
   return (
-    <section id="home" className="relative bg-[#155cd5] text-white pt-6 pb-20 lg:pt-12 lg:pb-28 overflow-hidden">
+    <section id="home" className="relative bg-[#155cd5] text-white pt-6 pb-16 sm:pt-10 sm:pb-24 lg:pt-12 lg:pb-28 overflow-hidden">
       {/* Subtle radial ambient background glows */}
-      <div className="absolute top-1/4 left-0 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-10 right-10 w-[500px] h-[500px] bg-blue-300/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-0 w-72 sm:w-96 h-72 sm:h-96 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-10 right-10 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-blue-300/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
           
           {/* Left Column: Heading, Subtitle & Get Started CTA */}
           <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center">
             
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-bold text-white tracking-tight leading-[1.12] mb-6">
+            <h1 className="text-3xl min-[480px]:text-4xl sm:text-5xl lg:text-[54px] font-bold text-white tracking-tight leading-[1.15] mb-4 sm:mb-6">
               Smart IT Solutions For <br className="hidden sm:inline" />
               Modern Businesses
             </h1>
 
             {/* Paragraph description matching exact wording */}
-            <p className="text-white/90 text-base sm:text-[16.5px] leading-[1.65] max-w-xl font-normal mb-9">
+            <p className="text-white/90 text-sm min-[480px]:text-base sm:text-[16.5px] leading-relaxed max-w-xl font-normal mb-7 sm:mb-9">
               We build secure, scalable, and intelligent technology platforms that empower businesses to streamline operations, automate workflows, and grow with confidence. Our mission is to simplify complexity, enhance efficiency, and drive digital transformation through innovation.
             </p>
 
             {/* GET STARTED Button matching exact styling */}
-            <div className="flex flex-wrap items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
               <button
                 onClick={onGetStarted}
-                className="bg-white text-[#155cd5] hover:text-[#0d44aa] font-bold tracking-wider px-8 py-3.5 rounded-md hover:bg-slate-100 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base uppercase cursor-pointer"
+                className="bg-white text-[#155cd5] hover:text-[#0d44aa] font-bold tracking-wider px-7 sm:px-8 py-3.5 rounded-md hover:bg-slate-100 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base uppercase cursor-pointer text-center"
               >
                 GET STARTED
               </button>
 
               <a
                 href="#services"
-                className="inline-flex items-center text-sm font-semibold text-white/90 hover:text-white px-5 py-3.5 rounded-md hover:bg-white/10 transition-colors"
+                className="inline-flex items-center justify-center sm:justify-start text-sm font-semibold text-white/90 hover:text-white px-5 py-3.5 rounded-md hover:bg-white/10 transition-colors"
               >
-                Explore Services
+                <span>Explore Services</span>
                 <ArrowRight className="w-4 h-4 ml-1.5" />
               </a>
             </div>
 
             {/* Trust Badges */}
-            <div className="mt-12 pt-8 border-t border-white/15 grid grid-cols-3 gap-4 max-w-lg">
+            <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/15 grid grid-cols-3 gap-2 min-[420px]:gap-4 max-w-lg">
               <div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-white">99.9%</p>
-                <p className="text-xs sm:text-sm text-blue-200 mt-0.5">Uptime SLA</p>
+                <p className="text-xl min-[420px]:text-2xl sm:text-3xl font-extrabold text-white">99.9%</p>
+                <p className="text-[11px] min-[420px]:text-xs sm:text-sm text-blue-200 mt-0.5">Uptime SLA</p>
               </div>
               <div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-white">250+</p>
-                <p className="text-xs sm:text-sm text-blue-200 mt-0.5">Projects Delivered</p>
+                <p className="text-xl min-[420px]:text-2xl sm:text-3xl font-extrabold text-white">250+</p>
+                <p className="text-[11px] min-[420px]:text-xs sm:text-sm text-blue-200 mt-0.5">Projects Done</p>
               </div>
               <div>
-                <p className="text-2xl sm:text-3xl font-extrabold text-white">24/7</p>
-                <p className="text-xs sm:text-sm text-blue-200 mt-0.5">Expert Support</p>
+                <p className="text-xl min-[420px]:text-2xl sm:text-3xl font-extrabold text-white">24/7</p>
+                <p className="text-[11px] min-[420px]:text-xs sm:text-sm text-blue-200 mt-0.5">Live Support</p>
               </div>
             </div>
           </div>
 
           {/* Right Column: Hero Card / Slider */}
-          <div className="lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end">
+          <div className="lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end mt-4 lg:mt-0">
             <div className="relative w-full max-w-[620px] group">
               
               {/* Outer Glowing Border Effect */}
@@ -111,7 +111,7 @@ export default function Hero({ onGetStarted }) {
               {/* Main Card Container */}
               <div className="relative bg-[#00227f] rounded-xl overflow-hidden border border-blue-400/30 shadow-2xl transition-all duration-300">
                 
-                {/* When on slide 0, show the exact pixel-perfect original card graphic or interactive overlay */}
+                {/* When on slide 0, show the exact pixel-perfect original card graphic */}
                 {currentSlide === 0 ? (
                   <div className="relative">
                     <img
@@ -122,27 +122,27 @@ export default function Hero({ onGetStarted }) {
                   </div>
                 ) : (
                   /* Dynamic alternative slides */
-                  <div className={`p-6 sm:p-8 min-h-[340px] flex flex-col justify-between bg-gradient-to-br ${slides[currentSlide].bgGradient}`}>
+                  <div className={`p-5 sm:p-8 min-h-[300px] sm:min-h-[340px] flex flex-col justify-between bg-gradient-to-br ${slides[currentSlide].bgGradient}`}>
                     <div>
-                      <div className="inline-block bg-blue-500/30 border border-blue-300/30 px-3 py-1 rounded-full text-xs font-semibold text-blue-200 uppercase tracking-wider mb-4">
+                      <div className="inline-block bg-blue-500/30 border border-blue-300/30 px-3 py-1 rounded-full text-xs font-semibold text-blue-200 uppercase tracking-wider mb-3 sm:mb-4">
                         {slides[currentSlide].badge}
                       </div>
-                      <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug">
+                      <h3 className="text-xl min-[420px]:text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug">
                         {slides[currentSlide].title} <br />
                         <span className="text-blue-300">{slides[currentSlide].subtitle}</span>
                       </h3>
-                      <p className="mt-3 text-sm sm:text-base text-blue-100/90 leading-relaxed max-w-md">
+                      <p className="mt-2.5 sm:mt-3 text-xs min-[420px]:text-sm sm:text-base text-blue-100/90 leading-relaxed max-w-md">
                         {slides[currentSlide].description}
                       </p>
                     </div>
 
-                    <div className="pt-6 border-t border-blue-400/20 mt-6 flex items-center justify-between">
-                      <p className="text-xs sm:text-sm text-blue-200/90 italic">
+                    <div className="pt-4 sm:pt-6 border-t border-blue-400/20 mt-4 sm:mt-6 flex items-center justify-between">
+                      <p className="text-[11px] sm:text-sm text-blue-200/90 italic line-clamp-1 sm:line-clamp-none pr-2">
                         "{slides[currentSlide].caption}"
                       </p>
                       <button
                         onClick={onGetStarted}
-                        className="text-xs bg-white text-blue-900 font-bold px-3 py-1.5 rounded hover:bg-blue-50 transition"
+                        className="text-xs bg-white text-blue-900 font-bold px-3 py-1.5 rounded hover:bg-blue-50 transition shrink-0 cursor-pointer"
                       >
                         Learn More
                       </button>
@@ -150,34 +150,34 @@ export default function Hero({ onGetStarted }) {
                   </div>
                 )}
 
-                {/* Left navigation chevron button matching the original image `<` */}
+                {/* Left navigation chevron button */}
                 <button
                   onClick={handlePrev}
-                  className="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 z-20 cursor-pointer"
+                  className="absolute left-2 sm:left-2.5 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 z-20 cursor-pointer"
                   title="Previous slide"
                   aria-label="Previous slide"
                 >
-                  <ChevronLeft className="w-5 h-5" />
+                  <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
 
                 {/* Right navigation chevron button */}
                 <button
                   onClick={handleNext}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 z-20 cursor-pointer"
+                  className="absolute right-2 sm:right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 z-20 cursor-pointer"
                   title="Next slide"
                   aria-label="Next slide"
                 >
-                  <ChevronRight className="w-5 h-5" />
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </button>
 
                 {/* Slide indicator dots at bottom */}
-                <div className="absolute bottom-2.5 left-1/2 -translate-x-1/2 flex items-center space-x-1.5 z-20">
+                <div className="absolute bottom-2 sm:bottom-2.5 left-1/2 -translate-x-1/2 flex items-center space-x-1.5 z-20">
                   {slides.map((s, idx) => (
                     <button
                       key={s.id}
                       onClick={() => setCurrentSlide(idx)}
                       className={`h-1.5 rounded-full transition-all duration-300 ${
-                        currentSlide === idx ? 'w-6 bg-white' : 'w-2 bg-white/40 hover:bg-white/70'
+                        currentSlide === idx ? 'w-5 sm:w-6 bg-white' : 'w-2 bg-white/40 hover:bg-white/70'
                       }`}
                       aria-label={`Go to slide ${idx + 1}`}
                     />

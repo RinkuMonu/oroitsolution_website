@@ -1,128 +1,105 @@
 import React from 'react';
-import {
-  Code2,
-  Smartphone,
-  Paintbrush,
-  Network,
-  Cloud,
-  ShoppingCart
+import { 
+  Code2, 
+  Smartphone, 
+  Paintbrush, 
+  Network, 
+  Cloud, 
+  ShoppingCart,
+  ArrowRight
 } from 'lucide-react';
 
-export default function Services() {
+export default function Services({ onSelectService }) {
 
   const services = [
     {
+      id: 'web-app',
+      title: 'Web Application Development',
+      description: 'Robust, scalable, and secure web applications built using modern frameworks to deliver seamless user experiences and high performance.',
       icon: Code2,
-      title: "Web Application Development",
-      description: "Robust, scalable, and secure web applications built using modern frameworks to deliver seamless user experiences and high performance."
     },
     {
+      id: 'mobile-app',
+      title: 'Mobile App Development',
+      description: 'Cross-platform mobile applications developed using Flutter and React Native for fast performance, native UI, and reduced time-to-market.',
       icon: Smartphone,
-      title: "Mobile App Development",
-      description: "Cross-platform mobile applications developed using Flutter and React Native for fast performance, native UI, and reduced time-to-market."
     },
     {
+      id: 'ui-ux',
+      title: 'UI / UX Design',
+      description: 'Intuitive, user-centric designs focused on usability, accessibility, and engaging experiences across web and mobile platforms.',
       icon: Paintbrush,
-      title: "UI / UX Design",
-      description: "Intuitive, user-centric designs focused on usability, accessibility, and engaging experiences across web and mobile platforms."
     },
     {
+      id: 'api-backend',
+      title: 'API & Backend Development',
+      description: 'Secure and scalable REST & GraphQL APIs with powerful backend architectures to support modern applications and integrations.',
       icon: Network,
-      title: "API & Backend Development",
-      description: "Secure and scalable REST & GraphQL APIs with powerful backend architectures to support modern applications and integrations."
     },
     {
+      id: 'cloud-devops',
+      title: 'Cloud & DevOps Solutions',
+      description: 'Cloud-native deployments, CI/CD pipelines, and infrastructure optimization for reliable, scalable, and cost-effective systems.',
       icon: Cloud,
-      title: "Cloud & DevOps Solutions",
-      description: "Cloud-native deployments, CI/CD pipelines, and infrastructure optimization for reliable, scalable, and cost-effective systems."
     },
     {
+      id: 'ecommerce',
+      title: 'E-commerce Solutions',
+      description: 'Custom e-commerce platforms with secure payments, product management, order tracking, and seamless customer experience.',
       icon: ShoppingCart,
-      title: "E-commerce Solutions",
-      description: "Custom e-commerce platforms with secure payments, product management, order tracking, and seamless customer experience."
-    }
+    },
   ];
 
   return (
-    <section
-      id="services"
-      className="py-20 sm:py-24 bg-white text-black"
-    >
-
-      <div className="max-w-[1250px] mx-auto px-5 sm:px-8 lg:px-10">
-
+    <section id="services" className="bg-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 text-gray-900 overflow-hidden">
+      <div className="max-w-[1240px] mx-auto">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14">
+        <div className="text-center max-w-3xl mx-auto">
+          {/* Pill Badge */}
+          <div className="inline-flex items-center justify-center">
+            <span className="px-4 py-1 rounded-full border border-blue-500/80 text-blue-600 text-xs sm:text-sm font-medium tracking-wide bg-blue-50/30">
+              Services
+            </span>
+          </div>
 
-          <span className="inline-block text-sm font-semibold text-blue-600 px-7 py-2 rounded-full border border-blue-600">
-            Services
-          </span>
-
-          <h2 className="text-4xl sm:text-4xl font-bold mt-5 text-black leading-tight">
-            Our Software Development Services
+          {/* Heading */}
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mt-4 tracking-tight leading-tight">
+            Our Software Development <br className="hidden sm:inline" /> Services
           </h2>
 
-          <p className="mt-4 text-base text-gray-600 leading-relaxed">
-            We build scalable, secure, and high-performance web and mobile
-            applications using modern technologies to help businesses innovate,
-            grow, and succeed in the digital world.
+          {/* Subheading / Description */}
+          <p className="text-gray-500 text-xs sm:text-sm md:text-base mt-4 leading-relaxed font-normal max-w-2xl mx-auto">
+            We build scalable, secure, and high-performance web and mobile applications using modern technologies to help businesses innovate, grow, and succeed in the digital world.
           </p>
 
         </div>
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
-
-          {services.map((svc, index) => {
-
-            const Icon = svc.icon;
-
+        {/* 6 Services Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8 mt-12 sm:mt-16">
+          {services.map((service) => {
+            const Icon = service.icon;
             return (
-
               <div
-                key={index}
-                className="group bg-white border border-gray-200 rounded-xl p-8
-                min-h-[300px]
-                flex flex-col
-                transition-all duration-300 ease-in-out
-                hover:-translate-y-2
-                hover:border-blue-500
-                hover:shadow-xl
-                cursor-pointer"
+                key={service.id}
+                onClick={() => onSelectService && onSelectService(service.title)}
+                className="bg-white rounded-xl p-6 sm:p-8 border border-gray-100 shadow-[0_2px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(21,92,213,0.08)] hover:border-blue-200 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
               >
+                <div>
+                  {/* Circular Icon Container */}
+                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-full border border-blue-500/80 flex items-center justify-center text-blue-600 mb-5 group-hover:bg-[#155cd5] group-hover:text-white group-hover:border-[#155cd5] transition-all duration-300">
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
+                  </div>
 
-                {/* Service Icon */}
-                <div
-                  className="w-[72px] h-[72px] rounded-full
-                  flex items-center justify-center mb-6
-                  bg-white border-[1.5px] border-blue-600
-                  text-blue-600
-                  transition-all duration-300 ease-in-out
-                  group-hover:bg-blue-600
-                  group-hover:text-white
-                  group-hover:scale-105"
-                >
+                  {/* Service Title */}
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2.5 group-hover:text-[#155cd5] transition-colors">
+                    {service.title}
+                  </h3>
 
-                  <Icon
-                    className="w-8 h-8 transition-all duration-300"
-                    strokeWidth={1.9}
-                  />
-
+                  {/* Service Description */}
+                  <p className="text-gray-500 text-xs sm:text-[13.5px] leading-relaxed">
+                    {service.description}
+                  </p>
                 </div>
-
-                {/* Service Title */}
-                <h3 className="text-lg font-semibold text-black mb-4
-                  transition-colors duration-300
-                  group-hover:text-blue-600"
-                >
-                  {svc.title}
-                </h3>
-
-                {/* Service Description */}
-                <p className="text-[15px] text-gray-600 leading-relaxed">
-                  {svc.description}
-                </p>
-
               </div>
 
             );
@@ -130,7 +107,6 @@ export default function Services() {
           })}
 
         </div>
-
       </div>
 
     </section>

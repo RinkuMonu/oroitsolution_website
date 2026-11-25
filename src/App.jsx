@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import OurStory from './components/OurStory';
 import Services from './components/Services';
+import Empowering from './components/Empowering';
 import Software from './components/Software';
+import Blog from './components/Blog';
 import Product from './components/Product';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AuthModals from './components/AuthModals';
-import OurStory from './components/OurStory';
-import Blog from './components/Blog';
-import Empowering from './components/Empowering';
 
 export default function App() {
   const [modalState, setModalState] = useState({
@@ -93,7 +93,7 @@ export default function App() {
           onSelectService={(service) => handleGetStarted(service)}
         />
 
-        {/* Empowering Section */}
+        {/* Empowering Banner Section */}
         <Empowering />
 
         {/* Software Section */}
@@ -101,7 +101,7 @@ export default function App() {
           onExplore={(software) => handleGetStarted(software)}
         />
 
-        {/* Blog Section */}
+        {/* Blog Insights Section */}
         <Blog />
 
         {/* Product Section */}
