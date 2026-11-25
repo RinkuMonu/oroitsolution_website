@@ -9,7 +9,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 
-export default function Services() {
+export default function Services({ onSelectService }) {
   const services = [
     {
       id: 'web-app',
@@ -71,6 +71,7 @@ export default function Services() {
           <p className="text-gray-500 text-xs sm:text-sm md:text-base mt-3 sm:mt-4 leading-relaxed font-normal max-w-2xl mx-auto px-1">
             We build scalable, secure, and high-performance web and mobile applications using modern technologies to help businesses innovate, grow, and succeed in the digital world.
           </p>
+
         </div>
 
         {/* 6 Services Grid */}
@@ -99,10 +100,14 @@ export default function Services() {
                   </p>
                 </div>
               </div>
+
             );
+
           })}
+
         </div>
       </div>
+
     </section>
   );
 }

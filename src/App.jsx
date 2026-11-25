@@ -105,5 +105,5 @@ export default function App() {
         onSwitchMode={handleSwitchMode}
       />
     </div>
-  );
-}
+  )
+};
