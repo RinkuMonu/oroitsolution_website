@@ -1,4 +1,7 @@
+
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import OurStory from './components/OurStory';
@@ -9,13 +12,41 @@ import Blog from './components/Blog';
 import Product from './components/Product';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
+import Connect from './components/Connect';
 import Footer from './components/Footer';
 import AuthModals from './components/AuthModals';
 
+// Home Page
+function Home({ handleGetStarted }) {
+  return (
+    <>
+      <Hero
+        onGetStarted={() => handleGetStarted('Smart SaaS Solutions')}
+      />
+
+      <OurStory />
+
+      <Services
+        onSelectService={(service) => handleGetStarted(service)}
+      />
+
+      <Empowering />
+
+      <Blog />
+
+      <Partners />
+
+      {/* Old Contact Section - Only on Home Page */}
+      <Contact />
+    </>
+  );
+}
+
+// Main App
 export default function App() {
   const [modalState, setModalState] = useState({
     isOpen: false,
-    mode: 'login', // 'login' | 'register' | 'get_started'
+    mode: 'login',
     defaultService: 'Smart SaaS Solutions'
   });
 
@@ -39,94 +70,127 @@ export default function App() {
     setModalState({
       isOpen: true,
       mode: 'get_started',
-      defaultService: typeof serviceName === 'string' ? serviceName : 'Smart SaaS Solutions'
+      defaultService:
+        typeof serviceName === 'string'
+          ? serviceName
+          : 'Smart SaaS Solutions'
     });
   };
 
   const handleCloseModal = () => {
-    setModalState((prev) => ({ ...prev, isOpen: false }));
-    if (window.location.hash === '#register' || window.location.hash === '#login') {
-      history.pushState(null, '', window.location.pathname + window.location.search);
+    setModalState((prev) => ({
+      ...prev,
+      isOpen: false
+    }));
+
+    if (
+      window.location.hash === '#register' ||
+      window.location.hash === '#login'
+    ) {
+      history.pushState(
+        null,
+        '',
+        window.location.pathname + window.location.search
+      );
     }
   };
 
-  // Support direct URL hash navigation like #register or #login
+  // Login/Register Hash Support
   useEffect(() => {
     const checkHash = () => {
       if (window.location.hash === '#register') {
-        setModalState({ isOpen: true, mode: 'register', defaultService: '' });
+        setModalState({
+          isOpen: true,
+          mode: 'register',
+          defaultService: ''
+        });
       } else if (window.location.hash === '#login') {
-        setModalState({ isOpen: true, mode: 'login', defaultService: '' });
+        setModalState({
+          isOpen: true,
+          mode: 'login',
+          defaultService: ''
+        });
       }
     };
+
     checkHash();
+
     window.addEventListener('hashchange', checkHash);
-    return () => window.removeEventListener('hashchange', checkHash);
+
+    return () => {
+      window.removeEventListener('hashchange', checkHash);
+    };
   }, []);
 
   const handleSwitchMode = (newMode) => {
-    setModalState((prev) => ({ ...prev, mode: newMode }));
+    setModalState((prev) => ({
+      ...prev,
+      mode: newMode
+    }));
   };
 
   return (
+    <BrowserRouter>
+      <div className="min-h-screen bg-[#155cd5] text-white flex flex-col font-sans selection:bg-white selection:text-[#155cd5]">
 
-
-
-    <div className="min-h-screen bg-[#155cd5] text-white flex flex-col font-sans selection:bg-white selection:text-[#155cd5]">
-      {/* Top Navbar */}
-      <Navbar
-        onOpenLogin={handleOpenLogin}
-        onOpenRegister={handleOpenRegister}
-      />
-
-      {/* Main Hero Section matching exact screenshot */}
-      <main className="flex-grow">
-        <Hero
-          onGetStarted={() => handleGetStarted('Smart SaaS Solutions')}
+        {/* Navbar */}
+        <Navbar
+          onOpenLogin={handleOpenLogin}
+          onOpenRegister={handleOpenRegister}
         />
 
-        {/* Our Story Section */}
-        <OurStory />
+        {/* Page Routes */}
+        <main className="flex-grow">
+          <Routes>
 
-        {/* Services Section */}
-        <Services
-          onSelectService={(service) => handleGetStarted(service)}
+            {/* Home Page */}
+            <Route
+              path="/"
+              element={
+                <Home handleGetStarted={handleGetStarted} />
+              }
+            />
+
+            {/* Software Page */}
+            <Route
+              path="/software"
+              element={
+                <Software onExplore={handleGetStarted} />
+              }
+            />
+
+            {/* Product Page */}
+            <Route
+              path="/product"
+              element={
+                <Product
+                  onGetStarted={() => handleGetStarted('Enterprise Cloud OS')}
+                />
+              }
+            />
+
+            {/* Connect Page - Navbar Contact */}
+            <Route
+              path="/contact"
+              element={<Connect />}
+            />
+
+          </Routes>
+        </main>
+
+        {/* Footer */}
+        <Footer />
+
+        {/* Login/Register Modals */}
+        <AuthModals
+          isOpen={modalState.isOpen}
+          mode={modalState.mode}
+          defaultService={modalState.defaultService}
+          onClose={handleCloseModal}
+          onSwitchMode={handleSwitchMode}
         />
 
-        {/* Empowering Banner Section */}
-        <Empowering />
-
-        {/* Software Section */}
-        <Software
-          onExplore={(software) => handleGetStarted(software)}
-        />
-
-        {/* Blog Insights Section */}
-        <Blog />
-
-        {/* Product Section */}
-        <Product
-          onGetStarted={() => handleGetStarted('Enterprise Cloud OS')}
-        />
-
-        {/* Trusted Partners Section */}
-        <Partners />
-
-        {/* Contact Section */}
-        <Contact />
-      </main>
-
-      {/* Footer */}
-      <Footer />
-
-      {/* Interactive Auth & Consultation Modals */}
-      <AuthModals
-        isOpen={modalState.isOpen}
-        mode={modalState.mode}
-        defaultService={modalState.defaultService}
-        onClose={handleCloseModal}
-        onSwitchMode={handleSwitchMode}
-      />
-    </div>
-  )
-};
+      </div>
+    </BrowserRouter>
+  );
+}
