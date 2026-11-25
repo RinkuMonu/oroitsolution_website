@@ -68,7 +68,7 @@ export default function Connect() {
 
         .connect-page .connect-banner {
           width: 100%;
-          height: 280px;
+          height: 370px;
           background-image: url('/contact-banner.png');
           background-size: cover;
           background-position: center;
@@ -372,7 +372,7 @@ export default function Connect() {
 
         @media (max-width: 500px) {
           .connect-page .connect-banner {
-            height: 230px;
+            height: 260px;
           }
 
           .connect-page .connect-banner h1 {
