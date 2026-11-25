@@ -71,14 +71,14 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#155cd5] text-white flex flex-col font-sans selection:bg-white selection:text-[#155cd5]">
       {/* Top Navbar */}
-      <Navbar 
+      <Navbar
         onOpenLogin={handleOpenLogin}
         onOpenRegister={handleOpenRegister}
       />
 
       {/* Main Hero Section matching exact screenshot */}
       <main className="flex-grow">
-        <Hero 
+        <Hero
           onGetStarted={() => handleGetStarted('Smart SaaS Solutions')}
         />
 
@@ -94,7 +94,7 @@ export default function App() {
         <Empowering />
 
         {/* Software Section */}
-        <Software 
+        <Software
           onExplore={(software) => handleGetStarted(software)}
         />
 
@@ -102,7 +102,7 @@ export default function App() {
         <Blog />
 
         {/* Product Section */}
-        <Product 
+        <Product
           onGetStarted={() => handleGetStarted('Enterprise Cloud OS')}
         />
 
