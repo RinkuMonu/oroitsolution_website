@@ -69,7 +69,7 @@ export default function Connect() {
         .connect-page .connect-banner {
           width: 100%;
           height: 370px;
-          background-image: url('/contact-banner.png');
+          background-image: url('/contact-banner.png?v=2');
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -78,13 +78,13 @@ export default function Connect() {
           justify-content: center;
           text-align: center;
           overflow: hidden;
+          image-rendering: -webkit-optimize-contrast;
         }
 
         .connect-page .connect-banner-content {
-          padding: 20px;
-          text-align: center;
-          position: relative;
-          z-index: 2;
+          opacity: 0;
+          pointer-events: none;
+          visibility: hidden;
         }
 
         .connect-page .connect-banner h1 {
