@@ -1,15 +1,15 @@
 import React from 'react';
-import { 
-  Code2, 
-  Smartphone, 
-  Paintbrush, 
-  Network, 
-  Cloud, 
+import {
+  Code2,
+  Smartphone,
+  Paintbrush,
+  Network,
+  Cloud,
   ShoppingCart,
   ArrowRight
 } from 'lucide-react';
 
-export default function Services({ onSelectService }) {
+export default function Services() {
   const services = [
     {
       id: 'web-app',
@@ -29,6 +29,7 @@ export default function Services({ onSelectService }) {
       description: 'Intuitive, user-centric designs focused on usability, accessibility, and engaging experiences across web and mobile platforms.',
       icon: Paintbrush,
     },
+
     {
       id: 'api-backend',
       title: 'API & Backend Development',
@@ -50,7 +51,7 @@ export default function Services({ onSelectService }) {
   ];
 
   return (
-    <section id="services" className="bg-white py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 text-gray-900 overflow-hidden">
+    <section id="services" className="bg-white py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8 text-gray-900 overflow-hidden">
       <div className="max-w-[1240px] mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto">
@@ -62,34 +63,33 @@ export default function Services({ onSelectService }) {
           </div>
 
           {/* Heading */}
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mt-4 tracking-tight leading-tight">
+          <h2 className="text-2xl min-[400px]:text-3xl md:text-4xl font-bold text-gray-900 mt-3 sm:mt-4 tracking-tight leading-tight">
             Our Software Development <br className="hidden sm:inline" /> Services
           </h2>
 
           {/* Subheading / Description */}
-          <p className="text-gray-500 text-xs sm:text-sm md:text-base mt-4 leading-relaxed font-normal max-w-2xl mx-auto">
+          <p className="text-gray-500 text-xs sm:text-sm md:text-base mt-3 sm:mt-4 leading-relaxed font-normal max-w-2xl mx-auto px-1">
             We build scalable, secure, and high-performance web and mobile applications using modern technologies to help businesses innovate, grow, and succeed in the digital world.
           </p>
         </div>
 
         {/* 6 Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8 mt-12 sm:mt-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mt-8 sm:mt-12 lg:mt-16">
           {services.map((service) => {
             const Icon = service.icon;
             return (
               <div
                 key={service.id}
-                onClick={() => onSelectService && onSelectService(service.title)}
-                className="bg-white rounded-xl p-6 sm:p-8 border border-gray-100 shadow-[0_2px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(21,92,213,0.08)] hover:border-blue-200 transition-all duration-300 flex flex-col justify-between group cursor-pointer"
+                className="bg-white rounded-2xl p-5 sm:p-7 lg:p-8 border border-gray-100 shadow-[0_2px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(21,92,213,0.08)] hover:border-blue-200 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group"
               >
                 <div>
                   {/* Circular Icon Container */}
-                  <div className="w-12 h-12 sm:w-13 sm:h-13 rounded-full border border-blue-500/80 flex items-center justify-center text-blue-600 mb-5 group-hover:bg-[#155cd5] group-hover:text-white group-hover:border-[#155cd5] transition-all duration-300">
+                  <div className="w-11 h-11 sm:w-13 sm:h-13 rounded-full border border-blue-500/80 flex items-center justify-center text-blue-600 mb-4 sm:mb-5 group-hover:bg-[#155cd5] group-hover:text-white group-hover:border-[#155cd5] transition-all duration-300">
                     <Icon className="w-5 h-5 sm:w-6 sm:h-6 stroke-[1.8]" />
                   </div>
 
                   {/* Service Title */}
-                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2.5 group-hover:text-[#155cd5] transition-colors">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2 group-hover:text-[#155cd5] transition-colors leading-snug">
                     {service.title}
                   </h3>
 

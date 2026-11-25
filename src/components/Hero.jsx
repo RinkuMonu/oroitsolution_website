@@ -44,40 +44,40 @@ export default function Hero({ onGetStarted }) {
   };
 
   return (
-    <section id="home" className="relative bg-[#155cd5] text-white pt-6 pb-16 sm:pt-10 sm:pb-24 lg:pt-12 lg:pb-28 overflow-hidden">
+    <section id="home" className="relative bg-[#155cd5] text-white pt-6 pb-12 sm:pt-10 sm:pb-20 lg:pt-14 lg:pb-28 overflow-hidden">
       {/* Subtle radial ambient background glows */}
-      <div className="absolute top-1/4 left-0 w-72 sm:w-96 h-72 sm:h-96 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute top-10 right-10 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-blue-300/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-0 w-60 sm:w-96 h-60 sm:h-96 bg-blue-400/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-10 right-10 w-[240px] sm:w-[500px] h-[240px] sm:h-[500px] bg-blue-300/15 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
           {/* Left Column: Heading, Subtitle & Get Started CTA */}
-          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center">
+          <div className="lg:col-span-6 xl:col-span-6 flex flex-col justify-center text-left">
             
             {/* Main Headline */}
-            <h1 className="text-3xl min-[480px]:text-4xl sm:text-5xl lg:text-[54px] font-bold text-white tracking-tight leading-[1.15] mb-4 sm:mb-6">
+            <h1 className="text-2xl min-[360px]:text-3xl min-[480px]:text-4xl sm:text-5xl lg:text-[54px] font-bold text-white tracking-tight leading-[1.18] sm:leading-[1.15] mb-3.5 sm:mb-6">
               Smart IT Solutions For <br className="hidden sm:inline" />
               Modern Businesses
             </h1>
 
-            {/* Paragraph description matching exact wording */}
-            <p className="text-white/90 text-sm min-[480px]:text-base sm:text-[16.5px] leading-relaxed max-w-xl font-normal mb-7 sm:mb-9">
+            {/* Paragraph description */}
+            <p className="text-white/90 text-xs min-[360px]:text-sm min-[480px]:text-base sm:text-[16.5px] leading-relaxed max-w-xl font-normal mb-5 sm:mb-8">
               We build secure, scalable, and intelligent technology platforms that empower businesses to streamline operations, automate workflows, and grow with confidence. Our mission is to simplify complexity, enhance efficiency, and drive digital transformation through innovation.
             </p>
 
-            {/* GET STARTED Button matching exact styling */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
-              <button
-                onClick={onGetStarted}
-                className="bg-white text-[#155cd5] hover:text-[#0d44aa] font-bold tracking-wider px-7 sm:px-8 py-3.5 rounded-md hover:bg-slate-100 transition-all duration-200 shadow-lg hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0 text-sm sm:text-base uppercase cursor-pointer text-center"
+            {/* GET STARTED Button and Explore Services Link */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+              <a
+                href="#contact"
+                className="bg-white text-[#155cd5] hover:text-[#0d44aa] font-bold tracking-wider px-6 sm:px-8 py-3 sm:py-3.5 rounded-lg hover:bg-slate-100 transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5 active:translate-y-0 text-xs sm:text-sm uppercase cursor-pointer text-center inline-flex items-center justify-center shrink-0"
               >
                 GET STARTED
-              </button>
+              </a>
 
               <a
                 href="#services"
-                className="inline-flex items-center justify-center sm:justify-start text-sm font-semibold text-white/90 hover:text-white px-5 py-3.5 rounded-md hover:bg-white/10 transition-colors"
+                className="inline-flex items-center text-xs sm:text-sm font-semibold text-white/90 hover:text-white px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg hover:bg-white/10 transition-colors shrink-0"
               >
                 <span>Explore Services</span>
                 <ArrowRight className="w-4 h-4 ml-1.5" />
@@ -85,25 +85,25 @@ export default function Hero({ onGetStarted }) {
             </div>
 
             {/* Trust Badges */}
-            <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/15 grid grid-cols-3 gap-2 min-[420px]:gap-4 max-w-lg">
+            <div className="pt-5 sm:pt-6 border-t border-white/15 grid grid-cols-3 gap-2 min-[400px]:gap-4 max-w-lg mb-8 lg:mb-0">
               <div>
-                <p className="text-xl min-[420px]:text-2xl sm:text-3xl font-extrabold text-white">99.9%</p>
-                <p className="text-[11px] min-[420px]:text-xs sm:text-sm text-blue-200 mt-0.5">Uptime SLA</p>
+                <p className="text-lg min-[360px]:text-xl min-[420px]:text-2xl sm:text-3xl font-extrabold text-white">99.9%</p>
+                <p className="text-[10px] min-[360px]:text-[11px] min-[420px]:text-xs sm:text-sm text-blue-200 mt-0.5 truncate">Uptime SLA</p>
               </div>
               <div>
-                <p className="text-xl min-[420px]:text-2xl sm:text-3xl font-extrabold text-white">250+</p>
-                <p className="text-[11px] min-[420px]:text-xs sm:text-sm text-blue-200 mt-0.5">Projects Done</p>
+                <p className="text-lg min-[360px]:text-xl min-[420px]:text-2xl sm:text-3xl font-extrabold text-white">250+</p>
+                <p className="text-[10px] min-[360px]:text-[11px] min-[420px]:text-xs sm:text-sm text-blue-200 mt-0.5 truncate">Projects Done</p>
               </div>
               <div>
-                <p className="text-xl min-[420px]:text-2xl sm:text-3xl font-extrabold text-white">24/7</p>
-                <p className="text-[11px] min-[420px]:text-xs sm:text-sm text-blue-200 mt-0.5">Live Support</p>
+                <p className="text-lg min-[360px]:text-xl min-[420px]:text-2xl sm:text-3xl font-extrabold text-white">24/7</p>
+                <p className="text-[10px] min-[360px]:text-[11px] min-[420px]:text-xs sm:text-sm text-blue-200 mt-0.5 truncate">Live Support</p>
               </div>
             </div>
           </div>
 
           {/* Right Column: Hero Card / Slider */}
-          <div className="lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end mt-4 lg:mt-0">
-            <div className="relative w-full max-w-[620px] group">
+          <div className="lg:col-span-6 xl:col-span-6 flex justify-center lg:justify-end mt-8 sm:mt-10 lg:mt-0 w-full">
+            <div className="relative w-full max-w-[460px] sm:max-w-[540px] lg:max-w-[620px] group mx-auto lg:mr-0">
               
               {/* Outer Glowing Border Effect */}
               <div className="absolute -inset-1 bg-gradient-to-r from-blue-400/30 via-indigo-500/20 to-blue-300/30 rounded-2xl blur-sm group-hover:blur-md transition-all duration-300" />
@@ -140,12 +140,12 @@ export default function Hero({ onGetStarted }) {
                       <p className="text-[11px] sm:text-sm text-blue-200/90 italic line-clamp-1 sm:line-clamp-none pr-2">
                         "{slides[currentSlide].caption}"
                       </p>
-                      <button
-                        onClick={onGetStarted}
-                        className="text-xs bg-white text-blue-900 font-bold px-3 py-1.5 rounded hover:bg-blue-50 transition shrink-0 cursor-pointer"
+                      <a
+                        href="#contact"
+                        className="text-xs bg-white text-blue-900 font-bold px-3 py-1.5 rounded hover:bg-blue-50 transition shrink-0 cursor-pointer inline-block"
                       >
                         Learn More
-                      </button>
+                      </a>
                     </div>
                   </div>
                 )}

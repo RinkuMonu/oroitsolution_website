@@ -16,7 +16,7 @@ import {
   ArrowLeft
 } from 'lucide-react';
 
-export default function AuthModals({ isOpen, mode, onClose, onSwitchMode, defaultService }) {
+export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
   const [submitted, setSubmitted] = useState(false);
   const [accountType, setAccountType] = useState('personal'); // 'personal' | 'business'
   const [showPassword, setShowPassword] = useState(false);
@@ -35,8 +35,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode, defaul
     city: '',
     pincode: '',
     password: '',
-    confirmPassword: '',
-    service: defaultService || 'Smart SaaS Solutions'
+    confirmPassword: ''
   });
 
   if (!isOpen) return null;
@@ -72,17 +71,17 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode, defaul
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-black/75 backdrop-blur-md overflow-y-auto no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden animate-fade-in py-4 sm:py-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 md:p-6 bg-black/75 backdrop-blur-md overflow-y-auto no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden animate-fade-in py-3 sm:py-6">
       
       {/* Modal Main Box */}
       <div 
-        className="relative w-full max-w-4xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden my-auto border border-gray-100/50 max-h-[94vh] flex flex-col"
+        className="relative w-full max-w-4xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden my-auto border border-gray-100/50 max-h-[95vh] sm:max-h-[92vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Floating Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-40 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 flex items-center justify-center transition cursor-pointer shadow-sm border border-gray-200/50 active:scale-95"
+          className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-40 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 flex items-center justify-center transition cursor-pointer shadow-sm border border-gray-200/50 active:scale-95 touch-manipulation"
           aria-label="Close"
         >
           <X className="w-4 h-4" />

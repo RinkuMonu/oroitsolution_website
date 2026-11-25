@@ -24,18 +24,18 @@ export default function Blog() {
   ];
 
   return (
-    <section className="bg-white py-12 sm:py-16 lg:py-20">
+    <section className="bg-white py-10 sm:py-16 lg:py-20 overflow-hidden">
 
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mt-2 mb-2">
 
         {/* Section Heading */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12 lg:mb-14">
 
-          <span className="inline-block text-xs sm:text-sm font-semibold text-blue-600 px-5 sm:px-7 py-2 rounded-full border-2 border-blue-600">
+          <span className="inline-block text-xs sm:text-sm font-semibold text-blue-600 px-4 sm:px-7 py-1.5 sm:py-2 rounded-full border-2 border-blue-600">
             Latest Insights
           </span>
 
-          <h2 className="text-2xl min-[480px]:text-3xl sm:text-4xl font-bold text-gray-900 mt-4 sm:mt-5 tracking-tight">
+          <h2 className="text-2xl min-[480px]:text-3xl sm:text-4xl font-bold text-gray-900 mt-3.5 sm:mt-5 tracking-tight">
             Tech News & Updates
           </h2>
 
@@ -47,7 +47,7 @@ export default function Blog() {
         </div>
 
         {/* Blog Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
 
           {insights.map((item, index) => (
 

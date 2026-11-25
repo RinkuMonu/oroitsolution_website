@@ -15,31 +15,20 @@ import AuthModals from './components/AuthModals';
 export default function App() {
   const [modalState, setModalState] = useState({
     isOpen: false,
-    mode: 'login', // 'login' | 'register' | 'get_started'
-    defaultService: 'Smart SaaS Solutions'
+    mode: 'login' // 'login' | 'register'
   });
 
   const handleOpenLogin = () => {
     setModalState({
       isOpen: true,
-      mode: 'login',
-      defaultService: ''
+      mode: 'login'
     });
   };
 
   const handleOpenRegister = () => {
     setModalState({
       isOpen: true,
-      mode: 'register',
-      defaultService: ''
-    });
-  };
-
-  const handleGetStarted = (serviceName) => {
-    setModalState({
-      isOpen: true,
-      mode: 'get_started',
-      defaultService: typeof serviceName === 'string' ? serviceName : 'Smart SaaS Solutions'
+      mode: 'register'
     });
   };
 
@@ -54,9 +43,9 @@ export default function App() {
   useEffect(() => {
     const checkHash = () => {
       if (window.location.hash === '#register') {
-        setModalState({ isOpen: true, mode: 'register', defaultService: '' });
+        setModalState({ isOpen: true, mode: 'register' });
       } else if (window.location.hash === '#login') {
-        setModalState({ isOpen: true, mode: 'login', defaultService: '' });
+        setModalState({ isOpen: true, mode: 'login' });
       }
     };
     checkHash();
@@ -69,7 +58,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#155cd5] text-white flex flex-col font-sans selection:bg-white selection:text-[#155cd5]">
+    <div className="min-h-screen bg-[#155cd5] text-white flex flex-col font-sans selection:bg-white selection:text-[#155cd5] overflow-x-hidden w-full max-w-full relative">
       {/* Top Navbar */}
       <Navbar
         onOpenLogin={handleOpenLogin}
@@ -78,33 +67,25 @@ export default function App() {
 
       {/* Main Hero Section matching exact screenshot */}
       <main className="flex-grow">
-        <Hero
-          onGetStarted={() => handleGetStarted('Smart SaaS Solutions')}
-        />
+        <Hero />
 
         {/* Our Story Section */}
         <OurStory />
 
         {/* Services Section */}
-        <Services 
-          onSelectService={(service) => handleGetStarted(service)}
-        />
+        <Services />
 
         {/* Empowering Banner Section */}
         <Empowering />
 
         {/* Software Section */}
-        <Software
-          onExplore={(software) => handleGetStarted(software)}
-        />
+        <Software />
 
         {/* Blog Insights Section */}
         <Blog />
 
         {/* Product Section */}
-        <Product
-          onGetStarted={() => handleGetStarted('Enterprise Cloud OS')}
-        />
+        <Product />
 
         {/* Trusted Partners Section */}
         <Partners />
@@ -116,11 +97,10 @@ export default function App() {
       {/* Footer */}
       <Footer />
 
-      {/* Interactive Auth & Consultation Modals */}
+      {/* Interactive Auth Modals */}
       <AuthModals
         isOpen={modalState.isOpen}
         mode={modalState.mode}
-        defaultService={modalState.defaultService}
         onClose={handleCloseModal}
         onSwitchMode={handleSwitchMode}
       />

@@ -30,7 +30,7 @@ export default function Contact() {
     <section id="contact" className="relative bg-white pt-10 sm:pt-14 pb-0 overflow-hidden text-gray-800">
 
       {/* Cards container overlapping the map */}
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-[-60px] sm:mb-[-100px] lg:mb-[-160px]">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-6 sm:mb-[-60px] lg:mb-[-120px]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start justify-center">
 
           {/* Left Column: 3 Contact Info Cards */}
@@ -78,7 +78,7 @@ export default function Contact() {
 
           {/* Right Column: Ready to Get Started Form Card */}
           <div className="lg:col-span-7">
-            <div className="bg-white rounded-2xl p-5 sm:p-8 lg:p-10 shadow-[0_15px_35px_rgba(0,0,0,0.08)] border border-gray-100 transition-all">
+            <div className="bg-white rounded-2xl p-4 min-[420px]:p-6 sm:p-8 lg:p-10 shadow-[0_15px_35px_rgba(0,0,0,0.08)] border border-gray-100 transition-all">
 
               <div className="text-center mb-5 sm:mb-6">
                 <span className="text-xs sm:text-[13px] font-bold text-[#155cd5] uppercase tracking-wider block mb-1">
@@ -112,7 +112,7 @@ export default function Contact() {
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                   {/* Row 1: Name & Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
@@ -177,7 +177,7 @@ export default function Contact() {
                   </div>
 
                   {/* Submit Button */}
-                  <div className="text-center pt-2">
+                  <div className="text-center pt-1 sm:pt-2">
                     <button
                       type="submit"
                       className="w-full sm:w-auto inline-flex items-center justify-center px-8 sm:px-10 py-3 rounded-full bg-[#155cd5] hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
@@ -195,7 +195,7 @@ export default function Contact() {
       </div>
 
       {/* Full-width Map in the background */}
-      <div className="w-full h-[320px] sm:h-[420px] lg:h-[480px] relative z-0 mt-0">
+      <div className="w-full h-[260px] min-[420px]:h-[320px] sm:h-[400px] lg:h-[480px] relative z-0 mt-0">
         <iframe
           src="https://maps.google.com/maps?q=Kota,%20Rajasthan,%20India&t=&z=13&ie=UTF8&iwloc=&output=embed"
           className="w-full h-full border-0 grayscale-[15%] contrast-[105%]"
