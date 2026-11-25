@@ -81,26 +81,31 @@ export default function Connect() {
         }
 
         .connect-page .connect-banner-content {
-          padding: 15px;
-          opacity: 0;
-          pointer-events: none;
+          padding: 20px;
+          text-align: center;
+          position: relative;
+          z-index: 2;
         }
 
         .connect-page .connect-banner h1 {
-          color: #fff;
-          font-size: 48px;
+          color: #ffffff;
+          font-size: 52px;
           line-height: 1.2;
-          font-weight: 600;
-          margin: 0 0 8px;
-          animation: connectHeading 1s ease-out both;
+          font-weight: 700;
+          margin: 0 0 10px;
+          text-shadow: 0 2px 14px rgba(0, 0, 0, 0.45);
+          letter-spacing: -0.5px;
+          animation: connectHeading 0.8s ease-out both;
         }
 
         .connect-page .connect-banner p {
-          color: #fff;
-          font-size: 18px;
+          color: #ffffff;
+          font-size: 19px;
           line-height: 1.4;
-          font-weight: 400;
+          font-weight: 500;
           margin: 0;
+          text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+          opacity: 0.95;
         }
 
         @keyframes connectHeading {
