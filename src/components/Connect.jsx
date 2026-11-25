@@ -68,13 +68,8 @@ export default function Connect() {
 
         .connect-page .connect-banner {
           width: 100%;
-          height: 300px;
-          background-image:
-            linear-gradient(
-              rgba(0, 12, 48, 0.55),
-              rgba(0, 12, 48, 0.55)
-            ),
-            url('/contact-banner.png');
+          height: 280px;
+          background-image: url('/contact-banner.png');
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
@@ -87,6 +82,8 @@ export default function Connect() {
 
         .connect-page .connect-banner-content {
           padding: 15px;
+          opacity: 0;
+          pointer-events: none;
         }
 
         .connect-page .connect-banner h1 {
