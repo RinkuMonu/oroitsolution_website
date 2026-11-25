@@ -554,9 +554,9 @@ export default function Connect() {
                             <h3>Registered Office</h3>
                             <p>
                                 ORO IT SOLUTION PVT. LTD.<br />
-                                PLOT NO 202, PARWATI PURAM VISTAR<br />
-                                RANGTALAB ARJUNPURA KALATALAB<br />
-                                KOTA, RAJASTHAN – 324002<br />
+                                Plot No 97, Dakshinpuri - I Shrikishan,<br />
+                                Sanganer, Jagatpura, Jaipur,<br />
+                                Shri Kishanpura, Rajasthan 302017<br />
                                 India
                             </p>
                         </div>
