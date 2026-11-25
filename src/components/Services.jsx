@@ -1,117 +1,138 @@
 import React from 'react';
-import { 
-  Cloud, 
-  Code2, 
-  Cpu, 
-  ShieldCheck, 
-  Layers, 
-  Headphones, 
-  ArrowUpRight 
+import {
+  Code2,
+  Smartphone,
+  Paintbrush,
+  Network,
+  Cloud,
+  ShoppingCart
 } from 'lucide-react';
 
-export default function Services({ onSelectService }) {
+export default function Services() {
+
   const services = [
     {
-      icon: Cloud,
-      title: "Cloud & DevOps Architecture",
-      description: "Automated CI/CD pipelines, multi-cloud Kubernetes clusters, and microservices design optimized for speed, reliability, and cost-efficiency.",
-      tags: ["AWS", "Azure", "Docker", "Kubernetes"]
-    },
-    {
-      icon: Layers,
-      title: "Custom SaaS Development",
-      description: "End-to-end multi-tenant SaaS engineering with secure billing, role-based access controls, and modular scalable architectures.",
-      tags: ["React", "Node.js", "PostgreSQL", "Next.js"]
-    },
-    {
-      icon: Cpu,
-      title: "AI & Workflow Automation",
-      description: "Integrating intelligent LLM agents, automated data pipelines, and custom AI tools that slash manual processing time by up to 80%.",
-      tags: ["Python", "OpenAI", "LangChain", "RPA"]
-    },
-    {
-      icon: ShieldCheck,
-      title: "Enterprise Cybersecurity",
-      description: "Zero-trust network security, automated vulnerability audits, penetration testing, and regulatory compliance (GDPR, HIPAA, SOC 2).",
-      tags: ["Zero-Trust", "Pen Testing", "SOC 2", "Data Encryption"]
-    },
-    {
       icon: Code2,
-      title: "Enterprise Software Engineering",
-      description: "Custom ERPs, CRM platforms, and legacy system modernization tailored to eliminate operational friction and boost productivity.",
-      tags: ["Architecture", "APIs", "Microservices", "Scalability"]
+      title: "Web Application Development",
+      description: "Robust, scalable, and secure web applications built using modern frameworks to deliver seamless user experiences and high performance."
     },
     {
-      icon: Headphones,
-      title: "24/7 Managed IT & Support",
-      description: "Continuous infrastructure monitoring, instant incident response, and proactive maintenance to guarantee 99.99% system availability.",
-      tags: ["24/7 Monitoring", "SLA Guarantee", "Incident Management"]
+      icon: Smartphone,
+      title: "Mobile App Development",
+      description: "Cross-platform mobile applications developed using Flutter and React Native for fast performance, native UI, and reduced time-to-market."
+    },
+    {
+      icon: Paintbrush,
+      title: "UI / UX Design",
+      description: "Intuitive, user-centric designs focused on usability, accessibility, and engaging experiences across web and mobile platforms."
+    },
+    {
+      icon: Network,
+      title: "API & Backend Development",
+      description: "Secure and scalable REST & GraphQL APIs with powerful backend architectures to support modern applications and integrations."
+    },
+    {
+      icon: Cloud,
+      title: "Cloud & DevOps Solutions",
+      description: "Cloud-native deployments, CI/CD pipelines, and infrastructure optimization for reliable, scalable, and cost-effective systems."
+    },
+    {
+      icon: ShoppingCart,
+      title: "E-commerce Solutions",
+      description: "Custom e-commerce platforms with secure payments, product management, order tracking, and seamless customer experience."
     }
   ];
 
   return (
-    <section id="services" className="py-24 bg-gradient-to-b from-[#114ebd] to-[#0d3ea0] text-white relative">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
-        
+    <section
+      id="services"
+      className="py-20 sm:py-24 bg-white text-black"
+    >
+
+      <div className="max-w-[1250px] mx-auto px-5 sm:px-8 lg:px-10">
+
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-xs uppercase font-bold tracking-widest text-blue-200 bg-blue-500/30 px-3.5 py-1.5 rounded-full border border-blue-300/30">
-            Our Core Expertise
+        <div className="text-center max-w-2xl mx-auto mb-14">
+
+          <span className="inline-block text-sm font-semibold text-blue-600 px-7 py-2 rounded-full border border-blue-600">
+            Services
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mt-4 tracking-tight">
-            High-Performance IT Services For Growing Enterprises
+
+          <h2 className="text-4xl sm:text-4xl font-bold mt-5 text-black leading-tight">
+            Our Software Development Services
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-blue-100/90 leading-relaxed">
-            From modern cloud architectures to bespoke enterprise SaaS platforms, we build digital solutions that propel modern companies forward.
+
+          <p className="mt-4 text-base text-gray-600 leading-relaxed">
+            We build scalable, secure, and high-performance web and mobile
+            applications using modern technologies to help businesses innovate,
+            grow, and succeed in the digital world.
           </p>
+
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7">
+
           {services.map((svc, index) => {
+
             const Icon = svc.icon;
+
             return (
-              <div 
+
+              <div
                 key={index}
-                className="bg-[#0a358c]/80 hover:bg-[#0c3e9e] border border-blue-400/25 hover:border-blue-300/50 rounded-2xl p-8 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl group flex flex-col justify-between"
+                className="group bg-white border border-gray-200 rounded-xl p-8
+                min-h-[300px]
+                flex flex-col
+                transition-all duration-300 ease-in-out
+                hover:-translate-y-2
+                hover:border-blue-500
+                hover:shadow-xl
+                cursor-pointer"
               >
-                <div>
-                  <div className="w-14 h-14 rounded-xl bg-blue-600/40 border border-blue-400/30 flex items-center justify-center text-white mb-6 group-hover:scale-110 group-hover:bg-blue-500 transition-all duration-300">
-                    <Icon className="w-7 h-7 text-blue-200 group-hover:text-white" />
-                  </div>
-                  
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-100 transition-colors">
-                    {svc.title}
-                  </h3>
-                  
-                  <p className="text-blue-100/80 text-sm leading-relaxed mb-6">
-                    {svc.description}
-                  </p>
+
+                {/* Service Icon */}
+                <div
+                  className="w-[72px] h-[72px] rounded-full
+                  flex items-center justify-center mb-6
+                  bg-white border-[1.5px] border-blue-600
+                  text-blue-600
+                  transition-all duration-300 ease-in-out
+                  group-hover:bg-blue-600
+                  group-hover:text-white
+                  group-hover:scale-105"
+                >
+
+                  <Icon
+                    className="w-8 h-8 transition-all duration-300"
+                    strokeWidth={1.9}
+                  />
+
                 </div>
 
-                <div>
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {svc.tags.map((tag, tIdx) => (
-                      <span key={tIdx} className="text-xs font-medium bg-blue-900/60 text-blue-200 px-2.5 py-1 rounded-md border border-blue-500/20">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
+                {/* Service Title */}
+                <h3 className="text-lg font-semibold text-black mb-4
+                  transition-colors duration-300
+                  group-hover:text-blue-600"
+                >
+                  {svc.title}
+                </h3>
 
-                  <button
-                    onClick={() => onSelectService(svc.title)}
-                    className="flex items-center text-sm font-semibold text-white/90 group-hover:text-white group-hover:translate-x-1 transition-all cursor-pointer"
-                  >
-                    Request Consultation
-                    <ArrowUpRight className="w-4 h-4 ml-1.5 opacity-70 group-hover:opacity-100" />
-                  </button>
-                </div>
+                {/* Service Description */}
+                <p className="text-[15px] text-gray-600 leading-relaxed">
+                  {svc.description}
+                </p>
+
               </div>
+
             );
+
           })}
+
         </div>
 
       </div>
+
     </section>
   );
 }

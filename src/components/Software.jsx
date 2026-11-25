@@ -29,7 +29,7 @@ export default function Software({ onExplore }) {
   return (
     <section id="software" className="py-24 bg-[#0a358c] text-white relative border-t border-blue-400/20">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
-        
+
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
           <div className="max-w-2xl">
             <span className="text-xs uppercase font-bold tracking-widest text-blue-200 bg-blue-500/30 px-3.5 py-1.5 rounded-full border border-blue-300/30">
@@ -54,7 +54,7 @@ export default function Software({ onExplore }) {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {softwareSuite.map((item, idx) => (
-            <div 
+            <div
               key={idx}
               className="bg-[#0e44ab]/70 border border-blue-400/30 rounded-2xl p-8 hover:bg-[#114ebd] transition-all duration-300 hover:shadow-xl flex flex-col justify-between"
             >

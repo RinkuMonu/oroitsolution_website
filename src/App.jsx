@@ -8,6 +8,9 @@ import Partners from './components/Partners';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import AuthModals from './components/AuthModals';
+import OurStory from './components/OurStory';
+import Blog from './components/Blog';
+import Empowering from './components/Empowering';
 
 export default function App() {
   const [modalState, setModalState] = useState({
@@ -66,31 +69,43 @@ export default function App() {
   };
 
   return (
+
+
+
     <div className="min-h-screen bg-[#155cd5] text-white flex flex-col font-sans selection:bg-white selection:text-[#155cd5]">
       {/* Top Navbar */}
-      <Navbar 
+      <Navbar
         onOpenLogin={handleOpenLogin}
         onOpenRegister={handleOpenRegister}
       />
 
       {/* Main Hero Section matching exact screenshot */}
       <main className="flex-grow">
-        <Hero 
+        <Hero
           onGetStarted={() => handleGetStarted('Smart SaaS Solutions')}
         />
 
+        {/* Our Story Section */}
+        <OurStory />
+
         {/* Services Section */}
-        <Services 
+        <Services
           onSelectService={(service) => handleGetStarted(service)}
         />
 
+        {/* Empowering Section */}
+        <Empowering />
+
         {/* Software Section */}
-        <Software 
+        <Software
           onExplore={(software) => handleGetStarted(software)}
         />
 
+        {/* Blog Section */}
+        <Blog />
+
         {/* Product Section */}
-        <Product 
+        <Product
           onGetStarted={() => handleGetStarted('Enterprise Cloud OS')}
         />
 
@@ -113,5 +128,5 @@ export default function App() {
         onSwitchMode={handleSwitchMode}
       />
     </div>
-  );
-}
+  )
+};
