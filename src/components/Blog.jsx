@@ -24,54 +24,54 @@ export default function Blog() {
   ];
 
   return (
-    <section className="bg-white py-10 sm:py-14 lg:py-16">
+    <section className="bg-white py-12 sm:py-16 lg:py-20">
 
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mt-4 mb-4">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mt-2 mb-2">
 
         {/* Section Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-9 sm:mb-12 lg:mb-14">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-12 lg:mb-14">
 
           <span className="inline-block text-xs sm:text-sm font-semibold text-blue-600 px-5 sm:px-7 py-2 rounded-full border-2 border-blue-600">
             Latest Insights
           </span>
 
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mt-4 sm:mt-5">
+          <h2 className="text-2xl min-[480px]:text-3xl sm:text-4xl font-bold text-gray-900 mt-4 sm:mt-5 tracking-tight">
             Tech News & Updates
           </h2>
 
-          <p className="text-sm sm:text-base text-gray-600 mt-3 sm:mt-4 leading-relaxed">
+          <p className="text-xs min-[400px]:text-sm sm:text-base text-gray-600 mt-2 sm:mt-3 leading-relaxed">
             Stay updated with the latest trends, innovations, and insights shaping
-            the future of financial technology across the globe.
+            the future of technology across the globe.
           </p>
 
         </div>
 
         {/* Blog Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-6 lg:gap-7">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-6 lg:gap-8">
 
           {insights.map((item, index) => (
 
-            <div key={index} className="flex flex-col min-w-0">
+            <div key={index} className="flex flex-col min-w-0 group">
 
               {/* Image */}
-              <div className="relative overflow-hidden rounded-md aspect-[1.4/1]">
+              <div className="relative overflow-hidden rounded-xl aspect-[16/10] shadow-sm">
 
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-500 ease-in-out hover:scale-[1.03]"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
                 />
 
                 {/* Author Badge */}
-                <div className="absolute bottom-3 right-3 sm:bottom-5 sm:right-5 flex items-center gap-2 bg-blue-600 text-white rounded-full pl-2 pr-3 sm:pr-4 py-1.5 sm:py-2 shadow-md">
+                <div className="absolute bottom-2.5 right-2.5 sm:bottom-4 sm:right-4 flex items-center gap-1.5 sm:gap-2 bg-blue-600 text-white rounded-full pl-2 pr-3 sm:pr-4 py-1 sm:py-1.5 shadow-md">
 
                   <img
                     src="https://oroitsolution.info/front/images/blog/b6.jpg"
                     alt="Author"
-                    className="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-cover border border-white"
+                    className="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover border border-white"
                   />
 
-                  <span className="text-[9px] sm:text-[11px] font-semibold whitespace-nowrap">
+                  <span className="text-[9px] sm:text-[10px] font-semibold whitespace-nowrap">
                     {item.author}
                   </span>
 
@@ -80,13 +80,13 @@ export default function Blog() {
               </div>
 
               {/* Content */}
-              <div className="pt-5 sm:pt-6 lg:pt-7">
+              <div className="pt-4 sm:pt-5">
 
-                <h3 className="text-4xl sm:text-xl lg:text-[22px] font-semibold text-gray-900 leading-snug mb-3 sm:mb-4">
+                <h3 className="text-base min-[480px]:text-lg sm:text-xl lg:text-[21px] font-bold text-gray-900 leading-snug mb-2 sm:mb-3 group-hover:text-blue-600 transition-colors">
                   {item.title}
                 </h3>
 
-                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed line-clamp-3">
                   {item.description}
                 </p>
 

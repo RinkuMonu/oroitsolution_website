@@ -52,29 +52,29 @@ export default function Services({ onSelectService }) {
   return (
     <section
       id="services"
-      className="py-20 sm:py-24 bg-white text-black"
+      className="py-14 sm:py-20 lg:py-24 bg-white text-black"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
 
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-14">
 
-          <span className="inline-block text-sm font-semibold text-blue-600 px-8 py-2.5 rounded-full border-2 border-blue-600">
+          <span className="inline-block text-xs sm:text-sm font-semibold text-blue-600 px-6 sm:px-8 py-2 sm:py-2.5 rounded-full border-2 border-blue-600">
             Our Core Expertise
           </span>
 
-          <h2 className="text-3xl sm:text-4xl font-bold mt-6 tracking-tight text-black leading-tight">
+          <h2 className="text-2xl min-[480px]:text-3xl sm:text-4xl font-bold mt-4 sm:mt-6 tracking-tight text-black leading-tight">
             High-Performance IT Services For Growing Enterprises
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-gray-600 leading-relaxed">
+          <p className="mt-3 sm:mt-4 text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed">
             From modern cloud architectures to bespoke enterprise SaaS platforms, we build digital solutions that propel modern companies forward.
           </p>
 
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
 
           {services.map((svc, index) => {
             const Icon = svc.icon;
@@ -82,28 +82,28 @@ export default function Services({ onSelectService }) {
             return (
               <div
                 key={index}
-                className="group bg-white border border-gray-200 rounded-2xl p-8 shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 ease-in-out flex flex-col justify-between"
+                className="group bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 ease-in-out flex flex-col justify-between"
               >
 
                 <div>
 
                   {/* Service Icon */}
                   <div
-                    className="w-20 h-20 rounded-full flex items-center justify-center mb-8 bg-white border-[3px] border-blue-600 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-500 ease-in-out"
+                    className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center mb-6 sm:mb-8 bg-white border-[3px] border-blue-600 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 ease-in-out shrink-0"
                   >
                     <Icon
-                      className="w-9 h-9 transition-colors duration-500"
+                      className="w-7 h-7 sm:w-9 sm:h-9 transition-colors duration-300"
                       strokeWidth={1.8}
                     />
                   </div>
 
                   {/* Service Title */}
-                  <h3 className="text-xl font-semibold text-black mb-4">
+                  <h3 className="text-lg sm:text-xl font-bold text-black mb-3">
                     {svc.title}
                   </h3>
 
                   {/* Description */}
-                  <p className="text-base text-gray-600 leading-relaxed mb-6">
+                  <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-5 sm:mb-6">
                     {svc.description}
                   </p>
 
@@ -111,29 +111,25 @@ export default function Services({ onSelectService }) {
 
                 <div>
 
-                  
-                 {/* Technology Tags */}
-     <div className="flex flex-wrap gap-2 mb-6">
-
-             {svc.tags.map((tag, tIdx) => (
-               <span
-                 key={tIdx}
-                 className="text-xs font-medium text-gray-700 px-3 py-1.5 rounded-full border border-gray-200 bg-white"
-               >
-                 {tag}
-               </span>
-             ))}
-
-             </div>
+                  {/* Technology Tags */}
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-5 sm:mb-6">
+                    {svc.tags.map((tag, tIdx) => (
+                      <span
+                        key={tIdx}
+                        className="text-[11px] sm:text-xs font-medium text-gray-700 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-gray-200 bg-gray-50/50"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
 
                   {/* Consultation Button */}
                   <button
                     onClick={() => onSelectService(svc.title)}
-                    className="flex items-center text-sm font-semibold text-black hover:text-gray-600 transition-all duration-300 cursor-pointer"
+                    className="flex items-center text-xs sm:text-sm font-semibold text-black hover:text-blue-600 transition-colors cursor-pointer group-hover:text-blue-600"
                   >
-                    Request Consultation
-
-                    <ArrowUpRight className="w-4 h-4 ml-2" />
+                    <span>Request Consultation</span>
+                    <ArrowUpRight className="w-4 h-4 ml-1.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </button>
 
                 </div>
