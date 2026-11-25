@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import OurStory from './components/OurStory';
@@ -9,9 +11,26 @@ import Blog from './components/Blog';
 import Product from './components/Product';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
+import Connect from './components/Connect';
 import Footer from './components/Footer';
 import AuthModals from './components/AuthModals';
 
+// Home Page
+function Home() {
+  return (
+    <>
+      <Hero />
+      <OurStory />
+      <Services />
+      <Empowering />
+      <Blog />
+      <Partners />
+      <Contact />
+    </>
+  );
+}
+
+// Main App
 export default function App() {
   const [modalState, setModalState] = useState({
     isOpen: false,
@@ -33,13 +52,24 @@ export default function App() {
   };
 
   const handleCloseModal = () => {
-    setModalState((prev) => ({ ...prev, isOpen: false }));
-    if (window.location.hash === '#register' || window.location.hash === '#login') {
-      history.pushState(null, '', window.location.pathname + window.location.search);
+    setModalState((prev) => ({
+      ...prev,
+      isOpen: false
+    }));
+
+    if (
+      window.location.hash === '#register' ||
+      window.location.hash === '#login'
+    ) {
+      history.pushState(
+        null,
+        '',
+        window.location.pathname + window.location.search
+      );
     }
   };
 
-  // Support direct URL hash navigation like #register or #login
+  // Login/Register Hash Support
   useEffect(() => {
     const checkHash = () => {
       if (window.location.hash === '#register') {
@@ -48,62 +78,60 @@ export default function App() {
         setModalState({ isOpen: true, mode: 'login' });
       }
     };
+
     checkHash();
+
     window.addEventListener('hashchange', checkHash);
-    return () => window.removeEventListener('hashchange', checkHash);
+
+    return () => {
+      window.removeEventListener('hashchange', checkHash);
+    };
   }, []);
 
   const handleSwitchMode = (newMode) => {
-    setModalState((prev) => ({ ...prev, mode: newMode }));
+    setModalState((prev) => ({
+      ...prev,
+      mode: newMode
+    }));
   };
 
   return (
-    <div className="min-h-screen bg-[#155cd5] text-white flex flex-col font-sans selection:bg-white selection:text-[#155cd5] overflow-x-hidden w-full max-w-full relative">
-      {/* Top Navbar */}
-      <Navbar
-        onOpenLogin={handleOpenLogin}
-        onOpenRegister={handleOpenRegister}
-      />
+    <BrowserRouter>
+      <div className="min-h-screen bg-[#155cd5] text-white flex flex-col font-sans selection:bg-white selection:text-[#155cd5] overflow-x-hidden w-full max-w-full relative">
+        {/* Navbar */}
+        <Navbar
+          onOpenLogin={handleOpenLogin}
+          onOpenRegister={handleOpenRegister}
+        />
 
-      {/* Main Hero Section matching exact screenshot */}
-      <main className="flex-grow">
-        <Hero />
+        {/* Page Routes */}
+        <main className="flex-grow">
+          <Routes>
+            {/* Home Page */}
+            <Route path="/" element={<Home />} />
 
-        {/* Our Story Section */}
-        <OurStory />
+            {/* Software Page */}
+            <Route path="/software" element={<Software />} />
 
-        {/* Services Section */}
-        <Services />
+            {/* Product Page */}
+            <Route path="/product" element={<Product />} />
 
-        {/* Empowering Banner Section */}
-        <Empowering />
+            {/* Connect Page - Navbar Contact */}
+            <Route path="/contact" element={<Connect />} />
+          </Routes>
+        </main>
 
-        {/* Software Section */}
-        <Software />
+        {/* Footer */}
+        <Footer />
 
-        {/* Blog Insights Section */}
-        <Blog />
-
-        {/* Product Section */}
-        <Product />
-
-        {/* Trusted Partners Section */}
-        <Partners />
-
-        {/* Contact Section */}
-        <Contact />
-      </main>
-
-      {/* Footer */}
-      <Footer />
-
-      {/* Interactive Auth Modals */}
-      <AuthModals
-        isOpen={modalState.isOpen}
-        mode={modalState.mode}
-        onClose={handleCloseModal}
-        onSwitchMode={handleSwitchMode}
-      />
-    </div>
-  )
-};
+        {/* Login/Register Modals */}
+        <AuthModals
+          isOpen={modalState.isOpen}
+          mode={modalState.mode}
+          onClose={handleCloseModal}
+          onSwitchMode={handleSwitchMode}
+        />
+      </div>
+    </BrowserRouter>
+  );
+}
