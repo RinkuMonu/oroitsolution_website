@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, ArrowRight, ShieldCheck, Sparkles, Cloud, CheckCircle2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
-export default function Hero({ onGetStarted }) {
+export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
@@ -152,6 +152,7 @@ export default function Hero({ onGetStarted }) {
 
                 {/* Left navigation chevron button */}
                 <button
+                  type="button"
                   onClick={handlePrev}
                   className="absolute left-2 sm:left-2.5 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 z-20 cursor-pointer"
                   title="Previous slide"
@@ -162,6 +163,7 @@ export default function Hero({ onGetStarted }) {
 
                 {/* Right navigation chevron button */}
                 <button
+                  type="button"
                   onClick={handleNext}
                   className="absolute right-2 sm:right-2.5 top-1/2 -translate-y-1/2 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 z-20 cursor-pointer"
                   title="Next slide"
@@ -175,6 +177,7 @@ export default function Hero({ onGetStarted }) {
                   {slides.map((s, idx) => (
                     <button
                       key={s.id}
+                      type="button"
                       onClick={() => setCurrentSlide(idx)}
                       className={`h-1.5 rounded-full transition-all duration-300 ${
                         currentSlide === idx ? 'w-5 sm:w-6 bg-white' : 'w-2 bg-white/40 hover:bg-white/70'

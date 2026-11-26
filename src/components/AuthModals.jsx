@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   X, 
   User, 
@@ -24,6 +25,9 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
   const [rememberMe, setRememberMe] = useState(false);
   const [agreed, setAgreed] = useState(false);
   const [errorTerms, setErrorTerms] = useState(false);
+  const [error, setError] = useState('');
+  const [infoMessage, setInfoMessage] = useState('');
+  const submitTimerRef = useRef(null);
 
   // Form fields
   const [formData, setFormData] = useState({
@@ -38,9 +42,55 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
     confirmPassword: ''
   });
 
+  const resetTransientState = () => {
+    if (submitTimerRef.current) {
+      clearTimeout(submitTimerRef.current);
+      submitTimerRef.current = null;
+    }
+    setSubmitted(false);
+    setError('');
+    setErrorTerms(false);
+    setInfoMessage('');
+  };
+
+  const handleClose = () => {
+    resetTransientState();
+    onClose();
+  };
+
+  const handleModeSwitch = (nextMode) => {
+    resetTransientState();
+    onSwitchMode(nextMode);
+  };
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        resetTransientState();
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+      if (submitTimerRef.current) {
+        clearTimeout(submitTimerRef.current);
+        submitTimerRef.current = null;
+      }
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const handleChange = (e) => {
+    setError('');
+    setInfoMessage('');
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -58,20 +108,49 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (mode === 'register' && !agreed) {
-      setErrorTerms(true);
+    setInfoMessage('');
+
+    if (!formData.email.trim() || !formData.password) {
+      setError('Please enter your email and password.');
       return;
     }
+
+    if (mode === 'register') {
+      if (!formData.fullName.trim() || !formData.phone.trim()) {
+        setError('Please enter your full name and mobile number.');
+        return;
+      }
+      if (formData.password.length < 6) {
+        setError('Password must be at least 6 characters long.');
+        return;
+      }
+      if (formData.password !== formData.confirmPassword) {
+        setError('Passwords do not match.');
+        return;
+      }
+      if (!agreed) {
+        setErrorTerms(true);
+        return;
+      }
+    }
+
+    setError('');
     setErrorTerms(false);
     setSubmitted(true);
-    setTimeout(() => {
+    submitTimerRef.current = setTimeout(() => {
+      submitTimerRef.current = null;
       setSubmitted(false);
       onClose();
     }, 2500);
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 md:p-6 bg-black/75 backdrop-blur-md overflow-y-auto no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden animate-fade-in py-3 sm:py-6">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 md:p-6 bg-black/75 backdrop-blur-md overflow-y-auto no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden animate-fade-in py-3 sm:py-6"
+      onClick={handleClose}
+      role="dialog"
+      aria-modal="true"
+    >
       
       {/* Modal Main Box */}
       <div 
@@ -80,7 +159,8 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
       >
         {/* Floating Close Button */}
         <button
-          onClick={onClose}
+          type="button"
+          onClick={handleClose}
           className="absolute top-2.5 right-2.5 sm:top-4 sm:right-4 z-40 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 flex items-center justify-center transition cursor-pointer shadow-sm border border-gray-200/50 active:scale-95 touch-manipulation"
           aria-label="Close"
         >
@@ -185,6 +265,16 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4 max-w-md mx-auto w-full">
+                {error && (
+                  <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-xl px-3 py-2 font-medium">
+                    {error}
+                  </p>
+                )}
+                {infoMessage && (
+                  <p className="text-xs text-blue-700 bg-blue-50 border border-blue-200 rounded-xl px-3 py-2 font-medium">
+                    {infoMessage}
+                  </p>
+                )}
                 
                 {/* Email Address */}
                 <div>
@@ -211,16 +301,20 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
                     <label className="text-xs font-semibold text-gray-700">
                       Password <span className="text-red-500">*</span>
                     </label>
-                    <a
-                      href="#forgot"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        alert('Password reset link sent to your registered email address.');
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setError('');
+                        setInfoMessage(
+                          formData.email.trim()
+                            ? `Password reset instructions sent to ${formData.email.trim()}.`
+                            : 'Enter your email address above to receive password reset instructions.'
+                        );
                       }}
-                      className="text-xs text-[#3b52d4] hover:underline font-medium"
+                      className="text-xs text-[#3b52d4] hover:underline font-medium cursor-pointer"
                     >
                       Forgot Password?
-                    </a>
+                    </button>
                   </div>
                   <div className="relative">
                     <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-3" />
@@ -236,6 +330,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
                       className="absolute right-3.5 top-2.5 text-gray-400 hover:text-gray-600 cursor-pointer p-1"
                     >
                       {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -281,7 +376,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
                   {/* Google */}
                   <button
                     type="button"
-                    onClick={() => alert('Signing in with Google...')}
+                    onClick={() => setInfoMessage('Google sign-in is coming soon. Please use email and password.')}
                     className="flex items-center justify-center py-2 px-1.5 sm:px-2.5 border border-gray-200 rounded-xl hover:bg-gray-50 transition cursor-pointer text-[11px] sm:text-xs font-semibold text-gray-700 shadow-sm"
                   >
                     <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5 shrink-0" viewBox="0 0 24 24">
@@ -296,7 +391,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
                   {/* Facebook */}
                   <button
                     type="button"
-                    onClick={() => alert('Signing in with Facebook...')}
+                    onClick={() => setInfoMessage('Facebook sign-in is coming soon. Please use email and password.')}
                     className="flex items-center justify-center py-2 px-1.5 sm:px-2.5 border border-gray-200 rounded-xl hover:bg-gray-50 transition cursor-pointer text-[11px] sm:text-xs font-semibold text-gray-700 shadow-sm"
                   >
                     <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5 text-[#1877F2] shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -308,7 +403,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
                   {/* Twitter */}
                   <button
                     type="button"
-                    onClick={() => alert('Signing in with Twitter...')}
+                    onClick={() => setInfoMessage('Twitter sign-in is coming soon. Please use email and password.')}
                     className="flex items-center justify-center py-2 px-1.5 sm:px-2.5 border border-gray-200 rounded-xl hover:bg-gray-50 transition cursor-pointer text-[11px] sm:text-xs font-semibold text-gray-700 shadow-sm"
                   >
                     <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1 sm:mr-1.5 text-[#1DA1F2] shrink-0" fill="currentColor" viewBox="0 0 24 24">
@@ -324,7 +419,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
                     Don't have an account?{' '}
                     <button
                       type="button"
-                      onClick={() => onSwitchMode('register')}
+                      onClick={() => handleModeSwitch('register')}
                       className="text-[#3b52d4] font-bold hover:underline cursor-pointer"
                     >
                       Create Account
@@ -333,7 +428,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
                   <div>
                     <button
                       type="button"
-                      onClick={onClose}
+                      onClick={handleClose}
                       className="inline-flex items-center text-xs text-gray-400 hover:text-gray-700 transition cursor-pointer"
                     >
                       <ArrowLeft className="w-3.5 h-3.5 mr-1" />
@@ -431,6 +526,11 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-3.5">
+                {error && (
+                  <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-xl px-3 py-2 font-medium">
+                    {error}
+                  </p>
+                )}
                 
                 {/* Account Type Selector */}
                 <div>
@@ -625,6 +725,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
+                        aria-label={showPassword ? 'Hide password' : 'Show password'}
                         className="absolute right-2.5 top-2 text-gray-400 hover:text-gray-600 cursor-pointer p-1"
                       >
                         {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
@@ -650,6 +751,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
                         className="absolute right-2.5 top-2 text-gray-400 hover:text-gray-600 cursor-pointer p-1"
                       >
                         {showConfirmPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
@@ -684,7 +786,22 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
                       className="mt-0.5 w-4 h-4 rounded border-gray-300 text-[#3b52d4] focus:ring-[#3b52d4] cursor-pointer shrink-0"
                     />
                     <span className="leading-tight text-[11px] sm:text-xs">
-                      I agree to the <span className="text-[#3b52d4] hover:underline font-medium">Terms & Conditions</span> and <span className="text-[#3b52d4] hover:underline font-medium">Privacy Policy</span>
+                      I agree to the{' '}
+                      <Link
+                        to="/terms-and-conditions"
+                        onClick={handleClose}
+                        className="text-[#3b52d4] hover:underline font-medium"
+                      >
+                        Terms &amp; Conditions
+                      </Link>{' '}
+                      and{' '}
+                      <Link
+                        to="/privacy-policy"
+                        onClick={handleClose}
+                        className="text-[#3b52d4] hover:underline font-medium"
+                      >
+                        Privacy Policy
+                      </Link>
                     </span>
                   </label>
                   {errorTerms && (
@@ -710,7 +827,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
                     Already have an account?{' '}
                     <button
                       type="button"
-                      onClick={() => onSwitchMode('login')}
+                      onClick={() => handleModeSwitch('login')}
                       className="text-[#3b52d4] font-bold hover:underline cursor-pointer"
                     >
                       Sign In
@@ -719,7 +836,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
                   <div>
                     <button
                       type="button"
-                      onClick={onClose}
+                      onClick={handleClose}
                       className="inline-flex items-center text-xs text-gray-400 hover:text-gray-700 transition cursor-pointer"
                     >
                       <ArrowLeft className="w-3.5 h-3.5 mr-1" />

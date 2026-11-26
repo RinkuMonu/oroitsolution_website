@@ -18,7 +18,7 @@ const termsSections = [
       'Do not use the platform for unlawful or fraudulent activities',
       'Do not attempt to gain unauthorized access to systems or data',
       'Do not misuse APIs, services, or platform features',
-      'Comply with applicable laws and regulation',
+      'Comply with applicable laws and regulations',
     ],
   },
   {
@@ -84,7 +84,7 @@ export default function TermsConditions() {
             {section.title}
           </h2>
           {section.items ? (
-            <ul className="space-y-1 text-[13px] sm:text-sm text-gray-600 leading-relaxed">
+            <ul className="list-disc pl-5 sm:pl-6 space-y-1 text-[13px] sm:text-sm text-gray-600 leading-relaxed">
               {section.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}

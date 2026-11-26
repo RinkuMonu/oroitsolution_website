@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   Users,
   BriefcaseBusiness,
@@ -58,6 +58,16 @@ const softwareProducts = [
 ];
 
 export default function Software({ onExplore }) {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    if (onExplore) {
+      onExplore('Smart SaaS Solutions');
+      return;
+    }
+    navigate('/contact', { state: { subject: 'Smart SaaS Solutions' } });
+  };
+
   return (
     <div className="w-full bg-white">
 
@@ -80,8 +90,9 @@ export default function Software({ onExplore }) {
               </p>
 
               <button
-                onClick={() => onExplore?.('Smart SaaS Solutions')}
-                className="mt-6 inline-flex items-center gap-3 bg-white text-black font-bold text-lg px-8 py-4 rounded-md hover:bg-orange-500 hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-lg"
+                type="button"
+                onClick={handleGetStarted}
+                className="mt-6 inline-flex items-center gap-3 bg-white text-black font-bold text-lg px-8 py-4 rounded-md hover:bg-orange-500 hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-lg cursor-pointer"
               >
                 GET STARTED
                 <ArrowRight size={21} />
@@ -127,7 +138,7 @@ export default function Software({ onExplore }) {
               return (
                 <div
                   key={index}
-                  className="group bg-white border border-gray-100 rounded-2xl p-6 sm:p-7 min-h-[220px] shadow-[0_8px_30px_rgba(0,0,0,0.07)] hover:shadow-[0_15px_40px_rgba(21,92,213,0.18)] hover:border-blue-500 hover:-translate-y-2 transition-all duration-300 cursor-pointer"
+                  className="group bg-white border border-gray-100 rounded-2xl p-6 sm:p-7 min-h-[220px] shadow-[0_8px_30px_rgba(0,0,0,0.07)] hover:shadow-[0_15px_40px_rgba(21,92,213,0.18)] hover:border-blue-500 hover:-translate-y-2 transition-all duration-300"
                 >
 
                   {/* Icon */}

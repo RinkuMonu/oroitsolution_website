@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Check, X } from 'lucide-react';
 
 const plans = [
@@ -92,6 +93,19 @@ const faqs = [
 
 export default function Product({ onGetStarted }) {
   const [yearly, setYearly] = useState(false);
+  const navigate = useNavigate();
+
+  const handlePlanSelect = (planTitle) => {
+    if (onGetStarted) {
+      onGetStarted(planTitle);
+      return;
+    }
+    navigate('/contact', {
+      state: {
+        subject: `Plan Inquiry: ${planTitle} (${yearly ? 'Yearly' : 'Monthly'})`,
+      },
+    });
+  };
 
   const formatPrice = (price) => {
     const amount = yearly ? Math.round(price * 0.8) : price;
@@ -238,7 +252,7 @@ export default function Product({ onGetStarted }) {
 
                 <button
                   type="button"
-                  onClick={() => onGetStarted?.(plan.title)}
+                  onClick={() => handlePlanSelect(plan.title)}
                   className={`w-full min-h-[44px] mt-6 sm:mt-7 py-3 rounded-lg text-sm font-bold transition-all duration-300 sm:hover:scale-[1.02] active:scale-[0.99] cursor-pointer touch-manipulation ${plan.popular
                       ? 'bg-white text-blue-700 hover:bg-orange-400 hover:text-white shadow-lg'
                       : 'border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white'

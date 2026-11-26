@@ -2,27 +2,62 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
+function LocationIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
+}
+
+function EmailIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2" />
+      <path d="m22 6-10 7L2 6" />
+    </svg>
+  );
+}
+
+function PhoneIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z" />
+    </svg>
+  );
+}
+
 export default function Connect() {
   const location = useLocation();
   const prefilledEmail = location.state?.email || "";
-  const [prevPrefilledEmail, setPrevPrefilledEmail] = useState(prefilledEmail);
+  const prefilledSubject = location.state?.subject || "";
+  const prefillKey = `${prefilledEmail}|${prefilledSubject}`;
+  const [prevPrefillKey, setPrevPrefillKey] = useState(prefillKey);
+  const [error, setError] = useState("");
+  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: prefilledEmail,
     phone: "",
-    subject: "",
+    subject: prefilledSubject,
     message: "",
   });
 
-  if (prefilledEmail && prefilledEmail !== prevPrefilledEmail) {
-    setPrevPrefilledEmail(prefilledEmail);
-    setFormData((prev) => ({
-      ...prev,
-      email: prefilledEmail,
-    }));
+  if (prefillKey !== prevPrefillKey) {
+    setPrevPrefillKey(prefillKey);
+    if (prefilledEmail || prefilledSubject) {
+      setFormData((prev) => ({
+        ...prev,
+        ...(prefilledEmail ? { email: prefilledEmail } : {}),
+        ...(prefilledSubject ? { subject: prefilledSubject } : {}),
+      }));
+    }
   }
 
   const handleChange = (e) => {
+    setError("");
+    setSubmitted(false);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -31,35 +66,25 @@ export default function Connect() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const subject = formData.subject.trim();
+    const message = formData.message.trim();
 
-    const mailSubject = encodeURIComponent(formData.subject);
+    if (!name || !email || !subject || !message) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+
+    const mailSubject = encodeURIComponent(subject);
     const mailBody = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`
+      `Name: ${name}\nEmail: ${email}\nPhone: ${formData.phone.trim()}\n\nMessage:\n${message}`
     );
 
+    setSubmitted(true);
     window.location.href =
       `mailto:support@oroitsolution.com?subject=${mailSubject}&body=${mailBody}`;
   };
-
-  const LocationIcon = () => (
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-      <circle cx="12" cy="10" r="2.5" />
-    </svg>
-  );
-
-  const EmailIcon = () => (
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="m22 6-10 7L2 6" />
-    </svg>
-  );
-
-  const PhoneIcon = () => (
-    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z" />
-    </svg>
-  );
 
   return (
     <div className="connect-page">
@@ -329,9 +354,10 @@ export default function Connect() {
           margin-top: 20px;
         }
 
-        .connect-page .connect-socials a {
+        .connect-page .connect-socials button {
           width: 36px;
           height: 36px;
+          border: none;
           border-radius: 50%;
           background: #e9ecef;
           color: #50565d;
@@ -340,11 +366,12 @@ export default function Connect() {
           align-items: center;
           font-size: 15px;
           font-weight: 600;
+          cursor: pointer;
           text-decoration: none;
           transition: all 0.3s ease;
         }
 
-        .connect-page .connect-socials a:hover {
+        .connect-page .connect-socials button:hover {
           background: #1670f9;
           color: #fff;
           transform: translateY(-3px);
@@ -516,7 +543,7 @@ export default function Connect() {
             padding-top: 14px;
           }
 
-          .connect-page .connect-socials a {
+          .connect-page .connect-socials button {
             width: 40px;
             height: 40px;
           }
@@ -542,11 +569,22 @@ export default function Connect() {
           <h2>Send Us a Message</h2>
 
           <form onSubmit={handleSubmit}>
+            {error && (
+              <p className="mb-4 rounded-md border border-red-200 bg-red-50 px-3.5 py-2.5 text-sm text-red-700">
+                {error}
+              </p>
+            )}
+            {submitted && (
+              <p className="mb-4 rounded-md border border-emerald-200 bg-emerald-50 px-3.5 py-2.5 text-sm text-emerald-700">
+                Your email client has been opened to send your message to support@oroitsolution.com.
+              </p>
+            )}
             <div className="connect-form-grid">
 
               <div className="connect-field">
-                <label>Full Name <span>*</span></label>
+                <label htmlFor="connect-name">Full Name <span>*</span></label>
                 <input
+                  id="connect-name"
                   type="text"
                   name="name"
                   value={formData.name}
@@ -556,8 +594,9 @@ export default function Connect() {
               </div>
 
               <div className="connect-field">
-                <label>Email <span>*</span></label>
+                <label htmlFor="connect-email">Email <span>*</span></label>
                 <input
+                  id="connect-email"
                   type="email"
                   name="email"
                   value={formData.email}
@@ -567,8 +606,9 @@ export default function Connect() {
               </div>
 
               <div className="connect-field">
-                <label>Phone</label>
+                <label htmlFor="connect-phone">Phone</label>
                 <input
+                  id="connect-phone"
                   type="tel"
                   name="phone"
                   value={formData.phone}
@@ -577,8 +617,9 @@ export default function Connect() {
               </div>
 
               <div className="connect-field">
-                <label>Subject <span>*</span></label>
+                <label htmlFor="connect-subject">Subject <span>*</span></label>
                 <input
+                  id="connect-subject"
                   type="text"
                   name="subject"
                   value={formData.subject}
@@ -588,8 +629,9 @@ export default function Connect() {
               </div>
 
               <div className="connect-field full">
-                <label>Message <span>*</span></label>
+                <label htmlFor="connect-message">Message <span>*</span></label>
                 <textarea
+                  id="connect-message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
@@ -660,10 +702,10 @@ export default function Connect() {
           </div>
 
           <div className="connect-socials">
-            <a href="#" aria-label="Facebook">f</a>
-            <a href="#" aria-label="Twitter">♥</a>
-            <a href="#" aria-label="LinkedIn">in</a>
-            <a href="#" aria-label="Instagram">◎</a>
+            <button type="button" aria-label="Facebook" title="Facebook (Coming Soon)">f</button>
+            <button type="button" aria-label="X (Twitter)" title="X / Twitter (Coming Soon)">𝕏</button>
+            <button type="button" aria-label="LinkedIn" title="LinkedIn (Coming Soon)">in</button>
+            <button type="button" aria-label="Instagram" title="Instagram (Coming Soon)">◎</button>
           </div>
         </div>
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -19,6 +19,32 @@ import PrivacyPolicy from './components/PrivacyPolicy';
 import AboutUs from './components/AboutUs';
 import Footer from './components/Footer';
 import AuthModals from './components/AuthModals';
+
+// Scroll manager for route changes and section hash links
+function ScrollManager() {
+  const { pathname, hash } = useLocation();
+
+  useEffect(() => {
+    if (hash === '#login' || hash === '#register') return;
+
+    if (hash) {
+      const targetId = hash.slice(1);
+      const scrollToTarget = () => {
+        const el = document.getElementById(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      };
+
+      const frame = requestAnimationFrame(scrollToTarget);
+      return () => cancelAnimationFrame(frame);
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+  }, [pathname, hash]);
+
+  return null;
+}
 
 // Home Page
 function Home() {
@@ -66,7 +92,7 @@ export default function App() {
       window.location.hash === '#register' ||
       window.location.hash === '#login'
     ) {
-      history.pushState(
+      history.replaceState(
         null,
         '',
         window.location.pathname + window.location.search
@@ -102,6 +128,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <ScrollManager />
       <div className="min-h-screen bg-[#155cd5] text-white flex flex-col font-sans selection:bg-white selection:text-[#155cd5] overflow-x-clip w-full max-w-full relative">
         {/* Navbar */}
         <Navbar
@@ -138,6 +165,9 @@ export default function App() {
 
             {/* About Us Page */}
             <Route path="/about" element={<AboutUs />} />
+
+            {/* Fallback for unknown routes */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
 

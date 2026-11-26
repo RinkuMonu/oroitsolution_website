@@ -5,11 +5,10 @@ import {
   Paintbrush,
   Network,
   Cloud,
-  ShoppingCart,
-  ArrowRight
+  ShoppingCart
 } from 'lucide-react';
 
-export default function Services({ onSelectService }) {
+export default function Services() {
   const services = [
     {
       id: 'web-app',

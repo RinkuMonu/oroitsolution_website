@@ -28,13 +28,13 @@ export default function Footer() {
           <div className="min-[480px]:col-span-2 lg:col-span-4 flex flex-col justify-between space-y-6 sm:space-y-8 lg:space-y-0">
             <div>
               {/* Logo */}
-              <a href="#home" className="inline-block group">
+              <Link to="/#home" className="inline-block group">
                 <img
                   src="/footer-logo.png"
                   alt="ORO IT SOLUTION PVT. LTD."
                   className="h-10 sm:h-14 lg:h-16 w-auto object-contain group-hover:opacity-95 transition-opacity"
                 />
-              </a>
+              </Link>
 
               {/* Tagline */}
               <p className="mt-3.5 sm:mt-5 text-xs sm:text-[14px] lg:text-[15px] text-gray-500 leading-relaxed max-w-sm">
@@ -46,12 +46,12 @@ export default function Footer() {
             <div className="text-xs sm:text-[13px] lg:text-[14px] text-gray-500 leading-relaxed pt-2 sm:pt-4">
               <p>© 2026 ORO IT.</p>
               <p className="mt-0.5">Designed and Developed by</p>
-              <a
-                href="#home"
+              <Link
+                to="/#home"
                 className="text-[#155cd5] font-semibold hover:underline inline-block mt-0.5"
               >
                 ORO IT SOLUTION PVT. LTD.
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -62,24 +62,24 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5 sm:space-y-4 text-xs sm:text-[14px] lg:text-[15px] text-gray-500">
               <li>
-                <a href="#services" className="hover:text-[#155cd5] transition-colors">
+                <Link to="/#services" className="hover:text-[#155cd5] transition-colors">
                   Mobile APP
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="hover:text-[#155cd5] transition-colors">
+                <Link to="/#services" className="hover:text-[#155cd5] transition-colors">
                   Web Application
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="hover:text-[#155cd5] transition-colors">
+                <Link to="/#services" className="hover:text-[#155cd5] transition-colors">
                   AI/ML
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#services" className="hover:text-[#155cd5] transition-colors">
+                <Link to="/#services" className="hover:text-[#155cd5] transition-colors">
                   CRM / HRM
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -99,9 +99,9 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="#contact" className="hover:text-[#155cd5] transition-colors">
+                <Link to="/#contact" className="hover:text-[#155cd5] transition-colors">
                   Contact Us
-                </a>
+                </Link>
               </li>
               <li>
                 <Link
@@ -173,6 +173,7 @@ export default function Footer() {
 
       {/* Floating Scroll to Top button */}
       <button
+        type="button"
         onClick={scrollToTop}
         className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 w-9 h-9 sm:w-11 sm:h-11 bg-[#155cd5] hover:bg-blue-700 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer active:scale-95 touch-manipulation"
         aria-label="Scroll to top"

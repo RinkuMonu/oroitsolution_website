@@ -16,11 +16,11 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
   }
 
   const navLinks = [
-    { name: 'Home', href: '/', isRoute: true },
-    { name: 'Services', href: '/#services', isRoute: false },
-    { name: 'Software', href: '/software', isRoute: true },
-    { name: 'Product', href: '/product', isRoute: true },
-    { name: 'Contact', href: '/contact', isRoute: true },
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/#services' },
+    { name: 'Software', href: '/software' },
+    { name: 'Product', href: '/product' },
+    { name: 'Contact', href: '/contact' },
   ];
 
   const activeTab =
@@ -79,21 +79,6 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
       </>
     );
 
-    // Services is a home page section link
-    if (!link.isRoute) {
-      return (
-        <a
-          key={link.name}
-          href={link.href}
-          onClick={handleNavClick}
-          className={className}
-        >
-          {content}
-        </a>
-      );
-    }
-
-    // Other links open separate routes
     return (
       <Link
         key={link.name}
@@ -155,6 +140,7 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
         {/* Right Desktop Auth Actions */}
         <div className="hidden lg:flex items-center space-x-2.5 xl:space-x-3 shrink-0">
           <button
+            type="button"
             onClick={onOpenLogin}
             className="flex items-center text-xs xl:text-sm font-semibold text-white hover:text-white/80 transition-colors px-3 py-1.5 tracking-wide cursor-pointer"
           >
@@ -167,6 +153,7 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
           </span>
 
           <button
+            type="button"
             onClick={onOpenRegister}
             className="flex items-center text-xs xl:text-sm font-semibold text-white bg-[#1a66e5] hover:bg-[#2072f5] border border-white/20 px-4 xl:px-5 py-2 rounded-full transition-all duration-200 shadow-sm hover:shadow hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
           >
@@ -178,6 +165,7 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
         {/* Tablet quick action & Hamburger for mobile/tablet */}
         <div className="flex lg:hidden items-center gap-1.5 sm:gap-3">
           <button
+            type="button"
             onClick={onOpenLogin}
             className="hidden sm:inline-flex items-center text-xs font-semibold text-white bg-blue-600/70 hover:bg-blue-600 border border-white/20 px-3 py-1.5 rounded-full transition cursor-pointer"
           >
@@ -207,7 +195,7 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
           onClick={() => setMobileMenuOpen(false)}
         >
           <div
-            className="w-full bg-[#114ebd] border-t border-blue-400/20 px-4 sm:px-6 pt-4 pb-6 space-y-4 max-h-[calc(100vh-4rem)] max-h-[calc(100dvh-4rem)] sm:max-h-[calc(100vh-5rem)] sm:max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain shadow-2xl"
+            className="w-full bg-[#114ebd] border-t border-blue-400/20 px-4 sm:px-6 pt-4 pb-6 space-y-4 max-h-[calc(100dvh-4rem)] sm:max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <nav aria-label="Mobile navigation" className="flex flex-col space-y-1">

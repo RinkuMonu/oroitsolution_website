@@ -52,7 +52,7 @@ export default function AboutUs() {
           operate efficiently.
         </>
       }
-      footerNote="At ORO IT SOLUTION PVT.LTD,we are committed to delivering technology that creates measurable impact and long-term value."
+      footerNote="At ORO IT SOLUTION PVT. LTD., we are committed to delivering technology that creates measurable impact and long-term value."
     >
       {aboutSections.map((section) => (
         <section key={section.title}>
@@ -60,7 +60,7 @@ export default function AboutUs() {
             {section.title}
           </h2>
           {section.items ? (
-            <ul className="space-y-1 text-[13px] sm:text-sm text-gray-600 leading-relaxed">
+            <ul className="list-disc pl-5 sm:pl-6 space-y-1 text-[13px] sm:text-sm text-gray-600 leading-relaxed">
               {section.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}

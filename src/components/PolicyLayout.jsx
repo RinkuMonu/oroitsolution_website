@@ -50,7 +50,7 @@ export default function PolicyLayout({
                 {contactIntro}
               </p>
               <div className="text-[13px] sm:text-sm text-gray-700 leading-relaxed">
-                <p className="font-bold text-gray-800">ORO IT SOLUTION PVT.LTD.</p>
+                <p className="font-bold text-gray-800">ORO IT SOLUTION PVT. LTD.</p>
                 <p className="mt-0.5 text-gray-600">
                   Email:{' '}
                   <a

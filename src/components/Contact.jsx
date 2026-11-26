@@ -3,6 +3,7 @@ import { Phone, MapPin, Clock, CheckCircle2 } from 'lucide-react';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -12,6 +13,7 @@ export default function Contact() {
   });
 
   const handleChange = (e) => {
+    setError('');
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -20,10 +22,13 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setError('Please fill in your name, email, and message.');
+      return;
+    }
+    setError('');
     setSubmitted(true);
-    setTimeout(() => {
-      // Auto-reset handled if needed
-    }, 4000);
+    setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
   };
 
   return (
@@ -43,8 +48,12 @@ export default function Contact() {
               </div>
               <div className="min-w-0">
                 <h4 className="text-[#155cd5] font-bold text-sm sm:text-base mb-1">Contact</h4>
-                <p className="text-xs sm:text-sm text-gray-600 font-medium">087418 86688</p>
-                <p className="text-xs sm:text-sm text-gray-600 font-medium break-words">oroitsolution@gmail.com</p>
+                <a href="tel:08741886688" className="block text-xs sm:text-sm text-gray-600 font-medium hover:text-[#155cd5] transition-colors">
+                  087418 86688
+                </a>
+                <a href="mailto:oroitsolution@gmail.com" className="block text-xs sm:text-sm text-gray-600 font-medium break-words hover:text-[#155cd5] transition-colors">
+                  oroitsolution@gmail.com
+                </a>
               </div>
             </div>
 
@@ -102,8 +111,10 @@ export default function Contact() {
                     Thank you for reaching out. Our team will get back to you shortly.
                   </p>
                   <button
+                    type="button"
                     onClick={() => {
                       setSubmitted(false);
+                      setError('');
                       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
                     }}
                     className="mt-3 px-6 py-2 bg-[#155cd5] text-white rounded-full text-xs font-semibold hover:bg-blue-700 transition cursor-pointer"
@@ -113,6 +124,11 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
+                  {error && (
+                    <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-xl px-3.5 py-2 text-center font-medium">
+                      {error}
+                    </p>
+                  )}
                   {/* Row 1: Name & Email */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
@@ -197,7 +213,7 @@ export default function Contact() {
       {/* Full-width Map in the background */}
       <div className="w-full h-[260px] min-[420px]:h-[320px] sm:h-[400px] lg:h-[480px] relative z-0 mt-0">
         <iframe
-          src="https://maps.google.com/maps?q=Kota,%20Rajasthan,%20India&t=&z=13&ie=UTF8&iwloc=&output=embed"
+          src="https://maps.google.com/maps?q=Jaipur,%20Rajasthan%20302017,%20India&t=&z=13&ie=UTF8&iwloc=&output=embed"
           className="w-full h-full border-0 grayscale-[15%] contrast-[105%]"
           loading="lazy"
           allowFullScreen

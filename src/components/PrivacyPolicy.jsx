@@ -5,7 +5,7 @@ const privacySections = [
   {
     title: '1. Objective',
     content:
-      'This Privacy Policy ("Policy") defines how ORO IT SOLUTION PVT.LTD("we","our","us") collects, uses, stores, protects and discloses personal information from users of our website, products, and services.',
+      'This Privacy Policy ("Policy") defines how ORO IT SOLUTION PVT. LTD. ("we", "our", "us") collects, uses, stores, protects and discloses personal information from users of our website, products, and services.',
   },
   {
     title: '2. Scope',
@@ -101,7 +101,7 @@ export default function PrivacyPolicy() {
           )}
 
           {section.labeledItems && (
-            <ul className="space-y-1 text-[13px] sm:text-sm text-gray-600 leading-relaxed">
+            <ul className="list-disc pl-5 sm:pl-6 space-y-1 text-[13px] sm:text-sm text-gray-600 leading-relaxed">
               {section.labeledItems.map((entry) => (
                 <li key={entry.label}>
                   <strong className="font-semibold text-gray-800">{entry.label}:</strong>{' '}
@@ -112,7 +112,7 @@ export default function PrivacyPolicy() {
           )}
 
           {section.items && (
-            <ul className="space-y-1 text-[13px] sm:text-sm text-gray-600 leading-relaxed">
+            <ul className="list-disc pl-5 sm:pl-6 space-y-1 text-[13px] sm:text-sm text-gray-600 leading-relaxed">
               {section.items.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -146,7 +146,7 @@ export default function PrivacyPolicy() {
             </a>
           </p>
           <p>
-            <strong className="font-semibold text-gray-800">Address:</strong> ORO IT SOLUTION PVT.LTD.
+            <strong className="font-semibold text-gray-800">Address:</strong> ORO IT SOLUTION PVT. LTD.
           </p>
           <p>
             Plot No 97, Dakshinpuri - I Shrikishan, Sanganer, Jagatpura, Jaipur, Shri Kishanpura, Rajasthan 302017
