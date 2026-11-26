@@ -12,6 +12,11 @@ import Product from './components/Product';
 import Partners from './components/Partners';
 import Contact from './components/Contact';
 import Connect from './components/Connect';
+import CancellationRefundPolicy from './components/CancellationRefundPolicy';
+import TermsConditions from './components/TermsConditions';
+import Documentation from './components/Documentation';
+import PrivacyPolicy from './components/PrivacyPolicy';
+import AboutUs from './components/AboutUs';
 import Footer from './components/Footer';
 import AuthModals from './components/AuthModals';
 
@@ -97,7 +102,7 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#155cd5] text-white flex flex-col font-sans selection:bg-white selection:text-[#155cd5] overflow-x-hidden w-full max-w-full relative">
+      <div className="min-h-screen bg-[#155cd5] text-white flex flex-col font-sans selection:bg-white selection:text-[#155cd5] overflow-x-clip w-full max-w-full relative">
         {/* Navbar */}
         <Navbar
           onOpenLogin={handleOpenLogin}
@@ -105,7 +110,7 @@ export default function App() {
         />
 
         {/* Page Routes */}
-        <main className="flex-grow">
+        <main className="flex-grow w-full min-w-0">
           <Routes>
             {/* Home Page */}
             <Route path="/" element={<Home />} />
@@ -118,6 +123,21 @@ export default function App() {
 
             {/* Connect Page - Navbar Contact */}
             <Route path="/contact" element={<Connect />} />
+
+            {/* Cancellation & Refund Policy Page */}
+            <Route path="/cancellation-refund-policy" element={<CancellationRefundPolicy />} />
+
+            {/* Terms & Conditions Page */}
+            <Route path="/terms-and-conditions" element={<TermsConditions />} />
+
+            {/* Documentation Page */}
+            <Route path="/documentation" element={<Documentation />} />
+
+            {/* Privacy Policy Page */}
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
+            {/* About Us Page */}
+            <Route path="/about" element={<AboutUs />} />
           </Routes>
         </main>
 

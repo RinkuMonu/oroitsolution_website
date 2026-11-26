@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, ChevronUp } from 'lucide-react';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
-  const [subscribed, setSubscribed] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubscribe = (e) => {
     e.preventDefault();
-    if (!email.trim()) return;
-    setSubscribed(true);
+    const trimmedEmail = email.trim();
+    if (!trimmedEmail) return;
     setEmail('');
-    setTimeout(() => {
-      setSubscribed(false);
-    }, 4000);
+    navigate('/contact', { state: { email: trimmedEmail } });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const scrollToTop = () => {
@@ -91,9 +91,12 @@ export default function Footer() {
             </h3>
             <ul className="space-y-2.5 sm:space-y-4 text-xs sm:text-[14px] lg:text-[15px] text-gray-500">
               <li>
-                <a href="#contact" className="hover:text-[#155cd5] transition-colors">
+                <Link
+                  to="/about"
+                  className="hover:text-[#155cd5] transition-colors"
+                >
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
                 <a href="#contact" className="hover:text-[#155cd5] transition-colors">
@@ -101,24 +104,36 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-[#155cd5] transition-colors">
+                <Link
+                  to="/privacy-policy"
+                  className="hover:text-[#155cd5] transition-colors"
+                >
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="hover:text-[#155cd5] transition-colors">
+                <Link
+                  to="/documentation"
+                  className="hover:text-[#155cd5] transition-colors"
+                >
                   Documentation
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="hover:text-[#155cd5] transition-colors">
+                <Link
+                  to="/terms-and-conditions"
+                  className="hover:text-[#155cd5] transition-colors"
+                >
                   Terms Condition
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="hover:text-[#155cd5] transition-colors">
-                  Cancellation & Refund Policy
-                </a>
+                <Link
+                  to="/cancellation-refund-policy"
+                  className="hover:text-[#155cd5] transition-colors"
+                >
+                  Cancellation &amp; Refund Policy
+                </Link>
               </li>
             </ul>
           </div>
@@ -150,11 +165,6 @@ export default function Footer() {
                   <Mail className="w-4 h-4" />
                 </button>
               </div>
-              {subscribed && (
-                <p className="mt-2 text-xs text-green-600 font-medium animate-fade-in">
-                  Thank you for subscribing!
-                </p>
-              )}
             </form>
           </div>
 

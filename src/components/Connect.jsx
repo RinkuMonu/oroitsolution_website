@@ -1,57 +1,69 @@
 
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function Connect() {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
+  const location = useLocation();
+  const prefilledEmail = location.state?.email || "";
+  const [prevPrefilledEmail, setPrevPrefilledEmail] = useState(prefilledEmail);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: prefilledEmail,
+    phone: "",
+    subject: "",
+    message: "",
+  });
+
+  if (prefilledEmail && prefilledEmail !== prevPrefilledEmail) {
+    setPrevPrefilledEmail(prefilledEmail);
+    setFormData((prev) => ({
+      ...prev,
+      email: prefilledEmail,
+    }));
+  }
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
     });
+  };
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        const mailSubject = encodeURIComponent(formData.subject);
-        const mailBody = encodeURIComponent(
-            `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`
-        );
-
-        window.location.href =
-            `mailto:support@oroitsolution.com?subject=${mailSubject}&body=${mailBody}`;
-    };
-
-    const LocationIcon = () => (
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-            <circle cx="12" cy="10" r="2.5" />
-        </svg>
+    const mailSubject = encodeURIComponent(formData.subject);
+    const mailBody = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`
     );
 
-    const EmailIcon = () => (
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="2" y="4" width="20" height="16" rx="2" />
-            <path d="m22 6-10 7L2 6" />
-        </svg>
-    );
+    window.location.href =
+      `mailto:support@oroitsolution.com?subject=${mailSubject}&body=${mailBody}`;
+  };
 
-    const PhoneIcon = () => (
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z" />
-        </svg>
-    );
+  const LocationIcon = () => (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+      <circle cx="12" cy="10" r="2.5" />
+    </svg>
+  );
 
-    return (
-        <div className="connect-page">
-            <style>{`
+  const EmailIcon = () => (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="4" width="20" height="16" rx="2" />
+      <path d="m22 6-10 7L2 6" />
+    </svg>
+  );
+
+  const PhoneIcon = () => (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8 10a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2Z" />
+    </svg>
+  );
+
+  return (
+    <div className="connect-page">
+      <style>{`
         .connect-page,
         .connect-page * {
           box-sizing: border-box;
@@ -62,13 +74,15 @@ export default function Connect() {
           background: #f8f9fb;
           color: #292929;
           font-family: Arial, Helvetica, sans-serif;
+          overflow-x: hidden;
         }
 
         /* BANNER */
 
         .connect-page .connect-banner {
           width: 100%;
-          height: 370px;
+          height: clamp(210px, 26vw, 370px);
+          background-color: #0b2459;
           background-image: url('/contact-banner.png?v=2');
           background-size: cover;
           background-position: center;
@@ -85,11 +99,13 @@ export default function Connect() {
           opacity: 0;
           pointer-events: none;
           visibility: hidden;
+          padding: 0 16px;
+          max-width: 720px;
         }
 
         .connect-page .connect-banner h1 {
           color: #ffffff;
-          font-size: 52px;
+          font-size: clamp(30px, 6vw, 52px);
           line-height: 1.2;
           font-weight: 700;
           margin: 0 0 10px;
@@ -100,8 +116,8 @@ export default function Connect() {
 
         .connect-page .connect-banner p {
           color: #ffffff;
-          font-size: 19px;
-          line-height: 1.4;
+          font-size: clamp(14px, 3vw, 19px);
+          line-height: 1.5;
           font-weight: 500;
           margin: 0;
           text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
@@ -125,9 +141,9 @@ export default function Connect() {
 
         .connect-page .connect-content {
           width: 100%;
-          max-width: 1600px;
+          max-width: 1400px;
           margin: 0 auto;
-          padding: 16px 22px 28px;
+          padding: 24px 22px 36px;
           display: grid;
           grid-template-columns: 1.3fr 0.95fr;
           gap: 22px;
@@ -308,6 +324,7 @@ export default function Connect() {
 
         .connect-page .connect-socials {
           display: flex;
+          flex-wrap: wrap;
           gap: 11px;
           margin-top: 20px;
         }
@@ -335,12 +352,11 @@ export default function Connect() {
 
         /* TABLET */
 
-        @media (max-width: 1000px) {
+        @media (max-width: 1024px) {
           .connect-page .connect-content {
             grid-template-columns: 1.15fr 1fr;
-            gap: 16px;
-            padding-left: 16px;
-            padding-right: 16px;
+            gap: 18px;
+            padding: 20px 18px 32px;
           }
 
           .connect-page .connect-card,
@@ -358,13 +374,13 @@ export default function Connect() {
           }
         }
 
-        /* SMALL TABLET */
+        /* PORTRAIT TABLET */
 
-        @media (max-width: 750px) {
+        @media (max-width: 900px) {
           .connect-page .connect-content {
             grid-template-columns: 1fr;
-            max-width: 650px;
-            gap: 16px;
+            max-width: 720px;
+            gap: 18px;
           }
 
           .connect-page .connect-card,
@@ -373,24 +389,29 @@ export default function Connect() {
           }
         }
 
-        /* MOBILE */
+        /* SMALL TABLET */
 
-        @media (max-width: 500px) {
+        @media (max-width: 768px) {
           .connect-page .connect-banner {
-            height: 260px;
+            height: auto;
+            min-height: 200px;
+            padding: 48px 20px;
+            background-image: linear-gradient(135deg, #0b2459 0%, #155cd5 55%, #2a73f1 100%);
           }
 
-          .connect-page .connect-banner h1 {
-            font-size: 38px;
+          .connect-page .connect-banner-content {
+            opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
           }
+        }
 
-          .connect-page .connect-banner p {
-            font-size: 15px;
-          }
+        /* LARGE MOBILE */
 
+        @media (max-width: 640px) {
           .connect-page .connect-content {
-            padding: 12px;
-            gap: 14px;
+            padding: 16px 14px 28px;
+            gap: 16px;
           }
 
           .connect-page .connect-card,
@@ -401,12 +422,12 @@ export default function Connect() {
 
           .connect-page .connect-card h2 {
             font-size: 22px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
           }
 
           .connect-page .connect-form-grid {
             grid-template-columns: 1fr;
-            gap: 15px;
+            gap: 14px;
           }
 
           .connect-page .connect-field.full {
@@ -417,18 +438,51 @@ export default function Connect() {
             font-size: 15px;
           }
 
+          .connect-page .connect-field input,
+          .connect-page .connect-field textarea {
+            font-size: 16px;
+          }
+
           .connect-page .connect-field input {
-            height: 40px;
+            height: 44px;
           }
 
           .connect-page .connect-field textarea {
-            height: 95px;
+            height: 100px;
+          }
+
+          .connect-page .connect-submit-row {
+            margin-top: 16px;
           }
 
           .connect-page .connect-submit {
             width: 100%;
-            height: 46px;
+            height: 48px;
             font-size: 16px;
+          }
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 480px) {
+          .connect-page .connect-banner {
+            min-height: 170px;
+            padding: 36px 16px;
+          }
+
+          .connect-page .connect-content {
+            padding: 14px 12px 24px;
+            gap: 14px;
+          }
+
+          .connect-page .connect-card,
+          .connect-page .connect-details-card {
+            padding: 20px 16px;
+          }
+
+          .connect-page .connect-card h2 {
+            font-size: 20px;
+            margin-bottom: 16px;
           }
 
           .connect-page .connect-icon {
@@ -444,6 +498,7 @@ export default function Connect() {
 
           .connect-page .connect-detail-item {
             gap: 12px;
+            margin-bottom: 15px;
           }
 
           .connect-page .connect-detail-text h3 {
@@ -452,160 +507,167 @@ export default function Connect() {
 
           .connect-page .connect-detail-text p,
           .connect-page .connect-detail-text a {
-            font-size: 13px;
+            font-size: 13.5px;
           }
 
           .connect-page .connect-business-hours {
             font-size: 13px;
+            margin-top: 16px;
+            padding-top: 14px;
+          }
+
+          .connect-page .connect-socials a {
+            width: 40px;
+            height: 40px;
           }
         }
       `}</style>
 
-            {/* BANNER */}
+      {/* BANNER */}
 
-            <section className="connect-banner">
-                <div className="connect-banner-content">
-                    <h1>Contact</h1>
-                    <p>Let's build something extraordinary together.</p>
-                </div>
-            </section>
-
-            {/* CONTACT CONTENT */}
-
-            <section className="connect-content">
-
-                {/* FORM CARD */}
-
-                <div className="connect-card">
-                    <h2>Send Us a Message</h2>
-
-                    <form onSubmit={handleSubmit}>
-                        <div className="connect-form-grid">
-
-                            <div className="connect-field">
-                                <label>Full Name <span>*</span></label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    value={formData.name}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-
-                            <div className="connect-field">
-                                <label>Email <span>*</span></label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-
-                            <div className="connect-field">
-                                <label>Phone</label>
-                                <input
-                                    type="tel"
-                                    name="phone"
-                                    value={formData.phone}
-                                    onChange={handleChange}
-                                />
-                            </div>
-
-                            <div className="connect-field">
-                                <label>Subject <span>*</span></label>
-                                <input
-                                    type="text"
-                                    name="subject"
-                                    value={formData.subject}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-
-                            <div className="connect-field full">
-                                <label>Message <span>*</span></label>
-                                <textarea
-                                    name="message"
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-
-                        </div>
-
-                        <div className="connect-submit-row">
-                            <button type="submit" className="connect-submit">
-                                ➤ &nbsp; SUBMIT
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                {/* DETAILS CARD */}
-
-                <div className="connect-card connect-details-card">
-                    <h2>Get in Touch</h2>
-
-                    <div className="connect-detail-item">
-                        <div className="connect-icon">
-                            <LocationIcon />
-                        </div>
-
-                        <div className="connect-detail-text">
-                            <h3>Registered Office</h3>
-                            <p>
-                                ORO IT SOLUTION PVT. LTD.<br />
-                                Plot No 97, Dakshinpuri - I Shrikishan,<br />
-                                Sanganer, Jagatpura, Jaipur,<br />
-                                Shri Kishanpura, Rajasthan 302017<br />
-                                India
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="connect-detail-item">
-                        <div className="connect-icon">
-                            <EmailIcon />
-                        </div>
-
-                        <div className="connect-detail-text">
-                            <h3>Email</h3>
-                            <a href="mailto:support@oroitsolution.com">
-                                support@oroitsolution.com
-                            </a>
-                        </div>
-                    </div>
-
-                    <div className="connect-detail-item">
-                        <div className="connect-icon">
-                            <PhoneIcon />
-                        </div>
-
-                        <div className="connect-detail-text">
-                            <h3>Phone</h3>
-                            <a href="tel:+919825566644">
-                                +91 98255 66644
-                            </a>
-                        </div>
-                    </div>
-
-                    <div className="connect-business-hours">
-                        Business hours: Mon – Sat, 09:30 – 7:00 PM
-                    </div>
-
-                    <div className="connect-socials">
-                        <a href="#" aria-label="Facebook">f</a>
-                        <a href="#" aria-label="Twitter">♥</a>
-                        <a href="#" aria-label="LinkedIn">in</a>
-                        <a href="#" aria-label="Instagram">◎</a>
-                    </div>
-                </div>
-
-            </section>
+      <section className="connect-banner">
+        <div className="connect-banner-content">
+          <h1>Contact</h1>
+          <p>Let's build something extraordinary together.</p>
         </div>
-    );
+      </section>
+
+      {/* CONTACT CONTENT */}
+
+      <section className="connect-content">
+
+        {/* FORM CARD */}
+
+        <div className="connect-card">
+          <h2>Send Us a Message</h2>
+
+          <form onSubmit={handleSubmit}>
+            <div className="connect-form-grid">
+
+              <div className="connect-field">
+                <label>Full Name <span>*</span></label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="connect-field">
+                <label>Email <span>*</span></label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="connect-field">
+                <label>Phone</label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="connect-field">
+                <label>Subject <span>*</span></label>
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              <div className="connect-field full">
+                <label>Message <span>*</span></label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+            </div>
+
+            <div className="connect-submit-row">
+              <button type="submit" className="connect-submit">
+                ➤ &nbsp; SUBMIT
+              </button>
+            </div>
+          </form>
+        </div>
+
+        {/* DETAILS CARD */}
+
+        <div className="connect-card connect-details-card">
+          <h2>Get in Touch</h2>
+
+          <div className="connect-detail-item">
+            <div className="connect-icon">
+              <LocationIcon />
+            </div>
+
+            <div className="connect-detail-text">
+              <h3>Registered Office</h3>
+              <p>
+                ORO IT SOLUTION PVT. LTD.<br />
+                SevenUnique Tech Solutions Pvt. Ltd.<br />
+                Jaipur,<br />
+                Rajasthan 302017<br />
+                India
+              </p>
+            </div>
+          </div>
+
+          <div className="connect-detail-item">
+            <div className="connect-icon">
+              <EmailIcon />
+            </div>
+
+            <div className="connect-detail-text">
+              <h3>Email</h3>
+              <a href="mailto:support@oroitsolution.com">
+                support@oroitsolution.com
+              </a>
+            </div>
+          </div>
+
+          <div className="connect-detail-item">
+            <div className="connect-icon">
+              <PhoneIcon />
+            </div>
+
+            <div className="connect-detail-text">
+              <h3>Phone</h3>
+              <a href="tel:+919825566644">
+                +91 98255 66644
+              </a>
+            </div>
+          </div>
+
+          <div className="connect-business-hours">
+            Business hours: Mon – Sat, 09:30 – 7:00 PM
+          </div>
+
+          <div className="connect-socials">
+            <a href="#" aria-label="Facebook">f</a>
+            <a href="#" aria-label="Twitter">♥</a>
+            <a href="#" aria-label="LinkedIn">in</a>
+            <a href="#" aria-label="Instagram">◎</a>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  );
 }

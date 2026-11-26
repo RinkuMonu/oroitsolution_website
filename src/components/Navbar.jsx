@@ -5,6 +5,15 @@ import { Link, useLocation } from 'react-router-dom';
 export default function Navbar({ onOpenLogin, onOpenRegister }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const routeKey = `${location.pathname}${location.hash}`;
+  const [prevRouteKey, setPrevRouteKey] = useState(routeKey);
+
+  if (routeKey !== prevRouteKey) {
+    setPrevRouteKey(routeKey);
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+  }
 
   const navLinks = [
     { name: 'Home', href: '/', isRoute: true },
@@ -32,6 +41,16 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
     return () => {
       document.body.style.overflow = '';
     };
+  }, [mobileMenuOpen]);
+
+  // Close mobile menu on Escape key
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
   }, [mobileMenuOpen]);
 
   const handleNavClick = () => {
@@ -88,8 +107,8 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
   };
 
   return (
-    <header className="w-full bg-[#155cd5] text-white sticky top-0 z-50 transition-all duration-200 shadow-sm border-b border-white/10">
-      <div className="max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-12 h-16 sm:h-20 flex items-center justify-between">
+    <header className="w-full left-0 right-0 bg-[#155cd5] text-white sticky top-0 z-50 transition-colors duration-200 shadow-sm border-b border-white/10">
+      <div className="w-full max-w-[1400px] mx-auto px-3 sm:px-6 lg:px-12 h-16 sm:h-20 flex items-center justify-between gap-2">
         
         {/* Brand Logo */}
         <Link
@@ -167,9 +186,10 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
           </button>
 
           <button
+            type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 rounded-lg bg-blue-700/60 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-white/40 active:scale-95 transition"
-            aria-label="Toggle menu"
+            className="p-2 rounded-lg bg-blue-700/60 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-white/40 active:scale-95 transition cursor-pointer touch-manipulation"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen
@@ -183,35 +203,37 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div
-          className="lg:hidden fixed inset-0 top-16 sm:top-20 z-40 bg-black/60 backdrop-blur-sm"
+          className="lg:hidden fixed inset-x-0 bottom-0 top-16 sm:top-20 w-full z-40 bg-black/60 backdrop-blur-sm"
           onClick={() => setMobileMenuOpen(false)}
         >
           <div
-            className="bg-[#114ebd] border-t border-blue-400/20 px-4 sm:px-6 pt-4 pb-8 space-y-4 max-h-[calc(100vh-4rem)] sm:max-h-[calc(100vh-5rem)] overflow-y-auto shadow-2xl animate-fade-in"
+            className="w-full bg-[#114ebd] border-t border-blue-400/20 px-4 sm:px-6 pt-4 pb-6 space-y-4 max-h-[calc(100vh-4rem)] max-h-[calc(100dvh-4rem)] sm:max-h-[calc(100vh-5rem)] sm:max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex flex-col space-y-1">
+            <nav aria-label="Mobile navigation" className="flex flex-col space-y-1">
               {navLinks.map((link) => renderNavLink(link, true))}
-            </div>
+            </nav>
 
             <div className="pt-4 border-t border-blue-400/20 flex flex-col gap-2.5">
               <button
+                type="button"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenLogin();
                 }}
-                className="w-full flex items-center justify-center text-sm font-semibold text-white py-3 rounded-xl bg-blue-600/70 hover:bg-blue-600 border border-white/10 active:scale-[0.99] transition cursor-pointer"
+                className="w-full min-h-[44px] flex items-center justify-center text-sm font-semibold text-white py-3 rounded-xl bg-blue-600/70 hover:bg-blue-600 border border-white/15 active:scale-[0.99] transition cursor-pointer touch-manipulation"
               >
                 <LogIn className="w-4 h-4 mr-2" />
                 LOG IN
               </button>
 
               <button
+                type="button"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   onOpenRegister();
                 }}
-                className="w-full flex items-center justify-center text-sm font-semibold text-gray-900 py-3 rounded-xl bg-[#ff9e00] hover:bg-[#ff8f00] shadow-md active:scale-[0.99] transition cursor-pointer"
+                className="w-full min-h-[44px] flex items-center justify-center text-sm font-semibold text-gray-900 py-3 rounded-xl bg-[#ff9e00] hover:bg-[#ff8f00] shadow-md active:scale-[0.99] transition cursor-pointer touch-manipulation"
               >
                 <User className="w-4 h-4 mr-2" />
                 REGISTER NOW

@@ -44,7 +44,7 @@ export default function Contact() {
               <div className="min-w-0">
                 <h4 className="text-[#155cd5] font-bold text-sm sm:text-base mb-1">Contact</h4>
                 <p className="text-xs sm:text-sm text-gray-600 font-medium">087418 86688</p>
-                <p className="text-xs sm:text-sm text-gray-600 font-medium truncate">oroitsolution@gmail.com</p>
+                <p className="text-xs sm:text-sm text-gray-600 font-medium break-words">oroitsolution@gmail.com</p>
               </div>
             </div>
 
@@ -55,9 +55,9 @@ export default function Contact() {
               </div>
               <div className="min-w-0">
                 <h4 className="text-[#155cd5] font-bold text-sm sm:text-base mb-1">Address</h4>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">Plot No 97, Dakshinpuri - I Shrikishan,</p>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">Sanganer, Jagatpura, Jaipur,</p>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">Shri Kishanpura, Rajasthan 302017</p>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">SevenUnique Tech Solutions Pvt. Ltd</p>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed"> Jaipur,</p>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">Rajasthan 302017</p>
                 <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">India</p>
               </div>
             </div>
