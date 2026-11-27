@@ -1,95 +1,137 @@
-import React from 'react';
-import PolicyLayout from './PolicyLayout';
+import LegalPolicyPage from './LegalPolicyPage';
+import {
+  FileText,
+  XCircle,
+  Ban,
+  CheckCircle2,
+  AlertCircle,
+  Mail,
+  SearchCheck,
+  RefreshCw,
+  Clock,
+  Headphones,
+} from 'lucide-react';
 
-const policySections = [
+// Cancellation & refund rules for customers using Apphany Technologies PVT.LTD services.
+const sections = [
   {
-    title: '1. Order Cancellation by User',
-    content: (
-      <>
-        If a user initiates the cancellation of an order from their account, the order will be marked as{' '}
-        <strong className="font-semibold text-gray-800">Cancelled</strong> on our system. Any amount deducted for the
-        cancelled order shall be refunded to the user&apos;s original payment method or respective account, subject to
-        successful verification.
-      </>
-    ),
+    id: 'scope',
+    icon: <FileText />,
+    title: 'Policy Scope',
+    paragraphs: [
+      'This Cancellation and Refund Policy explains when a user may cancel an order or service request and when a user may request a refund for a payment made through Apphany Technologies PVT.LTD.',
+      'It applies to supported recharges, bill payments, bookings, software subscriptions, API onboarding requests, and other digital or financial services offered on our platform.',
+    ],
   },
   {
-    title: '2. Failed or Unsuccessful Transactions',
-    content:
-      'In cases where a transaction fails due to technical issues, bank-related problems, network failures, or any other unforeseen conditions, the deducted amount (if any) will be refunded to the user\u2019s respective account automatically.',
+    id: 'cancellation',
+    icon: <XCircle />,
+    title: 'Order & Service Cancellations',
+    paragraphs: [
+      'Users may initiate a cancellation request from their account or via support only before the order or transaction is submitted to, accepted by, or fulfilled by the relevant service provider.',
+    ],
+    items: [
+      'If a cancellation request is accepted before processing, the order status will be marked as Cancelled in our system.',
+      'Any amount already deducted for a successfully cancelled order will be refunded to the original payment method after verification.',
+      'Scheduled or recurring service subscriptions must be cancelled prior to the next billing cycle to avoid upcoming renewal charges.',
+      'Booking or enterprise software setup requests may be cancelled within the applicable pre-provisioning window communicated at purchase.',
+    ],
   },
   {
-    title: '3. Refund Processing Timeline',
-    content: (
-      <>
-        Refunds are initiated after confirmation of cancellation or transaction failure. The credited amount may take{' '}
-        <strong className="font-semibold text-gray-800">5–7 working days</strong> (or as per banking norms) to reflect
-        in the user&apos;s account, depending on the payment provider or bank.
-      </>
-    ),
+    id: 'non-cancellable',
+    icon: <Ban />,
+    title: 'Non-Cancellable Transactions',
+    paragraphs: [
+      'Certain transactions are processed instantaneously or involve dedicated provisioning resources and cannot be cancelled once initiated:',
+    ],
+    items: [
+      'Real-time mobile/DTH recharges, utility bill payments (BBPS), and instant transfers once transmitted to the operator or biller.',
+      'Orders already dispatched, activated, or confirmed by a third-party vendor or service provider.',
+      'API testing, sandbox evaluation, and onboarding setup charges once access or credentials have been provisioned.',
+      'Requests submitted after the applicable cancellation window has expired.',
+    ],
   },
   {
-    title: '4. Mode of Refund',
-    content:
-      'All refunds will be processed through the original mode of payment used for the transaction, unless otherwise specified or required by law.',
+    id: 'eligible',
+    icon: <CheckCircle2 />,
+    title: 'Refund-Eligible Transactions',
+    items: [
+      'Payment was deducted from your account, but the transaction failed and was not automatically reversed.',
+      'The order was properly cancelled within the eligible pre-processing cancellation window.',
+      'The same transaction was charged more than once due to a duplicate debit.',
+      'The service provider confirms that the requested service was not delivered.',
+      'Apphany Technologies PVT.LTD or the provider approves a refund after investigating a verified technical error.',
+    ],
   },
   {
-    title: '5. Partial or Delayed Refunds',
-    content:
-      'In rare cases, refunds may be delayed due to bank processing times, holidays, or compliance checks. Users are advised to contact support if the refund is not received within the stated timeline.',
+    id: 'not-eligible',
+    icon: <AlertCircle />,
+    title: 'Non-Refundable Transactions',
+    items: [
+      'A recharge, bill payment, or other real-time service was completed successfully.',
+      'The user entered an incorrect mobile number, account number, biller, beneficiary, or amount.',
+      'An application or service was rejected because the user did not meet third-party eligibility requirements.',
+      'API testing and technical evaluation fees, as demo evaluation access is provided prior to purchase.',
+      'A disclosed processing, convenience, or service fee has already been incurred.',
+      'The request falls outside the applicable provider’s cancellation or refund period.',
+    ],
   },
   {
-    title: '6. API Testing Charges',
-    content:
-      'A non-refundable fee will be charged from users for API testing purposes. This fee covers the cost of providing access or Tech Support technical evaluation support.',
+    id: 'request',
+    icon: <Mail />,
+    title: 'How to Request a Cancellation or Refund',
+    paragraphs: [
+      'To request a cancellation (for pending/unprocessed orders) or a refund, email support@apphany.in and provide your registered mobile number, order or transaction ID, date, amount, service type, and a clear explanation of the issue.',
+      'Additional screenshots, bank statements, or reference proof may be requested when needed for verification.',
+    ],
   },
   {
-    title: '7. Non-Refundable API Testing Fee',
-    content: (
-      <>
-        The API testing fee is strictly <strong className="font-semibold text-gray-800">non-refundable</strong>. As users
-        are provided with a working demo of the API and given the opportunity to evaluate services and raise queries
-        before proceeding, no refund will be issued for API testing charges under any circumstances.
-      </>
-    ),
+    id: 'review',
+    icon: <SearchCheck />,
+    title: 'Review and Verification',
+    paragraphs: [
+      'Apphany Technologies PVT.LTD will review internal records and may seek confirmation from the payment gateway, bank, biller, or service provider.',
+      'Acknowledgement is generally provided within 24–48 business hours, although final verification may take longer when a third-party provider or bank is involved.',
+    ],
   },
   {
-    title: '8. Non-Refundable Scenarios',
-    content:
-      'Completed and successfully processed services may not be eligible for refunds unless explicitly stated or required under applicable laws.',
+    id: 'processing',
+    icon: <RefreshCw />,
+    title: 'Refund Processing & Timeline',
+    paragraphs: [
+      'An approved refund for a cancelled or failed transaction is normally returned to the original payment method used for the transaction.',
+      'Processing commonly takes 5–10 business days after approval, depending on your bank or payment provider’s settlement cycle.',
+    ],
   },
   {
-    title: '9. Changes to This Policy',
-    content:
-      'ORO IT SOLUTION PVT. LTD. reserves the right to modify or update this Cancellation & Refund Policy at any time. Any changes will be effective immediately upon posting on this page.',
+    id: 'pending',
+    icon: <Clock />,
+    title: 'Pending Transactions',
+    paragraphs: [
+      'A pending status does not mean that a transaction has failed. Users should not make the same payment again until the original status is confirmed.',
+      'Pending cases may be automatically completed or reversed to your original account after bank and provider reconciliation.',
+    ],
+  },
+  {
+    id: 'support',
+    icon: <Headphones />,
+    title: 'Support and Escalation',
+    paragraphs: [
+      'If a cancellation refund is delayed beyond the communicated timeline, contact support with the original case reference.',
+      'Users should contact Apphany Technologies PVT.LTD before initiating a bank chargeback so the transaction can first be investigated through the normal resolution process.',
+    ],
   },
 ];
 
 export default function CancellationRefundPolicy() {
   return (
-    <PolicyLayout
-      title="Cancellation & Refund Policy"
-      intro={
-        <>
-          This Cancellation &amp; Refund Policy outlines the terms under which{' '}
-          <strong className="font-semibold text-gray-800">ORO IT SOLUTION PVT. LTD.</strong> processes order
-          cancellations and refunds for services and transactions carried out on our platform. By using our services,
-          you agree to the terms stated below.
-        </>
-      }
-      contactTitle="10. Contact & Support"
-      contactIntro="For any questions or concerns regarding cancellations or refunds, please contact our support team:"
-    >
-      {policySections.map((section) => (
-        <section key={section.title}>
-          <h2 className="text-[15px] sm:text-base font-bold text-gray-900 mb-1.5">
-            {section.title}
-          </h2>
-          <p className="text-[13px] sm:text-sm text-gray-600 leading-relaxed">
-            {section.content}
-          </p>
-        </section>
-      ))}
-    </PolicyLayout>
+    <LegalPolicyPage
+      title="Cancellation and Refund Policy"
+      eyebrow="Customer protection"
+      description="Clear information about order cancellations, failed transactions, refund eligibility, and processing timelines."
+      effectiveDate="27 November 2026"
+      sections={sections}
+      summary="Orders may be cancelled only before processing begins. Successful real-time services and API testing fees are non-refundable, while valid cancellations, failed, duplicate, or undelivered transactions qualify for refund to the original payment method after verification."
+    />
   );
 }
