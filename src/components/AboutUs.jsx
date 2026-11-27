@@ -363,302 +363,415 @@ export default function AboutUs() {
   const [openFaq, setOpenFaq] = useState(0);
 
   return (
-    <PolicyLayout
-      title="About Us"
-      subtitle="ORO IT SOLUTION PVT. LTD."
-      intro={
-        <>
-          <strong className="font-semibold text-gray-800">ORO IT SOLUTION PVT. LTD.</strong> is a technology-driven
-          software company delivering reliable, scalable, and secure digital solutions for businesses. We specialize in
-          building SaaS platforms, enterprise applications, and fintech-enabled systems that help organizations grow and
-          operate efficiently.
-        </>
-      }
-      footerNote="At ORO IT SOLUTION PVT.LTD,we are committed to delivering technology that creates measurable impact and long-term value."
-    >
-      {aboutSections.map((section) => (
-        <section key={section.title}>
-          <h2 className="text-[15px] sm:text-base font-bold text-gray-900 mb-1.5">
-            {section.title}
-          </h2>
-          {section.items ? (
-            <ul className="space-y-1 text-[13px] sm:text-sm text-gray-600 leading-relaxed">
-              {section.items.map((item) => (
-                <li key={item}>{item}</li>
+    <div className="min-h-screen overflow-hidden bg-[#0B1120] text-slate-50">
+      {/* 1. Hero Section (Title & Description preserved from our website) */}
+      <section className="relative overflow-hidden bg-[#0B1120] px-4 pb-24 pt-12 sm:px-6 lg:px-8 lg:pb-32 lg:pt-16">
+        <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-sky-500/15 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-blue-600/15 blur-3xl" />
+
+        <div className="relative mx-auto max-w-7xl">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full border border-sky-500/30 bg-sky-500/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.18em] text-sky-400">
+                <Sparkles className="h-3.5 w-3.5" /> About Apphany
+              </div>
+              <h1 className="mt-5 max-w-3xl text-3xl font-extrabold leading-[1.1] tracking-tight text-slate-50 sm:text-5xl lg:text-[52px]">
+                Simple, Secure Digital Payments &amp;{' '}
+                <span className="text-sky-400">Smart Technology</span>
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg">
+                Learn how{' '}
+                <strong className="font-semibold text-slate-100">
+                  Apphany Technologies PVT.LTD
+                </strong>{' '}
+                makes everyday payments, recharges, utility bills, and supported financial and
+                software services simpler and more accessible.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3.5">
+                <Link
+                  to="/#services"
+                  className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-400 to-blue-600 px-6 py-3.5 text-sm font-bold text-slate-950 shadow-[0_0_24px_rgba(14,165,233,0.3)] transition-all hover:-translate-y-0.5 hover:brightness-110"
+                >
+                  Explore Our Services <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center rounded-xl border border-slate-700 bg-slate-900/75 px-6 py-3.5 text-sm font-bold text-slate-100 transition-all hover:border-sky-400/50 hover:bg-slate-800/80"
+                >
+                  Contact Us
+                </Link>
+              </div>
+            </div>
+
+            <div>
+              <PlatformVisual />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2. Floating Statistics Strip */}
+      <section className="relative z-10 -mt-12 px-4 sm:px-6 lg:px-8" aria-label="Apphany statistics">
+        <div className="mx-auto grid max-w-7xl overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/90 backdrop-blur-md shadow-[0_20px_50px_rgba(2,6,23,0.75)] sm:grid-cols-2 lg:grid-cols-4">
+          {statistics.map(({ icon: Icon, value, suffix, label, decimals }) => (
+            <div
+              key={label}
+              className="flex items-center gap-4 border-b border-slate-800 p-6 last:border-0 sm:border-r lg:border-b-0"
+            >
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-sky-500/30 bg-sky-500/10 text-sky-400">
+                <Icon className="h-5 w-5" />
+              </span>
+              <div>
+                <p className="text-2xl font-extrabold text-slate-50">
+                  <AnimatedNumber value={value} suffix={suffix} decimals={decimals} />
+                </p>
+                <p className="mt-1 text-xs font-semibold text-slate-400">{label}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. Our Story / Who We Are Section */}
+      <section className="px-4 py-20 sm:px-6 lg:px-8 lg:py-24 border-b border-slate-800/80">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div className="relative">
+            <div className="relative overflow-hidden rounded-[24px] border border-slate-800 bg-slate-900 shadow-[0_20px_50px_rgba(2,6,23,0.65)]">
+              {!storyImgError ? (
+                <>
+                  <img
+                    src="/about-story.jpg"
+                    alt="Apphany software and cloud engineering workspace"
+                    onError={() => setStoryImgError(true)}
+                    className="h-[340px] w-full object-cover opacity-95 sm:h-[440px]"
+                  />
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0B1120]/60 via-transparent to-transparent" />
+                </>
+              ) : (
+                <div className="flex h-[340px] sm:h-[440px] w-full flex-col items-center justify-center bg-gradient-to-br from-[#0B1120] via-slate-900 to-[#0f2341] p-8 text-center">
+                  <span className="mb-4 grid h-16 w-16 place-items-center rounded-2xl border border-sky-400/30 bg-sky-500/15 text-sky-400">
+                    <Sparkles className="h-8 w-8" />
+                  </span>
+                  <p className="text-lg font-extrabold text-slate-100">
+                    Apphany Technologies PVT.LTD
+                  </p>
+                  <p className="mt-1 text-sm text-sky-400">
+                    Software, SaaS &amp; Digital Payment Systems
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="absolute -bottom-5 right-5 rounded-xl border border-sky-400/30 bg-[#0B1120]/95 px-5 py-3.5 shadow-[0_14px_35px_rgba(2,6,23,0.7)] backdrop-blur-md sm:right-8">
+              <p className="text-sm font-extrabold text-slate-50">
+                Fast. Secure. <span className="text-sky-400">Apphany.</span>
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <SectionHeading
+              label="Who We Are"
+              title="Powering accessible digital & enterprise technology"
+            />
+            <p className="mt-6 text-base leading-8 text-slate-400">
+              <strong className="font-semibold text-slate-100">
+                Apphany Technologies PVT.LTD
+              </strong>{' '}
+              is a technology-driven software and digital services company focused on making
+              everyday payments, utility bill settlements, recharges, and enterprise software
+              workflows fast, transparent, and dependable.
+            </p>
+            <p className="mt-4 text-base leading-8 text-slate-400">
+              From consumer-facing payment journeys to scalable SaaS platforms and fintech API
+              integrations, our engineering and support teams prioritize security, clarity, and
+              consistent performance.
+            </p>
+            <ul className="mt-7 space-y-3.5">
+              {storyPoints.map((point) => (
+                <li
+                  key={point}
+                  className="flex items-center gap-3 text-sm font-bold text-slate-200"
+                >
+                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-sky-500/15 border border-sky-400/40 text-sky-400">
+                    <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                  </span>
+                  {point}
+                </li>
               ))}
             </ul>
           </div>
         </div>
-      </section >
+      </section>
 
-    {/* 4. Mission & Vision Section */ }
-    < section className = "bg-[#0F172A] px-4 py-20 sm:px-6 lg:px-8 border-b border-slate-800/80" >
-      <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-2">
-        {missionVision.map(({ icon: Icon, eyebrow, title, text }) => (
-          <article
-            key={eyebrow}
-            className="group h-full rounded-[24px] border border-slate-800 bg-slate-900/75 p-7 transition duration-300 hover:-translate-y-1 hover:border-sky-400/50 hover:shadow-[0_18px_40px_rgba(2,6,23,0.65)] sm:p-9"
-          >
-            <span className="grid h-12 w-12 place-items-center rounded-xl border border-sky-500/30 bg-sky-500/10 text-sky-400 transition group-hover:bg-gradient-to-r group-hover:from-sky-400 group-hover:to-blue-600 group-hover:text-slate-950">
-              <Icon className="h-6 w-6" />
-            </span>
-            <p className="mt-6 text-xs font-extrabold uppercase tracking-[0.17em] text-sky-400">
-              {eyebrow}
-            </p>
-            <h2 className="mt-3 text-2xl font-extrabold text-slate-50">{title}</h2>
-            <p className="mt-4 text-sm leading-7 text-slate-400">{text}</p>
-          </article>
-        ))}
-      </div>
-      </section >
-
-    {/* 5. What We Do / Our Services Grid */ }
-    < section className = "bg-[#0B1120] px-4 py-20 sm:px-6 lg:px-8 lg:py-24 border-b border-slate-800/80" >
-      <div className="mx-auto max-w-7xl">
-        <SectionHeading
-          label="What We Do"
-          title="Technology & payment solutions built for real-world needs"
-          text="Whether serving everyday consumers or enterprise teams, our platforms bring speed, security, and clarity together."
-          centered
-        />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {offerings.map(({ icon: Icon, title, description, href }) => (
+      {/* 4. Mission & Vision Section */}
+      <section className="bg-[#0F172A] px-4 py-20 sm:px-6 lg:px-8 border-b border-slate-800/80">
+        <div className="mx-auto grid max-w-7xl gap-6 lg:grid-cols-2">
+          {missionVision.map(({ icon: Icon, eyebrow, title, text }) => (
             <article
-              key={title}
-              className="group flex flex-col justify-between rounded-2xl border border-slate-800 bg-slate-900/70 p-6 transition duration-300 hover:-translate-y-1 hover:border-sky-400/50 hover:shadow-[0_16px_34px_rgba(2,6,23,0.55)]"
+              key={eyebrow}
+              className="group h-full rounded-[24px] border border-slate-800 bg-slate-900/75 p-7 transition duration-300 hover:-translate-y-1 hover:border-sky-400/50 hover:shadow-[0_18px_40px_rgba(2,6,23,0.65)] sm:p-9"
             >
-              <div>
-                <span className="grid h-12 w-12 place-items-center rounded-xl border border-sky-500/30 bg-sky-500/10 text-sky-400">
-                  <Icon className="h-5 w-5" />
-                </span>
-                <h3 className="mt-5 text-lg font-extrabold text-slate-50">{title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-400">{description}</p>
-              </div>
-              <Link
-                to={href}
-                aria-label={`Explore ${title}`}
-                className="mt-6 inline-grid h-9 w-9 place-items-center rounded-full border border-slate-700 text-sky-400 transition group-hover:border-sky-400 group-hover:bg-gradient-to-r group-hover:from-sky-400 group-hover:to-blue-600 group-hover:text-slate-950"
-              >
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </article>
-          ))}
-        </div>
-      </div>
-      </section >
-
-    {/* 6. Why Apphany / Benefits Grid */ }
-    < section className = "bg-[#0F172A] px-4 py-20 sm:px-6 lg:px-8 lg:py-24 border-b border-slate-800/80" >
-      <div className="mx-auto max-w-7xl">
-        <SectionHeading
-          label="Why Apphany"
-          title="Designed for Secure and Effortless Operations"
-          centered
-        />
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.map(({ icon: Icon, title, text }) => (
-            <article
-              key={title}
-              className="flex gap-4 rounded-2xl border border-slate-800 bg-slate-900/75 p-5 transition hover:border-sky-400/40"
-            >
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 text-slate-950">
-                <Icon className="h-5 w-5" />
+              <span className="grid h-12 w-12 place-items-center rounded-xl border border-sky-500/30 bg-sky-500/10 text-sky-400 transition group-hover:bg-gradient-to-r group-hover:from-sky-400 group-hover:to-blue-600 group-hover:text-slate-950">
+                <Icon className="h-6 w-6" />
               </span>
-              <div>
-                <h3 className="font-extrabold text-slate-50">{title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-400">{text}</p>
-              </div>
+              <p className="mt-6 text-xs font-extrabold uppercase tracking-[0.17em] text-sky-400">
+                {eyebrow}
+              </p>
+              <h2 className="mt-3 text-2xl font-extrabold text-slate-50">{title}</h2>
+              <p className="mt-4 text-sm leading-7 text-slate-400">{text}</p>
             </article>
           ))}
         </div>
-      </div>
-      </section >
+      </section>
 
-    {/* 7. Security First Spotlight */ }
-    < section className = "bg-[#0B1120] px-4 py-20 sm:px-6 lg:px-8 lg:py-24 border-b border-slate-800/80" >
-      <div className="mx-auto grid max-w-7xl items-center gap-12 rounded-[28px] border border-sky-500/30 bg-gradient-to-br from-slate-900 via-[#0f2341] to-[#0B1120] px-6 py-10 shadow-[0_20px_50px_rgba(2,6,23,0.75)] sm:px-10 lg:grid-cols-[1.08fr_0.92fr] lg:px-14 lg:py-14">
-        <div>
+      {/* 5. What We Do / Our Services Grid */}
+      <section className="bg-[#0B1120] px-4 py-20 sm:px-6 lg:px-8 lg:py-24 border-b border-slate-800/80">
+        <div className="mx-auto max-w-7xl">
           <SectionHeading
-            label="Security First"
-            title="Your Trust Is at the Centre of Every Transaction"
+            label="What We Do"
+            title="Technology & payment solutions built for real-world needs"
+            text="Whether serving everyday consumers or enterprise teams, our platforms bring speed, security, and clarity together."
+            centered
           />
-          <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-300">
-            Apphany follows rigorous security engineering practices to provide a dependable
-            digital platform. Every layer is structured to protect sensitive credentials and keep
-            transaction histories verifiable and transparent.
-          </p>
-          <div className="mt-7 grid gap-3 sm:grid-cols-2">
-            {securityPoints.map(({ icon: Icon, text }) => (
-              <div
-                key={text}
-                className="flex items-center gap-3 rounded-xl border border-slate-700/70 bg-[#0B1120]/70 p-3.5"
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {offerings.map(({ icon: Icon, title, description, href }) => (
+              <article
+                key={title}
+                className="group flex flex-col justify-between rounded-2xl border border-slate-800 bg-slate-900/70 p-6 transition duration-300 hover:-translate-y-1 hover:border-sky-400/50 hover:shadow-[0_16px_34px_rgba(2,6,23,0.55)]"
               >
-                <Icon className="h-4 w-4 shrink-0 text-sky-400" />
-                <span className="text-sm font-semibold text-slate-100">{text}</span>
-              </div>
+                <div>
+                  <span className="grid h-12 w-12 place-items-center rounded-xl border border-sky-500/30 bg-sky-500/10 text-sky-400">
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <h3 className="mt-5 text-lg font-extrabold text-slate-50">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">{description}</p>
+                </div>
+                <Link
+                  to={href}
+                  aria-label={`Explore ${title}`}
+                  className="mt-6 inline-grid h-9 w-9 place-items-center rounded-full border border-slate-700 text-sky-400 transition group-hover:border-sky-400 group-hover:bg-gradient-to-r group-hover:from-sky-400 group-hover:to-blue-600 group-hover:text-slate-950"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </article>
             ))}
           </div>
         </div>
+      </section>
 
-        <div className="relative mx-auto w-full max-w-sm">
-          <div className="mx-auto grid h-44 w-44 place-items-center rounded-full border border-sky-400/25 bg-sky-500/10 shadow-[0_0_45px_rgba(14,165,233,0.18)]">
-            <ShieldCheck className="h-20 w-20 text-sky-400" strokeWidth={1.4} />
-          </div>
-          <div className="relative -mt-6 rounded-2xl border border-slate-700/80 bg-[#0B1120]/95 p-5 text-slate-100 shadow-[0_20px_45px_rgba(2,6,23,0.8)] backdrop-blur-md">
-            <div className="flex items-center gap-2 text-sm font-extrabold text-emerald-400">
-              <CheckCircle2 className="h-5 w-5" /> Transaction &amp; API Verified
-            </div>
-            <div className="mt-4 flex items-end justify-between border-t border-slate-800 pt-4">
-              <div>
-                <p className="text-xs text-slate-400">Platform Encryption</p>
-                <p className="mt-1 text-2xl font-extrabold text-slate-50">AES-256 TLS</p>
-              </div>
-              <div className="text-right">
-                <Lock className="ml-auto h-4 w-4 text-sky-400" />
-                <p className="mt-1 text-[10px] text-slate-400">Secured by Apphany</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      </section >
-
-    {/* 8. Core Values Section */ }
-    < section className = "bg-[#0F172A] px-4 py-20 sm:px-6 lg:px-8 lg:py-24 border-b border-slate-800/80" >
-      <div className="mx-auto max-w-7xl">
-        <SectionHeading
-          label="Our Core Values"
-          title="Principles behind every product we build"
-          centered
-        />
-        <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {coreValues.map(({ number, icon: Icon, title, description }) => (
-            <article
-              key={title}
-              className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 p-6 shadow-[0_8px_22px_rgba(2,6,23,0.45)]"
-            >
-              <span className="absolute right-4 top-2 text-5xl font-black text-slate-800/80 select-none">
-                {number}
-              </span>
-              <Icon className="relative h-5 w-5 text-sky-400" />
-              <h3 className="relative mt-6 text-lg font-extrabold text-slate-50">{title}</h3>
-              <p className="relative mt-2 text-sm leading-6 text-slate-400">{description}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-      </section >
-
-    {/* 9. Our Journey Timeline */ }
-    < section className = "bg-[#0B1120] px-4 py-20 sm:px-6 lg:px-8 lg:py-24 border-b border-slate-800/80" >
-      <div className="mx-auto max-w-7xl">
-        <SectionHeading
-          label="Our Process"
-          title="Building Reliable Systems Step by Step"
-          centered
-        />
-        <ol className="relative mt-14 grid gap-0 lg:grid-cols-4">
-          <div
-            className="absolute left-4 top-0 h-full w-px bg-slate-800 lg:left-[12.5%] lg:top-4 lg:h-px lg:w-3/4"
-            aria-hidden="true"
+      {/* 6. Why Apphany / Benefits Grid */}
+      <section className="bg-[#0F172A] px-4 py-20 sm:px-6 lg:px-8 lg:py-24 border-b border-slate-800/80">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            label="Why Apphany"
+            title="Designed for Secure and Effortless Operations"
+            centered
           />
-          {journeySteps.map(({ title, text }, index) => (
-            <li
-              key={title}
-              className="relative grid grid-cols-[34px_1fr] gap-4 pb-9 last:pb-0 lg:block lg:px-4 lg:pb-0 lg:text-center"
-            >
-              <span className="relative z-10 grid h-8 w-8 place-items-center rounded-full border-4 border-[#0B1120] bg-gradient-to-r from-sky-400 to-blue-600 text-[11px] font-extrabold text-slate-950 shadow lg:mx-auto">
-                {index + 1}
-              </span>
-              <div className="lg:mt-5">
-                <h3 className="font-extrabold text-slate-50">{title}</h3>
-                <p className="mt-2 text-sm leading-6 text-slate-400">{text}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-      </section >
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {benefits.map(({ icon: Icon, title, text }) => (
+              <article
+                key={title}
+                className="flex gap-4 rounded-2xl border border-slate-800 bg-slate-900/75 p-5 transition hover:border-sky-400/40"
+              >
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 text-slate-950">
+                  <Icon className="h-5 w-5" />
+                </span>
+                <div>
+                  <h3 className="font-extrabold text-slate-50">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">{text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    {/* 10. Work With Apphany CTA Banner */ }
-    < section className = "bg-[#0F172A] px-4 py-16 sm:px-6 lg:px-8 lg:py-20 border-b border-slate-800/80" >
-      <div className="mx-auto max-w-7xl">
-        <div className="relative overflow-hidden rounded-[28px] border border-sky-500/30 bg-gradient-to-br from-slate-900 via-[#0f2442] to-slate-900 px-7 py-11 text-slate-50 shadow-[0_20px_50px_rgba(2,6,23,0.75)] sm:px-11 lg:px-14 lg:py-14">
-          <div className="pointer-events-none absolute -right-14 -top-14 h-56 w-56 rounded-full border-[32px] border-sky-400/15" />
-          <div className="pointer-events-none absolute bottom-5 right-[26%] hidden rotate-6 rounded-xl border border-sky-400/20 bg-slate-900/80 p-4 lg:block">
-            <Zap className="h-6 w-6 text-sky-400" />
+      {/* 7. Security First Spotlight */}
+      <section className="bg-[#0B1120] px-4 py-20 sm:px-6 lg:px-8 lg:py-24 border-b border-slate-800/80">
+        <div className="mx-auto grid max-w-7xl items-center gap-12 rounded-[28px] border border-sky-500/30 bg-gradient-to-br from-slate-900 via-[#0f2341] to-[#0B1120] px-6 py-10 shadow-[0_20px_50px_rgba(2,6,23,0.75)] sm:px-10 lg:grid-cols-[1.08fr_0.92fr] lg:px-14 lg:py-14">
+          <div>
+            <SectionHeading
+              label="Security First"
+              title="Your Trust Is at the Centre of Every Transaction"
+            />
+            <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-300">
+              Apphany follows rigorous security engineering practices to provide a dependable
+              digital platform. Every layer is structured to protect sensitive credentials and keep
+              transaction histories verifiable and transparent.
+            </p>
+            <div className="mt-7 grid gap-3 sm:grid-cols-2">
+              {securityPoints.map(({ icon: Icon, text }) => (
+                <div
+                  key={text}
+                  className="flex items-center gap-3 rounded-xl border border-slate-700/70 bg-[#0B1120]/70 p-3.5"
+                >
+                  <Icon className="h-4 w-4 shrink-0 text-sky-400" />
+                  <span className="text-sm font-semibold text-slate-100">{text}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="relative max-w-3xl">
-            <p className="mb-2 text-xs font-extrabold uppercase tracking-[0.18em] text-sky-400">
-              Work With Apphany
-            </p>
-            <h2 className="text-2xl font-extrabold sm:text-4xl text-slate-50">
-              Have questions or partnership ideas?
-            </h2>
-            <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
-              At Apphany Technologies PVT.LTD, we are committed to delivering technology and
-              digital payment services that create measurable impact and long-term value.
-            </p>
-            <div className="mt-7 flex flex-wrap items-center gap-3.5">
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-400 to-blue-600 px-6 py-3.5 text-sm font-bold text-slate-950 shadow-[0_0_24px_rgba(14,165,233,0.3)] transition hover:-translate-y-0.5 hover:brightness-110"
-              >
-                Get in Touch <ArrowRight className="h-4 w-4" />
-              </Link>
-              <Link
-                to="/software"
-                className="rounded-xl border border-slate-700 bg-slate-900/75 px-6 py-3.5 text-sm font-bold text-slate-100 transition hover:border-sky-400/50 hover:bg-slate-800/80"
-              >
-                Explore Software Suite
-              </Link>
+          <div className="relative mx-auto w-full max-w-sm">
+            <div className="mx-auto grid h-44 w-44 place-items-center rounded-full border border-sky-400/25 bg-sky-500/10 shadow-[0_0_45px_rgba(14,165,233,0.18)]">
+              <ShieldCheck className="h-20 w-20 text-sky-400" strokeWidth={1.4} />
+            </div>
+            <div className="relative -mt-6 rounded-2xl border border-slate-700/80 bg-[#0B1120]/95 p-5 text-slate-100 shadow-[0_20px_45px_rgba(2,6,23,0.8)] backdrop-blur-md">
+              <div className="flex items-center gap-2 text-sm font-extrabold text-emerald-400">
+                <CheckCircle2 className="h-5 w-5" /> Transaction &amp; API Verified
+              </div>
+              <div className="mt-4 flex items-end justify-between border-t border-slate-800 pt-4">
+                <div>
+                  <p className="text-xs text-slate-400">Platform Encryption</p>
+                  <p className="mt-1 text-2xl font-extrabold text-slate-50">AES-256 TLS</p>
+                </div>
+                <div className="text-right">
+                  <Lock className="ml-auto h-4 w-4 text-sky-400" />
+                  <p className="mt-1 text-[10px] text-slate-400">Secured by Apphany</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      </section >
+      </section>
 
-    {/* 11. Frequently Asked Questions */ }
-    < section className = "bg-[#0B1120] px-4 py-20 sm:px-6 lg:px-8" >
-      <div className="mx-auto max-w-4xl">
-        <SectionHeading
-          label="FAQ"
-          title="Frequently Asked Questions"
-          text="Clear answers to common questions about Apphany Technologies PVT.LTD, our software platforms, and our support services."
-          centered
-        />
-        <div className="mt-10 space-y-3">
-          {faqs.map((faq, idx) => {
-            const isOpen = openFaq === idx;
-            return (
-              <div
-                key={faq.question}
-                className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 transition hover:border-sky-500/30"
+      {/* 8. Core Values Section */}
+      <section className="bg-[#0F172A] px-4 py-20 sm:px-6 lg:px-8 lg:py-24 border-b border-slate-800/80">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            label="Our Core Values"
+            title="Principles behind every product we build"
+            centered
+          />
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {coreValues.map(({ number, icon: Icon, title, description }) => (
+              <article
+                key={title}
+                className="relative overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 p-6 shadow-[0_8px_22px_rgba(2,6,23,0.45)]"
               >
-                <button
-                  type="button"
-                  onClick={() => setOpenFaq(isOpen ? -1 : idx)}
-                  aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-4 px-6 py-4 text-left text-sm sm:text-base font-bold text-slate-100 cursor-pointer"
-                >
-                  <span>{faq.question}</span>
-                  <ChevronDown
-                    className={`h-5 w-5 shrink-0 text-sky-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''
-                      }`}
-                  />
-                </button>
-                {isOpen && (
-                  <div className="border-t border-slate-800/80 px-6 py-4 text-sm leading-7 text-slate-400">
-                    {faq.answer}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+                <span className="absolute right-4 top-2 text-5xl font-black text-slate-800/80 select-none">
+                  {number}
+                </span>
+                <Icon className="relative h-5 w-5 text-sky-400" />
+                <h3 className="relative mt-6 text-lg font-extrabold text-slate-50">{title}</h3>
+                <p className="relative mt-2 text-sm leading-6 text-slate-400">{description}</p>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
-      </section >
-    </div >
+      </section>
+
+      {/* 9. Our Journey Timeline */}
+      <section className="bg-[#0B1120] px-4 py-20 sm:px-6 lg:px-8 lg:py-24 border-b border-slate-800/80">
+        <div className="mx-auto max-w-7xl">
+          <SectionHeading
+            label="Our Process"
+            title="Building Reliable Systems Step by Step"
+            centered
+          />
+          <ol className="relative mt-14 grid gap-0 lg:grid-cols-4">
+            <div
+              className="absolute left-4 top-0 h-full w-px bg-slate-800 lg:left-[12.5%] lg:top-4 lg:h-px lg:w-3/4"
+              aria-hidden="true"
+            />
+            {journeySteps.map(({ title, text }, index) => (
+              <li
+                key={title}
+                className="relative grid grid-cols-[34px_1fr] gap-4 pb-9 last:pb-0 lg:block lg:px-4 lg:pb-0 lg:text-center"
+              >
+                <span className="relative z-10 grid h-8 w-8 place-items-center rounded-full border-4 border-[#0B1120] bg-gradient-to-r from-sky-400 to-blue-600 text-[11px] font-extrabold text-slate-950 shadow lg:mx-auto">
+                  {index + 1}
+                </span>
+                <div className="lg:mt-5">
+                  <h3 className="font-extrabold text-slate-50">{title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate-400">{text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* 10. Work With Apphany CTA Banner */}
+      <section className="bg-[#0F172A] px-4 py-16 sm:px-6 lg:px-8 lg:py-20 border-b border-slate-800/80">
+        <div className="mx-auto max-w-7xl">
+          <div className="relative overflow-hidden rounded-[28px] border border-sky-500/30 bg-gradient-to-br from-slate-900 via-[#0f2442] to-slate-900 px-7 py-11 text-slate-50 shadow-[0_20px_50px_rgba(2,6,23,0.75)] sm:px-11 lg:px-14 lg:py-14">
+            <div className="pointer-events-none absolute -right-14 -top-14 h-56 w-56 rounded-full border-[32px] border-sky-400/15" />
+            <div className="pointer-events-none absolute bottom-5 right-[26%] hidden rotate-6 rounded-xl border border-sky-400/20 bg-slate-900/80 p-4 lg:block">
+              <Zap className="h-6 w-6 text-sky-400" />
+            </div>
+
+            <div className="relative max-w-3xl">
+              <p className="mb-2 text-xs font-extrabold uppercase tracking-[0.18em] text-sky-400">
+                Work With Apphany
+              </p>
+              <h2 className="text-2xl font-extrabold sm:text-4xl text-slate-50">
+                Have questions or partnership ideas?
+              </h2>
+              <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">
+                At Apphany Technologies PVT.LTD, we are committed to delivering technology and
+                digital payment services that create measurable impact and long-term value.
+              </p>
+              <div className="mt-7 flex flex-wrap items-center gap-3.5">
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-400 to-blue-600 px-6 py-3.5 text-sm font-bold text-slate-950 shadow-[0_0_24px_rgba(14,165,233,0.3)] transition hover:-translate-y-0.5 hover:brightness-110"
+                >
+                  Get in Touch <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  to="/software"
+                  className="rounded-xl border border-slate-700 bg-slate-900/75 px-6 py-3.5 text-sm font-bold text-slate-100 transition hover:border-sky-400/50 hover:bg-slate-800/80"
+                >
+                  Explore Software Suite
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 11. Frequently Asked Questions */}
+      <section className="bg-[#0B1120] px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl">
+          <SectionHeading
+            label="FAQ"
+            title="Frequently Asked Questions"
+            text="Clear answers to common questions about Apphany Technologies PVT.LTD, our software platforms, and our support services."
+            centered
+          />
+          <div className="mt-10 space-y-3">
+            {faqs.map((faq, idx) => {
+              const isOpen = openFaq === idx;
+              return (
+                <div
+                  key={faq.question}
+                  className="overflow-hidden rounded-2xl border border-slate-800 bg-slate-900/75 transition hover:border-sky-500/30"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? -1 : idx)}
+                    aria-expanded={isOpen}
+                    className="flex w-full items-center justify-between gap-4 px-6 py-4 text-left text-sm sm:text-base font-bold text-slate-100 cursor-pointer"
+                  >
+                    <span>{faq.question}</span>
+                    <ChevronDown
+                      className={`h-5 w-5 shrink-0 text-sky-400 transition-transform duration-200 ${
+                        isOpen ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                  {isOpen && (
+                    <div className="border-t border-slate-800/80 px-6 py-4 text-sm leading-7 text-slate-400">
+                      {faq.answer}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
