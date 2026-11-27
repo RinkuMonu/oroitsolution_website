@@ -1,18 +1,36 @@
 @import "tailwindcss";
 
+/* Theme 1: Midnight & Electric Cyan */
+:root {
+  --bg-hero: #0B1120;
+  --bg-surface: rgba(30, 41, 59, 0.7);
+  --accent-primary: #0EA5E9;
+  --accent-glow: #38BDF8;
+  --text-heading: #F8FAFC;
+  --text-muted: #94A3B8;
+}
+
 @layer base {
   html {
     overflow-x: hidden;
     overflow-x: clip;
     max-width: 100%;
     scroll-behavior: smooth;
+    scroll-padding-top: 4rem;
     -webkit-text-size-adjust: 100%;
+    color-scheme: dark;
+  }
+
+  @media (min-width: 640px) {
+    html {
+      scroll-padding-top: 5rem;
+    }
   }
 
   body {
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    color: #1e293b;
-    background-color: #0d4bbb;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--text-heading);
+    background-color: var(--bg-hero);
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -31,13 +49,13 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Custom glow effects */
+/* Electric Cyan glow effects */
 .glow-card {
-  box-shadow: 0 20px 40px -15px rgba(0, 10, 60, 0.5), 0 0 25px -5px rgba(59, 130, 246, 0.25);
+  box-shadow: 0 20px 45px -15px rgba(2, 6, 23, 0.85), 0 0 28px -8px rgba(56, 189, 248, 0.22);
 }
 
 .glow-btn {
-  box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 22px rgba(14, 165, 233, 0.3);
 }
 
 /* Hide scrollbar utility */
@@ -47,4 +65,33 @@
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20%, 60% {
+    transform: translateX(-4px);
+  }
+  40%, 80% {
+    transform: translateX(4px);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out both;
+}
+
+.animate-shake {
+  animation: shake 0.35s ease-in-out both;
 }

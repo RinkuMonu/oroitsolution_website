@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Check, X } from 'lucide-react';
 
 const plans = [
@@ -24,7 +24,7 @@ const plans = [
     description: 'Complete B2C eCommerce solution for your virtual retail store.',
     price: 2600,
     popular: true,
-    badge: '🔥 Most Popular',
+    badge: 'Most Popular',
     features: [
       ['Dashboard Analytics', 1000, true],
       ['Product Listing', 800, true],
@@ -53,11 +53,12 @@ const plans = [
   },
   {
     category: 'FOR ALL STUDENT',
-    title: 'Oro IT Academy For Student',
-    description: 'Oro IT Academy is a professional training platform that provides software internship programs.',
+    title: 'Apphany Technologies Academy For Student',
+    description:
+      'Apphany Technologies Academy is a professional training platform that provides software internship programs.',
     price: 10500,
     popular: true,
-    badge: '🔥 Only Internship Student',
+    badge: 'Internship Program',
     features: [
       ['Registration Fee (One-Time Fee)', 1000, true],
       ['Online Internship Classes', 3000, true],
@@ -73,7 +74,8 @@ const plans = [
 const faqs = [
   {
     question: 'Can I change plans later?',
-    answer: 'Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.',
+    answer:
+      'Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately.',
   },
   {
     question: 'Is there a free trial?',
@@ -83,14 +85,14 @@ const faqs = [
     question: 'What payment methods do you accept?',
     answer: 'We accept all major credit cards, UPI, and bank transfers.',
   },
-
   {
     question: 'Do you offer refunds?',
-    answer: 'No, refunds are not available for API testing charges and registration charges. These are one-time fees paid by the user and are non-refundable.',
+    answer:
+      'No, refunds are not available for API testing charges and registration charges. These are one-time fees paid by the user and are non-refundable.',
   },
 ];
 
-export default function Product({ onGetStarted }) {
+export default function Product() {
   const [yearly, setYearly] = useState(false);
 
   const formatPrice = (price) => {
@@ -98,45 +100,42 @@ export default function Product({ onGetStarted }) {
     return amount.toLocaleString('en-IN');
   };
 
-
   return (
-    <div className="w-full bg-white overflow-x-clip">
-
+    <div className="w-full bg-[#0B1120] text-slate-50 overflow-x-clip">
       {/* HERO HEADER */}
-      <section className="w-full min-h-[170px] sm:min-h-[210px] bg-gradient-to-r from-[#193c7d] via-[#2054ad] to-[#3269df] flex items-center justify-center px-4 sm:px-6 py-10 sm:py-12">
-        <div className="text-center max-w-4xl mx-auto">
-          <h1 className="text-2xl min-[380px]:text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-white">
+      <section className="relative w-full min-h-[190px] sm:min-h-[220px] bg-[#0B1120] border-b border-slate-800/80 flex items-center justify-center px-4 sm:px-6 py-12 overflow-hidden">
+        <div className="absolute -top-24 left-1/4 w-72 h-72 rounded-full bg-sky-500/15 blur-3xl pointer-events-none" />
+        <div className="relative text-center max-w-4xl mx-auto">
+          <span className="inline-block rounded-full border border-sky-500/30 bg-sky-500/10 px-4 py-1 text-xs font-semibold text-sky-400 mb-3">
+            Pricing &amp; Plans
+          </span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-slate-50">
             Simple, Transparent Pricing
           </h1>
-
-          <p className="mt-2.5 sm:mt-3 text-sm sm:text-base lg:text-lg text-blue-100/90 max-w-2xl mx-auto">
+          <p className="mt-3 text-sm sm:text-base lg:text-lg text-slate-400 max-w-2xl mx-auto">
             Choose the perfect plan for your business. No hidden fees, no surprises.
           </p>
         </div>
       </section>
 
       {/* PRICING PLANS */}
-      <section className="bg-[#f8fafc] px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+      <section className="bg-[#0F172A] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 border-b border-slate-800/80">
         <div className="max-w-[1250px] mx-auto">
-
-          {/* Heading */}
-          <div className="text-center mb-7 sm:mb-8">
-            <p className="text-xs sm:text-sm font-bold tracking-[2px] text-blue-600">
+          <div className="text-center mb-8">
+            <p className="text-xs sm:text-sm font-bold tracking-[2px] text-sky-400 uppercase">
               PRICING PLANS
             </p>
-
-            <h2 className="text-xl min-[380px]:text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mt-2 sm:mt-3">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-50 mt-2 sm:mt-3">
               Flexible Plans for Every Customer
             </h2>
-
-            <p className="text-gray-500 mt-2.5 sm:mt-3 text-sm sm:text-base max-w-2xl mx-auto">
-              Whether you're just starting or scaling fast, we have a plan that fits your needs
+            <p className="text-slate-400 mt-2.5 sm:mt-3 text-sm sm:text-base max-w-2xl mx-auto">
+              Whether you&apos;re just starting or scaling fast, we have a plan that fits your needs
             </p>
           </div>
 
-          {/* Monthly / Yearly */}
-          <div className="flex flex-wrap justify-center items-center gap-2.5 sm:gap-3 mb-9 sm:mb-11">
-            <span className={`text-sm ${!yearly ? 'text-blue-700 font-semibold' : 'text-gray-500'}`}>
+          {/* Monthly / Yearly Toggle */}
+          <div className="flex flex-wrap justify-center items-center gap-3 mb-10 sm:mb-12">
+            <span className={`text-sm ${!yearly ? 'text-sky-400 font-bold' : 'text-slate-400'}`}>
               Monthly
             </span>
 
@@ -145,61 +144,67 @@ export default function Product({ onGetStarted }) {
               onClick={() => setYearly(!yearly)}
               aria-label="Toggle yearly pricing"
               aria-pressed={yearly}
-              className={`w-11 h-6 rounded-full p-1 transition-colors cursor-pointer shrink-0 ${yearly ? 'bg-blue-600' : 'bg-gray-200'}`}
+              className={`w-12 h-6 rounded-full p-1 transition-colors cursor-pointer shrink-0 border border-slate-700 ${
+                yearly ? 'bg-sky-500' : 'bg-slate-800'
+              }`}
             >
-              <span className={`block w-4 h-4 bg-white rounded-full shadow transition-transform ${yearly ? 'translate-x-5' : ''}`} />
+              <span
+                className={`block w-4 h-4 bg-white rounded-full shadow transition-transform ${
+                  yearly ? 'translate-x-6' : ''
+                }`}
+              />
             </button>
 
-            <span className={`text-sm ${yearly ? 'text-blue-700 font-semibold' : 'text-gray-500'}`}>
+            <span className={`text-sm ${yearly ? 'text-sky-400 font-bold' : 'text-slate-400'}`}>
               Yearly
             </span>
 
-            <span className="text-[10px] sm:text-xs font-bold text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-full">
+            <span className="text-[10px] sm:text-xs font-bold text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-1 rounded-full">
               Save 20%
             </span>
           </div>
 
-          {/* PRICING CARDS: 1-col mobile, 2x2 tablet, 3+1 centered on desktop */}
+          {/* PRICING CARDS */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 sm:gap-y-9 items-stretch pt-2">
             {plans.map((plan, index) => (
               <div
                 key={plan.title}
-                className={`relative min-w-0 flex flex-col rounded-2xl border p-5 pt-7 sm:p-6 sm:pt-8 transition-all duration-300 sm:hover:-translate-y-1.5 hover:shadow-2xl ${index === 3 ? 'lg:col-start-2' : ''
-                  } ${plan.popular
-                    ? 'bg-gradient-to-b from-[#24469a] to-[#2860df] text-white border-blue-700 shadow-lg'
-                    : 'bg-white text-gray-900 border-blue-100 shadow-md hover:border-blue-400'
-                  }`}
+                className={`relative min-w-0 flex flex-col rounded-2xl border p-5 pt-7 sm:p-6 sm:pt-8 transition-all duration-300 sm:hover:-translate-y-1.5 ${
+                  index === 3 ? 'lg:col-start-2' : ''
+                } ${
+                  plan.popular
+                    ? 'bg-gradient-to-b from-slate-900 via-[#0f2341] to-slate-900 text-slate-50 border-sky-400/50 shadow-[0_0_35px_rgba(14,165,233,0.18)]'
+                    : 'bg-slate-900/75 text-slate-50 border-slate-800 shadow-[0_12px_32px_rgba(2,6,23,0.5)] hover:border-sky-500/40'
+                }`}
               >
                 {plan.badge && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 max-w-[calc(100%-2rem)] whitespace-nowrap truncate bg-amber-400 text-gray-900 text-[10px] sm:text-[11px] font-bold px-3 py-1.5 rounded-full shadow-lg">
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 max-w-[calc(100%-2rem)] whitespace-nowrap truncate bg-gradient-to-r from-sky-400 to-blue-600 text-slate-950 text-[10px] sm:text-[11px] font-extrabold px-3.5 py-1.5 rounded-full shadow-[0_0_16px_rgba(56,189,248,0.4)]">
                     {plan.badge}
                   </div>
                 )}
 
                 <div className="sm:min-h-[140px]">
-                  <p className={`text-[11px] font-bold tracking-wide ${plan.popular ? 'text-blue-100' : 'text-gray-400'}`}>
+                  <p className="text-[11px] font-bold tracking-wider text-sky-400">
                     {plan.category}
                   </p>
 
-                  <h3 className="text-xl sm:text-2xl font-bold mt-2.5 sm:mt-3 leading-tight">
+                  <h3 className="text-xl sm:text-2xl font-bold mt-2.5 sm:mt-3 leading-tight text-slate-50">
                     {plan.title}
                   </h3>
 
-                  <p className={`text-sm leading-relaxed mt-2.5 sm:mt-3 ${plan.popular ? 'text-blue-100' : 'text-gray-500'}`}>
+                  <p className="text-sm leading-relaxed mt-2.5 sm:mt-3 text-slate-400">
                     {plan.description}
                   </p>
                 </div>
 
                 {/* Price */}
-                <div className={`border-y py-4 my-4 ${plan.popular ? 'border-white/20' : 'border-blue-100'}`}>
+                <div className="border-y border-slate-800 py-4 my-4">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-base font-semibold">₹</span>
-                    <span className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+                    <span className="text-base font-semibold text-sky-400">₹</span>
+                    <span className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-50">
                       {formatPrice(plan.price)}
                     </span>
-                    <span className={`text-xs ${plan.popular ? 'text-blue-100' : 'text-gray-400'}`}>
-                      /month
-                    </span>
+                    <span className="text-xs text-slate-400">/month</span>
                   </div>
                 </div>
 
@@ -214,55 +219,48 @@ export default function Product({ onGetStarted }) {
                         {included ? (
                           <Check
                             size={15}
-                            className={`shrink-0 mt-0.5 ${plan.popular ? 'text-sky-300' : 'text-blue-600'}`}
+                            className="shrink-0 mt-0.5 text-sky-400"
                             strokeWidth={3}
                           />
                         ) : (
-                          <X
-                            size={15}
-                            className={`shrink-0 mt-0.5 ${plan.popular ? 'text-blue-200/80' : 'text-gray-400'}`}
-                          />
+                          <X size={15} className="shrink-0 mt-0.5 text-slate-600" />
                         )}
 
-                        <span className="leading-snug sm:leading-relaxed break-words">
+                        <span className="leading-snug sm:leading-relaxed break-words text-slate-300">
                           {feature}
                         </span>
                       </div>
 
-                      <span className="shrink-0 font-medium">
-                        ₹{amount}
-                      </span>
+                      <span className="shrink-0 font-semibold text-slate-200">₹{amount}</span>
                     </div>
                   ))}
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => onGetStarted?.(plan.title)}
-                  className={`w-full min-h-[44px] mt-6 sm:mt-7 py-3 rounded-lg text-sm font-bold transition-all duration-300 sm:hover:scale-[1.02] active:scale-[0.99] cursor-pointer touch-manipulation ${plan.popular
-                      ? 'bg-white text-blue-700 hover:bg-orange-400 hover:text-white shadow-lg'
-                      : 'border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white'
-                    }`}
+                <Link
+                  to="/contact"
+                  state={{ subject: `${plan.title} (${yearly ? 'Yearly' : 'Monthly'} Plan)` }}
+                  className={`w-full min-h-[44px] mt-6 sm:mt-7 py-3 rounded-lg text-sm font-bold flex items-center justify-center transition-all duration-300 sm:hover:scale-[1.02] active:scale-[0.99] cursor-pointer touch-manipulation ${
+                    plan.popular
+                      ? 'bg-gradient-to-r from-sky-400 to-blue-600 text-slate-950 hover:brightness-110 shadow-[0_0_20px_rgba(14,165,233,0.3)]'
+                      : 'border border-slate-700 bg-slate-800/80 text-slate-100 hover:border-sky-400/50 hover:text-sky-300'
+                  }`}
                 >
                   Get Started
-                </button>
+                </Link>
               </div>
             ))}
           </div>
-
         </div>
       </section>
 
       {/* FAQ SECTION */}
-      <section className="bg-white px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+      <section className="bg-[#0B1120] px-4 sm:px-6 lg:px-8 py-12 sm:py-14 border-b border-slate-800/80">
         <div className="max-w-[1100px] mx-auto">
-
-          <div className="text-center mb-7 sm:mb-8">
-            <h2 className="text-xl min-[380px]:text-2xl sm:text-3xl font-bold text-gray-900">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-50">
               Frequently Asked Questions
             </h2>
-
-            <p className="text-gray-500 mt-2 text-xs sm:text-sm">
+            <p className="text-slate-400 mt-2 text-xs sm:text-sm">
               Everything you need to know about our pricing
             </p>
           </div>
@@ -271,22 +269,17 @@ export default function Product({ onGetStarted }) {
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="bg-[#f6f8fb] rounded-xl p-5 sm:p-6 sm:min-h-[125px] border border-transparent hover:border-blue-300 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                className="bg-slate-900/70 rounded-xl p-5 sm:p-6 border border-slate-800 hover:border-sky-400/40 hover:-translate-y-0.5 transition-all duration-300"
               >
-                <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-2">
+                <h3 className="text-sm sm:text-base font-bold text-slate-50 mb-2">
                   {faq.question}
                 </h3>
-
-                <p className="text-xs sm:text-sm text-gray-500 leading-relaxed">
-                  {faq.answer}
-                </p>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">{faq.answer}</p>
               </div>
             ))}
           </div>
-
         </div>
       </section>
-
     </div>
   );
 }

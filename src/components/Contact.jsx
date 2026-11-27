@@ -1,119 +1,149 @@
 import React, { useState } from 'react';
-import { Phone, MapPin, Clock, CheckCircle2 } from 'lucide-react';
+import { Mail, MapPin, Clock, CheckCircle2 } from 'lucide-react';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     subject: '',
-    message: ''
+    message: '',
   });
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }));
+    }
+    if (name === 'phone') {
+      setFormData({ ...formData, phone: value.replace(/\D/g, '').slice(0, 10) });
+      return;
+    }
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const nextErrors = {};
+    if (!formData.name.trim()) nextErrors.name = 'Name is required';
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      nextErrors.email = 'Valid email is required';
+    }
+    if (formData.phone.trim() && formData.phone.trim().length !== 10) {
+      nextErrors.phone = 'Enter a valid 10-digit phone number';
+    }
+    if (!formData.message.trim()) nextErrors.message = 'Message is required';
+
+    if (Object.keys(nextErrors).length > 0) {
+      setErrors(nextErrors);
+      return;
+    }
+    setErrors({});
     setSubmitted(true);
-    setTimeout(() => {
-      // Auto-reset handled if needed
-    }, 4000);
   };
 
   return (
-    <section id="contact" className="relative bg-white pt-10 sm:pt-14 pb-0 overflow-hidden text-gray-800">
-
-      {/* Cards container overlapping the map */}
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 mb-6 sm:mb-[-60px] lg:mb-[-120px]">
+    <section
+      id="contact"
+      className="relative bg-[#0B1120] pt-12 sm:pt-16 pb-0 overflow-hidden text-slate-50"
+    >
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pb-10 sm:pb-14">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start justify-center">
-
           {/* Left Column: 3 Contact Info Cards */}
           <div className="lg:col-span-5 space-y-3 sm:space-y-4">
-
-            {/* Card 1: Contact */}
-            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex items-start space-x-3.5 sm:space-x-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#155cd5] text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
-                <Phone className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
+            {/* Card 1: Email */}
+            <div className="bg-slate-900/90 backdrop-blur-md rounded-xl p-4 sm:p-6 shadow-[0_14px_34px_rgba(2,6,23,0.65)] border border-slate-800 hover:border-sky-400/40 flex items-start space-x-3.5 sm:space-x-4 transition-all duration-300 hover:-translate-y-0.5">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-sky-400 to-blue-600 text-slate-950 flex items-center justify-center shrink-0 shadow-[0_0_16px_rgba(14,165,233,0.3)] mt-0.5">
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
               </div>
               <div className="min-w-0">
-                <h4 className="text-[#155cd5] font-bold text-sm sm:text-base mb-1">Contact</h4>
-                <p className="text-xs sm:text-sm text-gray-600 font-medium">087418 86688</p>
-                <p className="text-xs sm:text-sm text-gray-600 font-medium break-words">oroitsolution@gmail.com</p>
+                <h4 className="text-sky-400 font-bold text-sm sm:text-base mb-1">Email</h4>
+                <a
+                  href="mailto:support@apphany.in"
+                  className="block text-xs sm:text-sm text-slate-300 hover:text-sky-400 font-medium [overflow-wrap:anywhere] transition-colors"
+                >
+                  support@apphany.in
+                </a>
               </div>
             </div>
 
             {/* Card 2: Address */}
-            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex items-start space-x-3.5 sm:space-x-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#155cd5] text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+            <div className="bg-slate-900/90 backdrop-blur-md rounded-xl p-4 sm:p-6 shadow-[0_14px_34px_rgba(2,6,23,0.65)] border border-slate-800 hover:border-sky-400/40 flex items-start space-x-3.5 sm:space-x-4 transition-all duration-300 hover:-translate-y-0.5">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-sky-400 to-blue-600 text-slate-950 flex items-center justify-center shrink-0 shadow-[0_0_16px_rgba(14,165,233,0.3)] mt-0.5">
                 <MapPin className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
               </div>
               <div className="min-w-0">
-                <h4 className="text-[#155cd5] font-bold text-sm sm:text-base mb-1">Address</h4>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">SevenUnique Tech Solutions Pvt. Ltd</p>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed"> Jaipur,</p>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">Rajasthan 302017</p>
-                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">India</p>
+                <h4 className="text-sky-400 font-bold text-sm sm:text-base mb-1">Address</h4>
+                <p className="text-xs sm:text-sm text-slate-100 font-semibold leading-relaxed">
+                  Apphany Technologies PVT.LTD
+                </p>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                  Office No. 506, 5th Floor, Chordia&apos;s Kosmos (A Block), Plot No. E-5, Dr.
+                  Rajendra Prasad Nagar E, Village Badarwas, Jaipur, Rajasthan – 302019
+                </p>
               </div>
             </div>
 
             {/* Card 3: Schedule */}
-            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-[0_10px_30px_rgba(0,0,0,0.06)] border border-gray-100 flex items-start space-x-3.5 sm:space-x-4 transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#155cd5] text-white flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+            <div className="bg-slate-900/90 backdrop-blur-md rounded-xl p-4 sm:p-6 shadow-[0_14px_34px_rgba(2,6,23,0.65)] border border-slate-800 hover:border-sky-400/40 flex items-start space-x-3.5 sm:space-x-4 transition-all duration-300 hover:-translate-y-0.5">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-sky-400 to-blue-600 text-slate-950 flex items-center justify-center shrink-0 shadow-[0_0_16px_rgba(14,165,233,0.3)] mt-0.5">
                 <Clock className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.2]" />
               </div>
               <div className="min-w-0">
-                <h4 className="text-[#155cd5] font-bold text-sm sm:text-base mb-1">Schedule</h4>
-                <p className="text-xs sm:text-sm text-gray-600 font-medium">24 Hours / 7 Days Open</p>
-                <p className="text-xs sm:text-sm text-gray-600 font-medium">Office time: 10 AM - 6:00 PM</p>
+                <h4 className="text-sky-400 font-bold text-sm sm:text-base mb-1">Schedule</h4>
+                <p className="text-xs sm:text-sm text-slate-300 font-medium">
+                  Mon–Sat: 9:30 AM to 6:30 PM
+                </p>
+                <p className="text-xs sm:text-sm text-slate-400 font-medium">Sun: Closed</p>
               </div>
             </div>
-
           </div>
 
           {/* Right Column: Ready to Get Started Form Card */}
           <div className="lg:col-span-7">
-            <div className="bg-white rounded-2xl p-4 min-[420px]:p-6 sm:p-8 lg:p-10 shadow-[0_15px_35px_rgba(0,0,0,0.08)] border border-gray-100 transition-all">
-
+            <div className="bg-[#0F172A]/95 backdrop-blur-md rounded-2xl p-5 min-[420px]:p-6 sm:p-8 lg:p-10 shadow-[0_20px_50px_rgba(2,6,23,0.8)] border border-slate-800 transition-all">
               <div className="text-center mb-5 sm:mb-6">
-                <span className="text-xs sm:text-[13px] font-bold text-[#155cd5] uppercase tracking-wider block mb-1">
+                <span className="text-xs sm:text-[13px] font-bold text-sky-400 uppercase tracking-wider block mb-1">
                   Get in Touch
                 </span>
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-gray-900 tracking-tight">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-50 tracking-tight">
                   Ready to Get Started
                 </h3>
-                <p className="text-xs sm:text-[13px] text-gray-500 mt-1.5 max-w-lg mx-auto leading-relaxed">
-                  Have a question or looking to build a new software product? Contact our expert team today.
+                <p className="text-xs sm:text-[13px] text-slate-400 mt-1.5 max-w-lg mx-auto leading-relaxed">
+                  Have a question or looking to build a new software product? Contact our expert
+                  team today.
                 </p>
               </div>
 
               {submitted ? (
                 <div className="text-center py-8 sm:py-10 space-y-3">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto border border-emerald-200">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-emerald-500/15 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/30">
                     <CheckCircle2 className="w-6 h-6 sm:w-8 sm:h-8" />
                   </div>
-                  <h4 className="text-lg sm:text-xl font-bold text-gray-900">Message Sent Successfully!</h4>
-                  <p className="text-xs sm:text-sm text-gray-500 max-w-md mx-auto">
+                  <h4 className="text-lg sm:text-xl font-bold text-slate-50">
+                    Message Sent Successfully!
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-400 max-w-md mx-auto">
                     Thank you for reaching out. Our team will get back to you shortly.
                   </p>
                   <button
+                    type="button"
                     onClick={() => {
                       setSubmitted(false);
                       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
                     }}
-                    className="mt-3 px-6 py-2 bg-[#155cd5] text-white rounded-full text-xs font-semibold hover:bg-blue-700 transition cursor-pointer"
+                    className="mt-3 px-6 py-2.5 bg-gradient-to-r from-sky-400 to-blue-600 text-slate-950 rounded-lg text-xs font-bold hover:brightness-110 transition cursor-pointer"
                   >
                     Send Another Message
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
-                  {/* Row 1: Name & Email */}
+                <form onSubmit={handleSubmit} noValidate className="space-y-3 sm:space-y-4">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
                       <input
@@ -123,8 +153,9 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="Name"
                         required
-                        className="w-full rounded-full border border-gray-200 bg-white px-4 sm:px-5 py-2.5 text-xs sm:text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#155cd5] focus:ring-1 focus:ring-[#155cd5] transition shadow-sm"
+                        className="w-full rounded-xl border border-slate-700 bg-slate-900/90 px-4 sm:px-5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition"
                       />
+                      {errors.name && <p className="mt-1 text-xs text-rose-400 pl-1">{errors.name}</p>}
                     </div>
                     <div>
                       <input
@@ -134,12 +165,12 @@ export default function Contact() {
                         onChange={handleChange}
                         placeholder="Email"
                         required
-                        className="w-full rounded-full border border-gray-200 bg-white px-4 sm:px-5 py-2.5 text-xs sm:text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#155cd5] focus:ring-1 focus:ring-[#155cd5] transition shadow-sm"
+                        className="w-full rounded-xl border border-slate-700 bg-slate-900/90 px-4 sm:px-5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition"
                       />
+                      {errors.email && <p className="mt-1 text-xs text-rose-400 pl-1">{errors.email}</p>}
                     </div>
                   </div>
 
-                  {/* Row 2: Phone & Subject */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
                       <input
@@ -147,9 +178,11 @@ export default function Contact() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
+                        maxLength={10}
                         placeholder="Phone"
-                        className="w-full rounded-full border border-gray-200 bg-white px-4 sm:px-5 py-2.5 text-xs sm:text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#155cd5] focus:ring-1 focus:ring-[#155cd5] transition shadow-sm"
+                        className="w-full rounded-xl border border-slate-700 bg-slate-900/90 px-4 sm:px-5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition"
                       />
+                      {errors.phone && <p className="mt-1 text-xs text-rose-400 pl-1">{errors.phone}</p>}
                     </div>
                     <div>
                       <input
@@ -158,12 +191,11 @@ export default function Contact() {
                         value={formData.subject}
                         onChange={handleChange}
                         placeholder="Subject"
-                        className="w-full rounded-full border border-gray-200 bg-white px-4 sm:px-5 py-2.5 text-xs sm:text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#155cd5] focus:ring-1 focus:ring-[#155cd5] transition shadow-sm"
+                        className="w-full rounded-xl border border-slate-700 bg-slate-900/90 px-4 sm:px-5 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition"
                       />
                     </div>
                   </div>
 
-                  {/* Row 3: Type Message */}
                   <div>
                     <textarea
                       name="message"
@@ -172,41 +204,38 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="Type Message"
                       required
-                      className="w-full rounded-2xl border border-gray-200 bg-white p-3.5 sm:p-4 text-xs sm:text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#155cd5] focus:ring-1 focus:ring-[#155cd5] transition shadow-sm resize-none"
+                      className="w-full rounded-2xl border border-slate-700 bg-slate-900/90 p-3.5 sm:p-4 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition resize-none"
                     />
+                    {errors.message && <p className="mt-1 text-xs text-rose-400 pl-1">{errors.message}</p>}
                   </div>
 
-                  {/* Submit Button */}
                   <div className="text-center pt-1 sm:pt-2">
                     <button
                       type="submit"
-                      className="w-full sm:w-auto inline-flex items-center justify-center px-8 sm:px-10 py-3 rounded-full bg-[#155cd5] hover:bg-blue-700 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                      className="w-full sm:w-auto px-8 py-3 rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 hover:brightness-110 text-slate-950 font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_24px_rgba(14,165,233,0.3)] transition-all cursor-pointer"
                     >
                       SEND MESSAGE
                     </button>
                   </div>
                 </form>
               )}
-
             </div>
           </div>
-
         </div>
       </div>
 
-      {/* Full-width Map in the background */}
-      <div className="w-full h-[260px] min-[420px]:h-[320px] sm:h-[400px] lg:h-[480px] relative z-0 mt-0">
+      {/* Full-Width Seamless Midnight Map */}
+      <div className="w-full h-[300px] min-[420px]:h-[340px] sm:h-[400px] lg:h-[440px] relative bg-[#0B1120] border-t border-slate-800/80">
         <iframe
-          src="https://maps.google.com/maps?q=Kota,%20Rajasthan,%20India&t=&z=13&ie=UTF8&iwloc=&output=embed"
-          className="w-full h-full border-0 grayscale-[15%] contrast-[105%]"
+          src="https://maps.google.com/maps?q=Chordia%27s%20Kosmos,%20Plot%20No.%20E-5,%20Dr.%20Rajendra%20Prasad%20Nagar%20E,%20Badarwas,%20Jaipur,%20Rajasthan%20302019,%20India&t=&z=16&ie=UTF8&iwloc=&output=embed"
+          className="w-full h-full border-0 invert-[92%] hue-rotate-[185deg] contrast-[104%] saturate-[85%] brightness-[95%]"
           loading="lazy"
           allowFullScreen
-          title="Office Location Map"
+          title="Apphany Technologies Office Location Map"
         />
-        {/* Soft gradient edge at the top for seamless blending */}
-        <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-white/70 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-[#0B1120] to-transparent pointer-events-none" />
+        <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-[#0B1120] to-transparent pointer-events-none" />
       </div>
-
     </section>
   );
 }
