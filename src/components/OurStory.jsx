@@ -38,7 +38,7 @@ export default function OurStory() {
             <div className="relative z-10 w-full h-[210px] min-[360px]:h-[250px] sm:h-[350px] lg:h-[430px] rounded-2xl border border-slate-800 shadow-[0_20px_50px_rgba(2,6,23,0.65)] overflow-hidden bg-gradient-to-br from-slate-800 to-slate-900">
               {!imgError ? (
                 <img
-                  src="https://oroitsolution.info/front/images/about/about-img1.jpg"
+                  src="/about-story.jpg"
                   alt="Our Team Working Together"
                   onError={() => setImgError(true)}
                   className="w-full h-full object-cover opacity-90"

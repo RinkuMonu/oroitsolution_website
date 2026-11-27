@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { submitContactQuery } from '../utils/contactApi';
 import {
   Mail,
   Clock,
@@ -13,20 +14,27 @@ import {
 export default function Connect() {
   const location = useLocation();
   const prefilledEmail = location.state?.email || '';
-  const [prevPrefillEmail, setPrevPrefillEmail] = useState(prefilledEmail);
+  const prefilledSubject = location.state?.subject || '';
+  const prefillKey = `${prefilledEmail}|${prefilledSubject}`;
+  const [prevPrefillKey, setPrevPrefillKey] = useState(prefillKey);
 
   const [formData, setFormData] = useState({
     name: '',
     email: prefilledEmail,
     phone: '',
+    subject: prefilledSubject,
     message: '',
     terms: false,
   });
 
-  if (prefilledEmail !== prevPrefillEmail) {
-    setPrevPrefillEmail(prefilledEmail);
-    if (prefilledEmail) {
-      setFormData((prev) => ({ ...prev, email: prefilledEmail }));
+  if (prefillKey !== prevPrefillKey) {
+    setPrevPrefillKey(prefillKey);
+    if (prefilledEmail || prefilledSubject) {
+      setFormData((prev) => ({
+        ...prev,
+        ...(prefilledEmail ? { email: prefilledEmail } : {}),
+        ...(prefilledSubject ? { subject: prefilledSubject } : {}),
+      }));
     }
   }
 
@@ -40,7 +48,7 @@ export default function Connect() {
     if (!formData.name.trim()) newErrors.name = 'Full Name is required';
     if (!formData.email.trim()) {
       newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
       newErrors.email = 'Enter a valid email';
     }
 
@@ -61,18 +69,24 @@ export default function Connect() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }));
+    }
+    if (submitFeedback) {
+      setSubmitFeedback(null);
+    }
 
     if (name === 'phone') {
-      const digitsOnly = value.replace(/\D/g, '');
-      setFormData({ ...formData, [name]: digitsOnly });
+      const digitsOnly = value.replace(/\D/g, '').slice(0, 10);
+      setFormData((prev) => ({ ...prev, [name]: digitsOnly }));
     } else if (name === 'name') {
-      const lettersOnly = value.replace(/[^a-zA-Z\s]/g, '');
-      setFormData({ ...formData, [name]: lettersOnly });
+      const lettersOnly = value.replace(/[^a-zA-Z\s.'-]/g, '');
+      setFormData((prev) => ({ ...prev, [name]: lettersOnly }));
     } else {
-      setFormData({
-        ...formData,
+      setFormData((prev) => ({
+        ...prev,
         [name]: type === 'checkbox' ? checked : value,
-      });
+      }));
     }
   };
 
@@ -82,36 +96,15 @@ export default function Connect() {
     if (!validate()) return;
 
     setSubmitting(true);
-    const postData = {
-      name: formData.name.trim(),
-      email: formData.email.trim(),
-      phone: formData.phone.trim(),
-      message: formData.message.trim(),
-      service: 'N/A',
-      website_id: 6,
-    };
 
     try {
-      const response = await fetch(
-        'https://cms.sevenunique.com/apis/contact-query/set-contact-details.php',
-        {
-          method: 'POST',
-          headers: {
-            Authorization: 'Bearer jibhfiugh84t3324fefei#*fef',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(postData),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error('Failed to send message');
-      }
-
-      const data = await response.json();
-      if (data.status !== 'success') {
-        throw new Error('Failed to send message');
-      }
+      await submitContactQuery({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        service: formData.subject,
+      });
 
       setSubmitFeedback({
         type: 'success',
@@ -121,6 +114,7 @@ export default function Connect() {
         name: '',
         phone: '',
         email: '',
+        subject: '',
         message: '',
         terms: false,
       });
@@ -294,7 +288,8 @@ export default function Connect() {
                   Mobile Number
                 </label>
                 <input
-                  type="text"
+                  type="tel"
+                  inputMode="numeric"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
@@ -303,6 +298,20 @@ export default function Connect() {
                   placeholder="Enter your phone number"
                 />
                 {errors.phone && <p className="mt-1 text-rose-400 text-xs font-medium">{errors.phone}</p>}
+              </div>
+
+              <div className="mb-4">
+                <label className="mb-2 block text-sm font-semibold text-slate-300">
+                  Service / Subject
+                </label>
+                <input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  className="w-full rounded-xl border border-slate-700 bg-[#0B1120] px-4 py-3 text-sm text-slate-100 placeholder-slate-500 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20"
+                  placeholder="e.g., CRM Software, Mobile App, Custom Inquiry"
+                />
               </div>
 
               <div className="mb-4">

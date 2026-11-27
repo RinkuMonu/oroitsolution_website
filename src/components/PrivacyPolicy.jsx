@@ -47,7 +47,7 @@ const privacySections = [
   },
   {
     id: 'how-we-use-your-information',
-    icon: <Shield />,
+    icon: <UserCheck />,
     title: 'How We Use Your Information',
     content: [
       'Your information is used solely to deliver secure and compliant services.',
@@ -61,7 +61,7 @@ const privacySections = [
   },
   {
     id: 'data-sharing',
-    icon: <UserCheck />,
+    icon: <Share2 />,
     title: 'Data Sharing and Disclosure',
     content: [
       'We do not sell or rent user data. However, your data may be shared:',
@@ -74,7 +74,7 @@ const privacySections = [
   },
   {
     id: 'data-security',
-    icon: <Share2 />,
+    icon: <Lock />,
     title: 'Data Security',
     content: [
       'We prioritize the confidentiality and integrity of all user information.',
@@ -89,7 +89,7 @@ const privacySections = [
   },
   {
     id: 'data-retention',
-    icon: <Lock />,
+    icon: <Clock />,
     title: 'Data Retention',
     content: [
       'We retain data only as long as required for business or legal reasons.',
@@ -103,7 +103,7 @@ const privacySections = [
   },
   {
     id: 'user-rights',
-    icon: <Clock />,
+    icon: <User />,
     title: 'Your Rights',
     content: [
       'You have the right to:',
@@ -117,7 +117,7 @@ const privacySections = [
   },
   {
     id: 'cookies',
-    icon: <User />,
+    icon: <Database />,
     title: 'Cookies and Tracking',
     content: [
       'We use cookies and similar technologies to improve service functionality and security.',
@@ -129,14 +129,14 @@ const privacySections = [
   },
   {
     id: 'third-party-links',
-    icon: <Lock />,
+    icon: <LinkIcon />,
     title: 'Third-Party Links',
     content:
       'Our services may contain links to third-party websites or payment gateways. We are not responsible for their privacy practices. Please review their respective policies before sharing data. Interaction with third-party platforms is at your own discretion.',
   },
   {
     id: 'childrens-privacy',
-    icon: <Clock />,
+    icon: <Shield />,
     title: 'Children’s Privacy',
     content:
       'Our services are intended only for users aged 18 and above. We do not knowingly collect data from minors. Parents or guardians may contact us to have such information removed.',
@@ -156,7 +156,7 @@ const privacySections = [
   },
   {
     id: 'policy-updates',
-    icon: <LinkIcon />,
+    icon: <FileText />,
     title: 'Policy Updates',
     content:
       'This Privacy Policy may be updated periodically to reflect changes in laws or technology. The latest version will always be available on our website with the effective date. Continued use of our services indicates acceptance of the revised policy.',
@@ -241,8 +241,8 @@ export default function PrivacyPolicy() {
                   On this page
                 </h2>
                 <ul className="flex touch-pan-x gap-2 overflow-x-auto pb-2 no-scrollbar lg:grid lg:grid-cols-1 lg:gap-1.5 lg:overflow-visible lg:pb-0">
-                  {privacySections.map((section, index) => (
-                    <li key={index} className="shrink-0 lg:w-full">
+                  {privacySections.map((section) => (
+                    <li key={section.id} className="shrink-0 lg:w-full">
                       <button
                         type="button"
                         onClick={() => scrollToSection(section.id)}
@@ -311,7 +311,7 @@ export default function PrivacyPolicy() {
 
               {privacySections.map((section, index) => (
                 <div
-                  key={index}
+                  key={section.id}
                   id={section.id}
                   ref={(el) => {
                     sectionRefs.current[index] = el;

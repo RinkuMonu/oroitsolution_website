@@ -215,21 +215,23 @@ const faqs = [
   },
 ];
 
+function prefersReducedMotion() {
+  return (
+    typeof window !== 'undefined' &&
+    Boolean(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)
+  );
+}
+
 function AnimatedNumber({ value, suffix, decimals = 0 }) {
   const ref = useRef(null);
   const hasAnimatedRef = useRef(false);
-  const [display, setDisplay] = useState(value);
+  const [display, setDisplay] = useState(() => (prefersReducedMotion() ? value : 0));
 
   useEffect(() => {
     const el = ref.current;
     if (!el || hasAnimatedRef.current) return undefined;
 
-    const prefersReduced =
-      typeof window !== 'undefined' &&
-      window.matchMedia &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (prefersReduced) {
+    if (prefersReducedMotion()) {
       hasAnimatedRef.current = true;
       return undefined;
     }
@@ -416,7 +418,7 @@ export default function AboutUs() {
           {statistics.map(({ icon: Icon, value, suffix, label, decimals }) => (
             <div
               key={label}
-              className="flex items-center gap-4 border-b border-slate-800 p-6 last:border-0 sm:border-r lg:border-b-0"
+              className="flex items-center gap-4 border-b border-slate-800 p-6 last:border-b-0 sm:odd:border-r sm:[&:nth-last-child(-n+2)]:border-b-0 lg:border-b-0 lg:border-r lg:last:border-r-0"
             >
               <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-sky-500/30 bg-sky-500/10 text-sky-400">
                 <Icon className="h-5 w-5" />

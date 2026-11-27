@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { Mail, MapPin, Clock, CheckCircle2 } from 'lucide-react';
+import { Mail, MapPin, Clock, CheckCircle2, AlertCircle } from 'lucide-react';
+import { submitContactQuery } from '../utils/contactApi';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     name: '',
@@ -17,18 +20,22 @@ export default function Contact() {
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: '' }));
     }
+    if (submitError) {
+      setSubmitError('');
+    }
     if (name === 'phone') {
-      setFormData({ ...formData, phone: value.replace(/\D/g, '').slice(0, 10) });
+      setFormData((prev) => ({ ...prev, phone: value.replace(/\D/g, '').slice(0, 10) }));
       return;
     }
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitError('');
     const nextErrors = {};
     if (!formData.name.trim()) nextErrors.name = 'Name is required';
     if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
@@ -43,8 +50,28 @@ export default function Contact() {
       setErrors(nextErrors);
       return;
     }
+
     setErrors({});
-    setSubmitted(true);
+    setSubmitting(true);
+
+    try {
+      await submitContactQuery({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        service: formData.subject,
+      });
+
+      setSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    } catch {
+      setSubmitError(
+        'Failed to send message. Please try again later or email support@apphany.in.'
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -135,6 +162,8 @@ export default function Contact() {
                     type="button"
                     onClick={() => {
                       setSubmitted(false);
+                      setSubmitError('');
+                      setErrors({});
                       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
                     }}
                     className="mt-3 px-6 py-2.5 bg-gradient-to-r from-sky-400 to-blue-600 text-slate-950 rounded-lg text-xs font-bold hover:brightness-110 transition cursor-pointer"
@@ -144,6 +173,12 @@ export default function Contact() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-3 sm:space-y-4">
+                  {submitError && (
+                    <div className="flex items-start gap-2.5 rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-xs sm:text-sm font-medium text-rose-300">
+                      <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-rose-400" />
+                      <span>{submitError}</span>
+                    </div>
+                  )}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
                       <input
@@ -212,9 +247,10 @@ export default function Contact() {
                   <div className="text-center pt-1 sm:pt-2">
                     <button
                       type="submit"
-                      className="w-full sm:w-auto px-8 py-3 rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 hover:brightness-110 text-slate-950 font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_24px_rgba(14,165,233,0.3)] transition-all cursor-pointer"
+                      disabled={submitting}
+                      className="w-full sm:w-auto px-8 py-3 rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 hover:brightness-110 text-slate-950 font-bold text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_24px_rgba(14,165,233,0.3)] transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
                     >
-                      SEND MESSAGE
+                      {submitting ? 'SENDING...' : 'SEND MESSAGE'}
                     </button>
                   </div>
                 </form>

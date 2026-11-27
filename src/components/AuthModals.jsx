@@ -30,7 +30,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
   const [infoMessage, setInfoMessage] = useState('');
   const closeTimerRef = useRef(null);
 
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     fullName: '',
     email: '',
     phone: '',
@@ -40,15 +40,24 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
     pincode: '',
     password: '',
     confirmPassword: '',
-  });
+  };
 
-  const resetTransientState = () => {
+  const [formData, setFormData] = useState(initialFormData);
+
+  const resetTransientState = (clearPasswords = false) => {
     setSubmitted(false);
     setErrorTerms(false);
     setErrorMessage('');
     setInfoMessage('');
     setShowPassword(false);
     setShowConfirmPassword(false);
+    if (clearPasswords) {
+      setFormData((prev) => ({
+        ...prev,
+        password: '',
+        confirmPassword: '',
+      }));
+    }
   };
 
   const handleClose = () => {
@@ -56,12 +65,12 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
       clearTimeout(closeTimerRef.current);
       closeTimerRef.current = null;
     }
-    resetTransientState();
+    resetTransientState(true);
     onClose();
   };
 
   const handleSwitchMode = (nextMode) => {
-    resetTransientState();
+    resetTransientState(true);
     onSwitchMode(nextMode);
   };
 
@@ -69,7 +78,7 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
   if (isOpen !== prevOpen) {
     setPrevOpen(isOpen);
     if (!isOpen) {
-      resetTransientState();
+      resetTransientState(true);
     }
   }
 
@@ -134,8 +143,13 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
     setErrorMessage('');
     setInfoMessage('');
 
-    if (!formData.email.trim() || !formData.password) {
-      setErrorMessage('Please enter your email address and password.');
+    if (!formData.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+
+    if (!formData.password) {
+      setErrorMessage('Please enter your password.');
       return;
     }
 
@@ -146,6 +160,10 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
       }
       if (formData.phone.trim().length !== 10) {
         setErrorMessage('Please enter a valid 10-digit mobile number.');
+        return;
+      }
+      if (formData.pincode.trim() && formData.pincode.trim().length !== 6) {
+        setErrorMessage('Please enter a valid 6-digit pincode.');
         return;
       }
       if (formData.password.length < 6) {
@@ -164,6 +182,9 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
 
     setErrorTerms(false);
     setSubmitted(true);
+    setFormData(initialFormData);
+    setAgreed(false);
+    setRememberMe(false);
     closeTimerRef.current = setTimeout(() => {
       setSubmitted(false);
       onClose();
@@ -183,6 +204,9 @@ export default function AuthModals({ isOpen, mode, onClose, onSwitchMode }) {
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={mode === 'login' ? 'Sign in to your account' : 'Create your account'}
       className="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 md:p-6 bg-slate-950/85 backdrop-blur-md overflow-y-auto no-scrollbar animate-fade-in py-3 sm:py-6"
       onClick={handleClose}
     >

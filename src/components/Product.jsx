@@ -206,6 +206,11 @@ export default function Product() {
                     </span>
                     <span className="text-xs text-slate-400">/month</span>
                   </div>
+                  {yearly && (
+                    <p className="mt-1 text-[11px] font-medium text-emerald-400">
+                      Billed annually (20% off monthly rate)
+                    </p>
+                  )}
                 </div>
 
                 {/* Features */}

@@ -31,7 +31,8 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
       location.pathname === '/product' ? 'Product' :
         location.pathname === '/contact' ? 'Contact' :
           solutionRoutes.includes(location.pathname) || (location.pathname === '/' && location.hash === '#services') ? 'Services' :
-            'Home';
+            location.pathname === '/' ? 'Home' :
+              null;
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
@@ -93,7 +94,7 @@ export default function Navbar({ onOpenLogin, onOpenRegister }) {
           {/* Brand Logo */}
           <Link
             to="/"
-            onClick={handleNavClick}
+            onClick={() => handleNavClick({ href: '/' })}
             className="flex items-center group select-none shrink-0 min-w-0 py-1"
             aria-label="Apphany Technologies Private Limited Home"
           >

@@ -500,7 +500,7 @@ export default function MobileApp() {
                   href="#process"
                   className="w-full min-[420px]:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-sky-400 to-blue-600 hover:brightness-110 text-slate-950 text-sm font-bold shadow-[0_0_20px_rgba(14,165,233,0.28)] transition-all duration-200 hover:-translate-y-0.5 touch-manipulation"
                 >
-                  <span>Explore Technologies</span>
+                  <span>Our Process</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
@@ -626,6 +626,9 @@ export default function MobileApp() {
       {/* ================= WATCH DEMO MODAL ================= */}
       {demoOpen && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile App Showcase"
           className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4"
           onClick={() => setDemoOpen(false)}
         >

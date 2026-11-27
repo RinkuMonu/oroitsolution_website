@@ -312,6 +312,9 @@ export default function SolutionPageLayout({
       {/* ================= DEMO / OVERVIEW MODAL ================= */}
       {modalOpen && (
         <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={demoModal.title}
           className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4"
           onClick={() => setModalOpen(false)}
         >
